@@ -53,10 +53,10 @@ def shift_cities(road_map):
     """
     last_value = road_map[-1]
     first_value = road_map[0]
-    road_map.append(last_value)
     road_map.pop(-1)
-    road_map = first_value + road_map
-    road_map.pop(0)
+    road_map.append(first_value)
+    road_map[0] = last_value
+
 
     return road_map
 
