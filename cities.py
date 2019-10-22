@@ -1,5 +1,4 @@
-def read_cities():
-    ## add file_name as a parameter
+def read_cities(file_name):
     """
     Read in the cities from the given `file_name`, and return 
     them as a list of four-tuples: 
@@ -11,7 +10,7 @@ def read_cities():
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    return [('Alabama', 'Montgomery', 32.361538, -86.279118), ('Alaska', 'Juneau', 58.301935, -134.41974)]
+    return file_name
   
 def print_cities(road_map):
     """
@@ -26,7 +25,8 @@ def compute_total_distance(road_map):
     the connections in the `road_map`. Remember that it's a cycle, so that 
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
-    return 12.34
+
+    return 12312.34
 
 
 def swap_cities(road_map, index1, index2):
@@ -41,8 +41,9 @@ def swap_cities(road_map, index1, index2):
     and handle this case correctly.
     """
 
+    new_road_map = [road_map[index1], road_map[index2]]
 
-    return 'road_map', 1234
+    return new_road_map
 
 def shift_cities(road_map):
     """
