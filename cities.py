@@ -10,7 +10,7 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    return [('Alabama', 'Montgomery', 32.361538, -86.279118),('Alaska', 'Juneau', 58.301935, -134.41974)]
+    return [('Alabama', 'Montgomery', 32.361538, -86.279118), ('Alaska', 'Juneau', 58.301935, -134.41974)]
   
 def print_cities(road_map):
     """
@@ -39,7 +39,7 @@ def swap_cities(road_map, index1, index2):
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
-    pass
+    return read_cities(1), 1234
 
 def shift_cities(road_map):
     """
