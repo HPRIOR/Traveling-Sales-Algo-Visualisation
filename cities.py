@@ -17,7 +17,7 @@ def print_cities(road_map):
     Prints a list of cities, along with their locations. 
     Print only one or two digits after the decimal point.
     """
-    print([['Montgomery', 32.36, -86.27], ['Juneau', 58.30, -134.41]])
+    pass
 
 def compute_total_distance(road_map):
     """
@@ -39,7 +39,7 @@ def swap_cities(road_map, index1, index2):
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
-    return read_cities(1), 1234
+    return 'road_map', 1234
 
 def shift_cities(road_map):
     """
@@ -47,7 +47,7 @@ def shift_cities(road_map):
     to the position i+1. The city at the last position moves to the position
     0. Return the new road map. 
     """
-    pass
+    return 'road_map'
 
 def find_best_cycle(road_map):
     """
