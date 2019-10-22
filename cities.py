@@ -1,4 +1,5 @@
-def read_cities(file_name):
+def read_cities():
+    ## add file_name as a parameter
     """
     Read in the cities from the given `file_name`, and return 
     them as a list of four-tuples: 
@@ -39,6 +40,8 @@ def swap_cities(road_map, index1, index2):
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
+
+
     return 'road_map', 1234
 
 def shift_cities(road_map):
