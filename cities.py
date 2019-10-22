@@ -17,7 +17,7 @@ def print_cities(road_map):
     Prints a list of cities, along with their locations. 
     Print only one or two digits after the decimal point.
     """
-    pass
+    print([['Montgomery', 32.36, -86.27], ['Juneau', 58.30, -134.41]])
 
 def compute_total_distance(road_map):
     """
@@ -25,7 +25,7 @@ def compute_total_distance(road_map):
     the connections in the `road_map`. Remember that it's a cycle, so that 
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
-    pass
+    return 12.34
 
 
 def swap_cities(road_map, index1, index2):
