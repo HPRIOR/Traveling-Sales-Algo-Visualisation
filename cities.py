@@ -10,7 +10,7 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    pass
+    return [('Alabama', 'Montgomery', 32.361538, -86.279118),('Alaska', 'Juneau', 58.301935, -134.41974)]
   
 def print_cities(road_map):
     """
