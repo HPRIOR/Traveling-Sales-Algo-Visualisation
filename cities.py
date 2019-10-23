@@ -16,6 +16,7 @@ def read_cities(file_name):
         road_map.append(tuple(line.split()))
     f.close()
     return road_map
+    ### this doesn't work becuase  of some double barrel names in list
 
   
 def print_cities(road_map):
