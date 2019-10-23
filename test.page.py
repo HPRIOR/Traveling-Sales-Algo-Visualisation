@@ -8,4 +8,16 @@ def read_cities(file_name):
 
 
 
-print(read_cities('city-data.txt'))
+
+
+def print_cities(road_map):
+    road_map_print = []
+    for cities in road_map:
+        road_map_print.append(list(cities))
+    for cities in road_map_print:
+        cities[2] = '%.2f' % float(cities[2])
+        cities[3] = '%.2f' % float(cities[3])
+    print(road_map_print)
+
+
+print_cities(read_cities('city-data.txt'))
