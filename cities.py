@@ -63,8 +63,6 @@ def shift_cities(road_map):
     road_map.pop(-1)
     road_map.append(first_value)
     road_map[0] = last_value
-
-
     return road_map
 
 def find_best_cycle(road_map):
