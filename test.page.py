@@ -1,12 +1,11 @@
 def read_cities(file_name):
     road_map = []
-    f = open(file_name, "r")
-    for line in f:
-        road_map.append(tuple(line.split('	')))
-    f.close()
+    with open(file_name, "r") as f:
+        for line in f:
+            road_map.append(line.split('	'))
+
+
     return road_map
-
-
 
 
 
@@ -21,4 +20,6 @@ def print_cities(road_map):
     print(road_map_print)
 
 
-print_cities(read_cities('city-data.txt'))
+
+
+print(read_cities('city-data.txt'))

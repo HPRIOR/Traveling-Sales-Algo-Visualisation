@@ -2,7 +2,10 @@ import pytest
 from cities import *
 
 def test_read_cities():
+    file_name = open('test-city-data', 'r')
     pass
+
+
 
 def test_compute_total_distance():
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
