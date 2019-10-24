@@ -3,8 +3,6 @@ def read_cities(file_name):
     with open(file_name, "r") as f:
         for line in f:
             road_map.append(line.split('	'))
-
-
     return road_map
 
 
