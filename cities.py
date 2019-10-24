@@ -53,7 +53,7 @@ def swap_cities(road_map, index1, index2):
     and handle this case correctly.
     """
 
-    new_road_map = [road_map[index1], road_map[index2]]
+    new_road_map = (road_map[index1], road_map[index2])
 
     return new_road_map
 
