@@ -32,6 +32,7 @@ def print_cities(road_map):
     print(road_map_print)
     # probably shouldn't create a new list here.
 
+
 def compute_total_distance(road_map):
     """
     Returns, as a floating point number, the sum of the distances of all 
@@ -58,6 +59,7 @@ def swap_cities(road_map, index1, index2):
 
     return new_road_map
 
+
 def shift_cities(road_map):
     """
     For every index i in the `road_map`, the city at the position i moves
@@ -71,6 +73,7 @@ def shift_cities(road_map):
     road_map[0] = last_value
     return road_map
 
+
 def find_best_cycle(road_map):
     """
     Using a combination of `swap_cities` and `shift_cities`, 
@@ -81,6 +84,7 @@ def find_best_cycle(road_map):
     best_cycle = 0
     return best_cycle
 
+
 def print_map(road_map):
     """
     Prints, in an easily understandable format, the cities and 
@@ -89,12 +93,14 @@ def print_map(road_map):
     """
     print('this will represent a map with the shortest route')
 
+
 def main():
     """
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
     pass
+
 
 if __name__ == "__main__": #keep this in
     main()
