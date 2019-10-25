@@ -30,6 +30,7 @@ def print_cities(road_map):
         cities[1] = '%.2f' % float(cities[1])
         cities[2] = '%.2f' % float(cities[2])
     print(road_map_print)
+    # probably shouldn't create a new list here.
 
 def compute_total_distance(road_map):
     """
