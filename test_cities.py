@@ -32,12 +32,14 @@ def test_shift_cities():
                                        ("Kentucky", "Frankfort", 38.197274, -84.86311)]
 
 
+def test_find_best_cycle():
+    pass
+
+
 def test_compute_total_distance():
     pass
 
 
-def test_find_best_cycle():
-    pass
 
 
 
