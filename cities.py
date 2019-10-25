@@ -13,7 +13,7 @@ def read_cities(file_name):
     road_map = []
     with open(file_name, "r") as f:                         # with statement handles files without the need for closing
         for line in f:
-            road_map.append(tuple(line.split('	')))        # adds tuples of lines to road_map list
+            road_map.append(tuple(line.split('\t')))        # adds tuples of lines to road_map list
     return road_map
 
   
