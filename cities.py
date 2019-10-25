@@ -38,7 +38,7 @@ def compute_total_distance(road_map):
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
 
-    return 12312.34
+    return 0.0
 
 
 def swap_cities(road_map, index1, index2):
@@ -77,7 +77,8 @@ def find_best_cycle(road_map):
     After `10000` swaps/shifts, return the best cycle found so far.
     Use randomly generated indices for swapping.
     """
-    pass
+    best_cycle = 0
+    return best_cycle
 
 def print_map(road_map):
     """
@@ -85,7 +86,7 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-    pass
+    print('this will represent a map with the shortest route')
 
 def main():
     """
