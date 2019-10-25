@@ -36,8 +36,6 @@ def test_find_best_cycle():
     pass
 
 
-def test_compute_total_distance():
-    pass
 
 
 
