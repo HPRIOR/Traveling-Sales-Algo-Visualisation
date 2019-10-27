@@ -39,7 +39,7 @@ def compute_total_distance(road_map):
     the connections in the `road_map`. Remember that it's a cycle, so that 
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
-
+    # sqrt((x1-x2)^2 + (y1-y2)^2)
     return 0.0
 
 
