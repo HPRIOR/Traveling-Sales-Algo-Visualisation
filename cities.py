@@ -1,3 +1,6 @@
+import random
+import math
+
 def read_cities(file_name):
     """
     Read in the cities from the given `file_name`, and return 
