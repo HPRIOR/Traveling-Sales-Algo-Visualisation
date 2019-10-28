@@ -19,7 +19,23 @@ def print_cities(road_map):
 
 
 
+def calculate(road_map):
+    x = road_map[i-1]
+    for i in range(len(road_map)):
+        print(road_map[i])
 
-print_cities(read_cities('city-data.txt'))
+
+
+
+
+calculate(read_cities('city-data.txt'))
+
+
+    #sqrt((x1-x2)^2 + (y1-y2)^2)
+
+'''
+If you want to treat a list  as circular(the first item follows the last item), the item  
+after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].
+'''
 
 
