@@ -20,4 +20,6 @@ def print_cities(road_map):
 
 
 
-print(read_cities('city-data.txt'))
+print_cities(read_cities('city-data.txt'))
+
+
