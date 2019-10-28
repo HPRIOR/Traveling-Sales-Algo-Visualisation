@@ -40,6 +40,8 @@ def compute_total_distance(road_map):
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
     # sqrt((x1-x2)^2 + (y1-y2)^2)
+    '''If you want to treat a list  as circular(the first item follows the last item), the item  
+    after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].'''
     return 0.0
 
 
