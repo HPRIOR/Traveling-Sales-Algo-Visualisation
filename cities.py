@@ -105,7 +105,7 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = None
-
+    print('value of initial road map: ', compute_total_distance(road_map))
     for i in range(10000):
         index1 = int((len(road_map)*random.random()))
         index2 = int((len(road_map)*random.random()))
@@ -114,10 +114,15 @@ def find_best_cycle(road_map):
         if swap[1] < best_total:
             best_total = swap[1]
             best_road_map = swap[0]
-            print(compute_total_distance(swap[0]), swap[1])
-    print(compute_total_distance(swap[0]), swap[1])
-    print(best_total)
+    print('last swap[0}: ', swap[0])
+    print('best road map: ', best_road_map)
+    print('comp of best total from best road map: ', compute_total_distance(best_road_map))
+    print('value of last swap[1]', swap[1])
+    print('value of best total: ', best_total)
+    # the road map is nothing changing to best_road_map
     return best_road_map
+
+
 
 def print_map(road_map):
     """
@@ -134,11 +139,8 @@ def main():
     cycle and prints it out.
     """
     road_map = read_cities('city-data.txt')
-    print_cities(road_map)
-    print('the initial distance is: ', compute_total_distance(road_map))
-    best_cycle = find_best_cycle(road_map)
-    print('the best cycle is ', compute_total_distance(best_cycle))
-    print_cities(road_map)
+    find_best_cycle(road_map)
+
 
 
 
