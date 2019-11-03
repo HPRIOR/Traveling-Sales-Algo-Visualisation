@@ -1,3 +1,6 @@
+import math
+
+"""
 def read_cities(file_name):
     road_map = []
     with open(file_name, "r") as f:
@@ -25,17 +28,31 @@ def calculate(road_map):
         print(road_map[i])
 
 
-
-
-
 calculate(read_cities('city-data.txt'))
 
+"""
 
-    #sqrt((x1-x2)^2 + (y1-y2)^2)
+road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                ("Delaware", "Dover", 39.161921, -75.526755),
+                ("Minnesota", "Saint Paul", 44.95, -93.094)]
 
-'''
-If you want to treat a list  as circular(the first item follows the last item), the item  
-after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].
-'''
+ln = len(road_map)
 
+loop_result = 0
+for i in range(1, ln):
+    x1 = road_map[i - 1][2]
+    y1 = road_map[i - 1][3]
+    x2 = road_map[i][2]
+    y2 = road_map[i][3]
+    loop_result += (math.sqrt(((x1-x2)**2)+((y1 - y2)**2)))
 
+x1_start = road_map[0][2]
+y1_start = road_map[0][3]
+x2_end = road_map[ln-1][2]
+y2_end = road_map[ln-1][3]
+
+start_end = (math.sqrt(((x1_start-x2_end)**2)+((y1_start - y2_end)**2)))
+
+result = loop_result + start_end
+
+print(result)

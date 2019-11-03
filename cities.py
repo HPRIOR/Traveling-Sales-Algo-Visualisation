@@ -49,7 +49,21 @@ def compute_total_distance(road_map):
     If you want to treat a list  as circular(the first item follows the last item), the item  
     after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].
     '''
-    return 38.528719926809416491746457007918
+    ln = len(road_map)
+    loop_result = 0
+    for i in range(1, ln):
+        x1 = road_map[i - 1][2]
+        y1 = road_map[i - 1][3]
+        x2 = road_map[i][2]
+        y2 = road_map[i][3]
+        loop_result += (math.sqrt(((x1 - x2) ** 2) + ((y1 - y2) ** 2)))
+    x1_start = road_map[0][2]
+    y1_start = road_map[0][3]
+    x2_end = road_map[ln - 1][2]
+    y2_end = road_map[ln - 1][3]
+    start_end = (math.sqrt(((x1_start - x2_end) ** 2) + ((y1_start - y2_end) ** 2)))
+    return loop_result + start_end
+
 
 
 def swap_cities(road_map, index1, index2):
