@@ -103,8 +103,9 @@ def find_best_cycle(road_map):
     After `10000` swaps/shifts, return the best cycle found so far.
     Use randomly generated indices for swapping.
     """
+
     best_total = compute_total_distance(road_map)
-    best_road_map = None
+    best_road_map = road_map
     print('value of initial road map: ', compute_total_distance(road_map))
     for i in range(10000):
         index1 = int((len(road_map)*random.random()))
@@ -116,14 +117,16 @@ def find_best_cycle(road_map):
         if swap[1] < best_total:
             best_total = swap[1]
             best_road_map = swap[0]
+            print('looping value of best total: ', best_total)
+            print('looping computed value of best road map: ', compute_total_distance(best_road_map))
+            print('looping best road map', best_road_map)
 
-    print('last swap[0]: ', swap[0])
+    print('last road map: ', swap[0])
     print('best road map: ', best_road_map)
     print('comp of best total from best road map: ', compute_total_distance(best_road_map))
-    print('value of last swap[1]', swap[1])
+    print('value of last total', swap[1])
     print('value of best total: ', best_total)
     # the road map is not changing to best_road_map
-    return best_road_map
 
 
 
