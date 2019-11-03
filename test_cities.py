@@ -8,7 +8,7 @@ def test_compute_total_distance():
                 ("Minnesota", "Saint Paul", 44.95, -93.094)]
 
     # calculate this by hand then and give value at the end
-    assert compute_total_distance(road_map1) == pytest.approx(9.386+18.496+10.646, 0.01)
+    assert compute_total_distance(road_map1) == pytest.approx(38.52, 0.1)
 
 
 
