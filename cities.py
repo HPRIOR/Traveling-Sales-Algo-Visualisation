@@ -83,6 +83,7 @@ def swap_cities(road_map, index1, index2):
         return road_map  # , compute_total_distance(road_map)
 
 
+
 def shift_cities(road_map):
     """
     For every index i in the `road_map`, the city at the position i moves
