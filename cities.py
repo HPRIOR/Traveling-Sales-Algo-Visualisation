@@ -63,7 +63,6 @@ def compute_total_distance(road_map):
     return loop_result + start_end
 
 
-
 def swap_cities(road_map, index1, index2):
     """
     Take the city at location `index` in the `road_map`, and the 
@@ -75,10 +74,13 @@ def swap_cities(road_map, index1, index2):
     Allow for the possibility that `index1=index2`,
     and handle this case correctly.
     """
-
-    new_road_map = (road_map[index1], road_map[index2])
-
-    return new_road_map
+    if index1 == index2:
+        return road_map  # , compute_total_distance(road_map)
+    else:
+        swap = road_map[index1]
+        road_map[index1] = road_map[index2]
+        road_map[index2] = swap
+        return road_map  # , compute_total_distance(road_map)
 
 
 def shift_cities(road_map):
