@@ -75,12 +75,12 @@ def swap_cities(road_map, index1, index2):
     and handle this case correctly.
     """
     if index1 == index2:
-        return road_map  # , compute_total_distance(road_map)
+        return road_map, compute_total_distance(road_map)
     else:
         swap = road_map[index1]
         road_map[index1] = road_map[index2]
         road_map[index2] = swap
-        return road_map  # , compute_total_distance(road_map)
+        return road_map, compute_total_distance(road_map)
 
 
 
@@ -91,10 +91,8 @@ def shift_cities(road_map):
     0. Return the new road map. 
     """
     last_value = road_map[-1]
-    first_value = road_map[0]
-    road_map.pop(-1)
-    road_map.append(first_value)
-    road_map[0] = last_value
+    road_map.insert(0, last_value)
+    del road_map[-1]
     return road_map
 
 
