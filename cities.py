@@ -14,11 +14,10 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    with open(file_name, "r") as f:  # with statement handles files without the need for closing
-        road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
+    with open(file_name, "r") as f:                             # with statement handles files without the need for closing
+        road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
         print('road_map = ', road_map)
     return road_map
-
 
 
 def print_cities(road_map):
@@ -124,6 +123,7 @@ def print_map(road_map):
     """
     print(road_map)
     # does this need calculate any particular road_map or the particular finished one?
+
 
 def main():
     """
