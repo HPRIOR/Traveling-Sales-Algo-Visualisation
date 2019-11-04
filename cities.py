@@ -16,7 +16,6 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:                             # with statement handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
-        print('road_map = ', road_map)
     return road_map
 
 
@@ -101,7 +100,6 @@ def find_best_cycle(road_map):
     After `10000` swaps/shifts, return the best cycle found so far.
     Use randomly generated indices for swapping.
     """
-
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     for i in range(10000):
@@ -136,7 +134,6 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
-    # should i be getting the same answer every time?
 
 
 if __name__ == "__main__":  # keep this in
