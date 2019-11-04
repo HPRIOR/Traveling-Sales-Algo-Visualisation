@@ -83,7 +83,6 @@ def swap_cities(road_map, index1, index2):
         return road_map, compute_total_distance(road_map)
 
 
-
 def shift_cities(road_map):
     """
     For every index i in the `road_map`, the city at the position i moves
@@ -107,9 +106,9 @@ def find_best_cycle(road_map):
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     print('value of initial road map: ', compute_total_distance(road_map))
-    for i in range(10000):
-        index1 = int((len(road_map)*random.random()))
-        index2 = int((len(road_map)*random.random()))
+    for i in range(1000000):
+        index1 = int((len(road_map) * random.random()))
+        index2 = int((len(road_map) * random.random()))
         shift = shift_cities(road_map)
         swap = swap_cities(shift, index1, index2)
         if swap[1] < best_total:
@@ -138,13 +137,6 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('total distance: ', compute_total_distance(new_road_map))
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":  # keep this in
