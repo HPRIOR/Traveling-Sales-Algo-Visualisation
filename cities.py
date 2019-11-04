@@ -1,3 +1,4 @@
+# import relevant modules, not everything
 import random
 import math
 
@@ -28,7 +29,7 @@ def print_cities(road_map):
     for cities in road_map:
         road_map_print.append(list(cities))
     for cities in road_map_print:
-        cities.pop(0)
+        cities.pop(0)                               # removes state
         cities[1] = '%.2f' % float(cities[1])
         cities[2] = '%.2f' % float(cities[2])
     print(road_map_print)
