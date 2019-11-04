@@ -15,7 +15,7 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    with open(file_name, "r") as f:                             # with statement handles files without the need for closing
+    with open(file_name, "r") as f:                             # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
     return road_map
 
