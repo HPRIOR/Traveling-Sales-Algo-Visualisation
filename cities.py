@@ -122,7 +122,7 @@ def print_map(road_map):
     and the total cost.
     """
     print(road_map)
-    # does this need calculate any particular road_map or the particular finished one?
+    # use print map here to avoid redundancy
 
 
 def main():
