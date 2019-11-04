@@ -106,7 +106,7 @@ def find_best_cycle(road_map):
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     print('value of initial road map: ', compute_total_distance(road_map))
-    for i in range(1000000):
+    for i in range(10000):
         index1 = int((len(road_map) * random.random()))
         index2 = int((len(road_map) * random.random()))
         shift = shift_cities(road_map)
@@ -123,8 +123,8 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-    print('this will represent a map with the shortest route')
-
+    print(road_map)
+    # does this need calculate any particular road_map or the particular finished one?
 
 def main():
     """
@@ -137,6 +137,7 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('total distance: ', compute_total_distance(new_road_map))
+
 
 
 if __name__ == "__main__":  # keep this in
