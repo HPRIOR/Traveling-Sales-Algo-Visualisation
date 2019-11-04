@@ -1,7 +1,9 @@
 import pytest
 from cities import *
-import random
-
+'''
+need to ask more about how the tests are conducted, if I implement a function which filters out erroneous results, 
+their testing 
+'''
 
 def test_compute_total_distance():
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
@@ -27,8 +29,7 @@ def test_swap_cities():
                                             ("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Minnesota", "Saint Paul", 44.95, -93.094)]
 
-    # needs to test for new total distance
-    # is it possible to assert check for two different return variables
+    # needs to test for new total distance (tuple)
 
 
 def test_shift_cities():
