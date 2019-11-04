@@ -21,6 +21,7 @@ def read_cities(file_name):
     return road_map
 
 
+
 def print_cities(road_map):
     """
     Prints a list of cities, along with their locations. 
@@ -105,7 +106,6 @@ def find_best_cycle(road_map):
 
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    print('value of initial road map: ', compute_total_distance(road_map))
     for i in range(10000):
         index1 = int((len(road_map) * random.random()))
         index2 = int((len(road_map) * random.random()))
@@ -136,8 +136,8 @@ def main():
     print('total distance: ', compute_total_distance(road_map))
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
-    print('total distance: ', compute_total_distance(new_road_map))
-
+    print('best calculated total distance : ', compute_total_distance(new_road_map))
+    # should i be getting the same answer every time?
 
 
 if __name__ == "__main__":  # keep this in
