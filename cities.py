@@ -103,10 +103,9 @@ def find_best_cycle(road_map):
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     for i in range(10000):
-        index1 = int((len(road_map) * random.random()))
-        index2 = int((len(road_map) * random.random()))
+        index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
         shift = shift_cities(road_map)
-        swap = swap_cities(shift, index1, index2)
+        swap = swap_cities(shift, index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
             best_road_map = swap[0][:]
