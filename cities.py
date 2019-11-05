@@ -125,8 +125,8 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-    for line in road_map:
-        compute_individual_distance(line[])
+    for line in range(len(road_map)):
+        compute_individual_distance(line, ne[1])
     # use print map here to avoid redundancy
 
 
