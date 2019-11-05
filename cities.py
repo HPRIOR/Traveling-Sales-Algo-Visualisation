@@ -36,6 +36,9 @@ def print_cities(road_map):
     # probably shouldn't create a new list here.
 
 
+def compute_individual_distance(x_y1, x_y2):
+    return 0.0
+
 def compute_total_distance(road_map):
     """
     Returns, as a floating point number, the sum of the distances of all 
@@ -63,6 +66,7 @@ def compute_total_distance(road_map):
 
     # find more elegant solution to compute results, maybe one that doesn't require two loops
     # within the loop check for bad result with try, except, raise errors, and output amount of errors
+    # remove bad lines from file
 
 def swap_cities(road_map, index1, index2):
     """
@@ -121,7 +125,8 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-    print(road_map)
+    for line in road_map:
+        compute_individual_distance(line[])
     # use print map here to avoid redundancy
 
 
