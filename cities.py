@@ -61,6 +61,8 @@ def compute_total_distance(road_map):
     start_end = (math.sqrt(((x1_start - x2_end) ** 2) + ((y1_start - y2_end) ** 2)))
     return loop_result + start_end
 
+    # find more elegant solution to compute results, maybe one that doesn't require two loops
+    # within the loop check for bad result with try, except, raise errors, and output amount of errors
 
 def swap_cities(road_map, index1, index2):
     """
