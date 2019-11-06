@@ -126,7 +126,6 @@ def print_map(road_map):
     and the total cost.
     """
     for line in range(len(road_map)):
-        compute_individual_distance(line, ne[1])
     # use print map here to avoid redundancy
 
 
