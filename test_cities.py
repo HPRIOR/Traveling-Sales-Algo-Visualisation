@@ -1,8 +1,7 @@
 import pytest
 from cities import *
 '''
-need to ask more about how the tests are conducted, if I implement a function which filters out erroneous results, 
-their testing 
+make tests for road maps with 1 item or 0 
 '''
 
 def test_compute_total_distance():
@@ -18,7 +17,10 @@ def test_swap_cities():
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                  ("Delaware", "Dover", 39.161921, -75.526755),
                  ("Minnesota", "Saint Paul", 44.95, -93.094)]
+
     road_map2 = []
+
+    road_map_3 = [("Kentucky", "Frankfort", 38.197274, -84.86311)]
 
     assert swap_cities(road_map1, 0, 1) == ([("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Kentucky", "Frankfort", 38.197274, -84.86311),
