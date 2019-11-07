@@ -29,10 +29,12 @@ def test_swap_cities():
                                             ("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Minnesota", "Saint Paul", 44.95, -93.094)]
 
+    # tests for road map with just 1 or 0 results?
     # needs to test for new total distance (tuple)
 
 
 def test_shift_cities():
+    # tests for road map with just 1 or 0 results?
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                  ("Delaware", "Dover", 39.161921, -75.526755),
                  ("Minnesota", "Saint Paul", 44.95, -93.094)]
