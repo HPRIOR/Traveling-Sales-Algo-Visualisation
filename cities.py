@@ -15,8 +15,8 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    with open(file_name, "r") as f:                             # 'with' handles files without the need for closing
-        road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
+    with open(file_name, "r") as f:  # 'with' handles files without the need for closing
+        road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
     return road_map
 
 
@@ -29,15 +29,17 @@ def print_cities(road_map):
     for cities in road_map:
         road_map_print.append(list(cities))
     for cities in road_map_print:
-        cities.pop(0)                               # removes state
+        cities.pop(0)  # removes state
         cities[1] = '%.2f' % float(cities[1])
         cities[2] = '%.2f' % float(cities[2])
     print(road_map_print)
     # probably shouldn't create a new list here.
 
 
-def compute_individual_distance(x_y1, x_y2):
-    return 0.0
+def compute_individual_distance(x1, y1, x2, y2):
+    return math.sqrt(((float(x1) - float(y1)) ** 2) + ((float(x2) - float(y2)) ** 2))
+
+
 
 def compute_total_distance(road_map):
     """
@@ -67,6 +69,7 @@ def compute_total_distance(road_map):
     # find more elegant solution to compute results, maybe one that doesn't require two loops
     # within the loop check for bad result with try, except, raise errors, and output amount of errors
     # remove bad lines from file
+
 
 def swap_cities(road_map, index1, index2):
     """
@@ -109,12 +112,13 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(10000):
+    for i in range(1000000000):
         index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
         shift = shift_cities(road_map)
         swap = swap_cities(shift, index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
+            print(best_total)
             best_road_map = swap[0][:]
     return best_road_map
 
@@ -125,8 +129,6 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-    for line in range(len(road_map)):
-    # use print map here to avoid redundancy
 
 
 def main():

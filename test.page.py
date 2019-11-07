@@ -1,4 +1,5 @@
 import math
+from itertools import cycle
 
 """
 def read_cities(file_name):
@@ -30,7 +31,6 @@ def calculate(road_map):
 
 calculate(read_cities('city-data.txt'))
 
-"""
 
 road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                 ("Delaware", "Dover", 39.161921, -75.526755),
@@ -56,3 +56,29 @@ start_end = (math.sqrt(((x1_start-x2_end)**2)+((y1_start - y2_end)**2)))
 result = loop_result + start_end
 
 print(result)
+
+"""
+
+road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+             ("Delaware", "Dover", 39.161921, -75.526755),
+             ("Minnesota", "Saint Paul", 44.95, -93.094)]
+
+
+def compute_individual_distance(x1, y1, x2, y2):
+    return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
+
+
+def compute_total_distance(road_map):
+    ln = len(road_map)
+    ind = 0
+    total = 0
+    for i in range(ln):
+        total += compute_individual_distance(road_map[ind - 1][2],
+                                             road_map[ind - 1][3],
+                                             road_map[ind][2],
+                                             road_map[ind][3])
+        ind = (ind + 1) % ln
+    return total
+
+
+print(compute_total_distance(road_map1))
