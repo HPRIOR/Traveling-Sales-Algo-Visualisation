@@ -138,7 +138,14 @@ def print_map(road_map):
     ln = len(road_map)
     ind = 0
     for i in range(ln):
+        print('Journey', (ind + 1), ': ')
+        print('     Between', road_map[ind][1], 'and', road_map[ind - 1][1])
+        print('     Distance: ', compute_individual_distance(road_map[ind - 1][2],
+                                                        road_map[ind - 1][3],
+                                                        road_map[ind][2],
+                                                        road_map[ind][3]))
         ind = (ind + 1) % ln
+
 
 def main():
     """
@@ -151,7 +158,7 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
-
+    print_map(new_road_map)
 
 if __name__ == "__main__":  # keep this in
     main()
