@@ -30,7 +30,7 @@ def test_swap_cities():
                                             ("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Minnesota", "Saint Paul", 44.95, -93.094)], pytest.approx(38.52, 0.1))
 
-    assert swap_cities(road_map2, 0, 1) == IndexError
+    ## assert swap_cities(road_map2, 0, 1) == IndexError
     # tests for road map with just 1 or 0 results?
 
 
