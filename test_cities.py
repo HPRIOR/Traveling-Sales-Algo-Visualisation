@@ -19,15 +19,15 @@ def test_swap_cities():
                  ("Delaware", "Dover", 39.161921, -75.526755),
                  ("Minnesota", "Saint Paul", 44.95, -93.094)]
 
-    assert swap_cities(road_map1, 0, 1) == [("Delaware", "Dover", 39.161921, -75.526755),
+    assert swap_cities(road_map1, 0, 1) == ([("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Kentucky", "Frankfort", 38.197274, -84.86311),
-                                            ("Minnesota", "Saint Paul", 44.95, -93.094)]
-    assert swap_cities(road_map1, 1, 1) == [("Delaware", "Dover", 39.161921, -75.526755),
+                                            ("Minnesota", "Saint Paul", 44.95, -93.094)], pytest.approx(38.52, 0.1))
+    assert swap_cities(road_map1, 1, 1) == ([("Delaware", "Dover", 39.161921, -75.526755),
                                             ("Kentucky", "Frankfort", 38.197274, -84.86311),
-                                            ("Minnesota", "Saint Paul", 44.95, -93.094)]
-    assert swap_cities(road_map1, 1, 0) == [("Kentucky", "Frankfort", 38.197274, -84.86311),
+                                            ("Minnesota", "Saint Paul", 44.95, -93.094)], pytest.approx(38.52, 0.1))
+    assert swap_cities(road_map1, 1, 0) == ([("Kentucky", "Frankfort", 38.197274, -84.86311),
                                             ("Delaware", "Dover", 39.161921, -75.526755),
-                                            ("Minnesota", "Saint Paul", 44.95, -93.094)]
+                                            ("Minnesota", "Saint Paul", 44.95, -93.094)], pytest.approx(38.52, 0.1))
 
     # tests for road map with just 1 or 0 results?
     # needs to test for new total distance (tuple)
