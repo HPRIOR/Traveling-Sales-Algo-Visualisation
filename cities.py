@@ -77,7 +77,7 @@ def compute_total_distance(road_map):
     return total
 
     # within the loop check for bad result with try, except, raise errors, and output amount of errors
-    # remove bad lines from file
+    # remove bad lines from file # how to handle single or empty road_maps
 
 
 def swap_cities(road_map, index1, index2):
@@ -122,8 +122,7 @@ def find_best_cycle(road_map):
     best_road_map = road_map
     for i in range(10000):
         index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
-        shift = shift_cities(road_map)
-        swap = swap_cities(shift, index[0], index[1])
+        swap = swap_cities(shift_cities(road_map), index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
             best_road_map = swap[0][:]
@@ -136,7 +135,10 @@ def print_map(road_map):
     their connections, along with the cost for each connection 
     and the total cost.
     """
-
+    ln = len(road_map)
+    ind = 0
+    for i in range(ln):
+        ind = (ind + 1) % ln
 
 def main():
     """
