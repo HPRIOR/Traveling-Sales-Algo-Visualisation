@@ -37,8 +37,7 @@ def print_cities(road_map):
 
 
 def compute_individual_distance(x1, y1, x2, y2):
-    return math.sqrt(((float(x1) - float(y1)) ** 2) + ((float(x2) - float(y2)) ** 2))
-
+    return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
 
 
 def compute_total_distance(road_map):
@@ -52,19 +51,15 @@ def compute_total_distance(road_map):
     after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].
     '''
     ln = len(road_map)
-    loop_result = 0
-    for i in range(1, ln):
-        x1 = float(road_map[i - 1][2])
-        y1 = float(road_map[i - 1][3])
-        x2 = float(road_map[i][2])
-        y2 = float(road_map[i][3])
-        loop_result += (math.sqrt(((x1 - x2) ** 2) + ((y1 - y2) ** 2)))
-    x1_start = float(road_map[0][2])
-    y1_start = float(road_map[0][3])
-    x2_end = float(road_map[ln - 1][2])
-    y2_end = float(road_map[ln - 1][3])
-    start_end = (math.sqrt(((x1_start - x2_end) ** 2) + ((y1_start - y2_end) ** 2)))
-    return loop_result + start_end
+    ind = 0
+    total = 0
+    for i in range(ln):
+        total += compute_individual_distance(road_map[ind - 1][2],
+                                             road_map[ind - 1][3],
+                                             road_map[ind][2],
+                                             road_map[ind][3])
+        ind = (ind + 1) % ln
+    return total
 
     # find more elegant solution to compute results, maybe one that doesn't require two loops
     # within the loop check for bad result with try, except, raise errors, and output amount of errors
@@ -112,7 +107,7 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(1000000000):
+    for i in range(10000):
         index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
         shift = shift_cities(road_map)
         swap = swap_cities(shift, index[0], index[1])
