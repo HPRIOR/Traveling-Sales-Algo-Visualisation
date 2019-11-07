@@ -19,6 +19,7 @@ def read_cities(file_name):
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
     return road_map
 
+
 def prune(road_map):
     """
     removes lines not in the format: string string float float
@@ -27,11 +28,14 @@ def prune(road_map):
     """
     pass
 
+
 def format_error_print():
     """
     checks difference in no. of line before and after prune
     :return: number of errors removed in formatting, new number of coordinates
     """
+
+
 def print_cities(road_map):
     """
     Prints a list of cities, along with their locations. 
@@ -49,6 +53,9 @@ def print_cities(road_map):
 
 
 def compute_individual_distance(x1, y1, x2, y2):
+    """
+    returns distance between two coordinates
+    """
     return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
 
 
@@ -58,10 +65,6 @@ def compute_total_distance(road_map):
     the connections in the `road_map`. Remember that it's a cycle, so that 
     (for example) in the initial `road_map`, Wyoming connects to Alabama...
     """
-    '''
-    If you want to treat a list  as circular(the first item follows the last item), the item  
-    after lst[i] is not just lst(i + 1), but is lst[(i + 1) % len(lst)].
-    '''
     ln = len(road_map)
     ind = 0
     total = 0
