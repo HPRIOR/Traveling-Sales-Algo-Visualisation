@@ -53,8 +53,7 @@ def print_cities(road_map):
     Prints a list of cities, along with their locations. 
     Print only one or two digits after the decimal point.
     """
-    road_map_print = [print_formatter(x) for x in road_map]
-    print(road_map_print)
+    print([print_formatter(x) for x in road_map])
 
 
 def compute_individual_distance(x1, y1, x2, y2):
