@@ -17,24 +17,24 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:  # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
+    format_check_prune(road_map)
     return road_map
 
 
-def prune(road_map):
-    """
-    removes lines not in the format: string string float float
-    :param road_map:
-    :return: road_map
-    """
-    pass
+def format_check_prune(road_map):
+    for line in road_map:
+        try:
+            str(line[0])
+            str(line[1])
+            float(line[2])
+            float(line[3])
+        except ValueError:
+            road_map.remove(line)
+    for line in road_map:
+        if len(line) > 4:
+            road_map.remove(line)
 
-
-def format_error_print():
-    """
-    checks difference in no. of line before and after prune
-    :return: number of errors removed in formatting, new number of coordinates
-    """
-
+# add test for this function
 
 def print_cities(road_map):
     """
@@ -120,12 +120,12 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(1000000000):
+    for i in range(10000):
         index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
         swap = swap_cities(shift_cities(road_map), index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
-            print(best_total) ## remove this
+            print(best_total)  ## remove this
             best_road_map = swap[0][:]
     return best_road_map
 
