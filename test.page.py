@@ -1,10 +1,12 @@
 import math
 
-'''def compute_individual_distance(x1, y1, x2, y2):
+
+def compute_individual_distance(x1, y1, x2, y2):
     """
     returns distance between two coordinates
     """
     return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
+
 
 def compute_total_distance(road_map):
     """
@@ -21,25 +23,23 @@ def compute_total_distance(road_map):
                                              road_map[ind][2],
                                              road_map[ind][3])
         ind = (ind + 1) % ln
-    return total'''
+    return total
 
 
-
-
-
-
-
-
-'''def print_map(road_map):
+def print_map(road_map):
     """
     Prints, in an easily understandable format, the cities and
     their connections, along with the cost for each connection
     and the total cost.
     """
-    ln = len(road_map)
-    pmap = []
-    for i in range(1, (ln-1)):
-'''
+    p_map = [print_formatter(x) for x in road_map]
+    ln = len(p_map)
+    for i in range(1, (ln - 1)):
+        distance = compute_individual_distance()
+        print('The distance from %s to s% is', distance) # correct string formatting
+    # here the distance between 0 - -1 =
+    # then the total distance
+
 
 def print_formatter(tple):
     """
@@ -52,7 +52,9 @@ def print_formatter(tple):
     tple[2] = '%.2f' % float(tple[2])
     return tuple(tple)
 
-road_map1 = ("Kentucky", "Frankfort", 38.197274, -84.86311)
-print(road_map1)
-print(print_formatter(road_map1))
-print(road_map1)
+
+road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
+             ("Delaware", "Dover", 39.161921, -75.526755),
+             ("Minnesota", "Saint Paul", 44.95, -93.094)]
+
+print_map(road_map1)

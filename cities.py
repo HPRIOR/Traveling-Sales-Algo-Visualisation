@@ -40,7 +40,7 @@ def format_check_prune(road_map):
 def print_formatter(tple):
     """
     :param: takes in a tuple with the format: string, string, float, float
-    :return: tuple with city, x,y to two decimal points
+    :return: tuple with city, x, y (to two decimal places)
     """
     tple = list(tple)
     tple.pop(0)
