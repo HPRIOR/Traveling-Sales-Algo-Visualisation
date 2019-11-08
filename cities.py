@@ -23,15 +23,15 @@ def read_cities(file_name):
 
 def format_check_prune(road_map):
     for line in road_map:
+        if len(line) > 4 or len(line) < 4:
+            road_map.remove(line)
+    for line in road_map:
         try:
             str(line[0])
             str(line[1])
             float(line[2])
             float(line[3])
         except ValueError:
-            road_map.remove(line)
-    for line in road_map:
-        if len(line) > 4:
             road_map.remove(line)
 
 # add test for this function
