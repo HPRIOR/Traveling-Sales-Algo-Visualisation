@@ -25,6 +25,7 @@ def format_check_prune(road_map):
     for line in road_map:
         if len(line) > 4 or len(line) < 4:
             road_map.remove(line)
+    # could shorten to list comprehension
     for line in road_map:
         try:
             str(line[0])
