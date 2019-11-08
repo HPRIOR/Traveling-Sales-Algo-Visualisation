@@ -17,7 +17,7 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:  # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
-    format_check_prune(road_map)
+    format_check_prune(road_map)  # checks and prunes road_map format errors
     return road_map
 
 
@@ -33,6 +33,7 @@ def format_check_prune(road_map):
             float(line[3])
         except ValueError:
             road_map.remove(line)
+
 
 # add test for this function
 
@@ -125,7 +126,6 @@ def find_best_cycle(road_map):
         swap = swap_cities(shift_cities(road_map), index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
-            print(best_total)  ## remove this
             best_road_map = swap[0][:]
     return best_road_map
 
@@ -138,7 +138,8 @@ def print_map(road_map):
     """
     ln = len(road_map)
     ind = 0
-    for i in range(ln):
+    for i in range(1, ln):
+
         print('Journey', (ind + 1), ': ')
         print('     Between', road_map[ind][1], 'and', road_map[ind - 1][1])
         print('     Distance: ', compute_individual_distance(road_map[ind - 1][2],
