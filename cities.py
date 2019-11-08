@@ -120,11 +120,12 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(10000):
+    for i in range(1000000000):
         index = (int((len(road_map) * random.random())), int((len(road_map) * random.random())))
         swap = swap_cities(shift_cities(road_map), index[0], index[1])
         if swap[1] < best_total:
             best_total = swap[1]
+            print(best_total) ## remove this
             best_road_map = swap[0][:]
     return best_road_map
 
@@ -141,9 +142,9 @@ def print_map(road_map):
         print('Journey', (ind + 1), ': ')
         print('     Between', road_map[ind][1], 'and', road_map[ind - 1][1])
         print('     Distance: ', compute_individual_distance(road_map[ind - 1][2],
-                                                        road_map[ind - 1][3],
-                                                        road_map[ind][2],
-                                                        road_map[ind][3]))
+                                                             road_map[ind - 1][3],
+                                                             road_map[ind][2],
+                                                             road_map[ind][3]))
         ind = (ind + 1) % ln
 
 
@@ -158,7 +159,8 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
-    print_map(new_road_map)
+    # print_map(new_road_map)
+
 
 if __name__ == "__main__":  # keep this in
     main()
