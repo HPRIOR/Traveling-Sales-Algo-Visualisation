@@ -50,12 +50,9 @@ def print_formatter(tple):
     tple.pop(0)
     tple[1] = '%.2f' % float(tple[1])
     tple[2] = '%.2f' % float(tple[2])
-    return tple
+    return tuple(tple)
 
-road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
-             ("Delaware", "Dover", 39.161921, -75.526755),
-             ("Minnesota", "Saint Paul", 44.95, -93.094)]
-
+road_map1 = ("Kentucky", "Frankfort", 38.197274, -84.86311)
 print(road_map1)
 print(print_formatter(road_map1))
 print(road_map1)

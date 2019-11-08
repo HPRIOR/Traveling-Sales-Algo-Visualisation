@@ -34,23 +34,27 @@ def format_check_prune(road_map):
         except ValueError:
             road_map.remove(line)
 
+    # add test for this function
 
-# add test for this function
+
+def print_formatter(tple):
+    """
+    :param: takes in a tuple with the format: string, string, float, float
+    :return: tuple with city, x,y to two decimal points
+    """
+    tple = list(tple)
+    tple.pop(0)
+    tple[1] = '%.2f' % float(tple[1])
+    tple[2] = '%.2f' % float(tple[2])
+    return tuple(tple)
 
 def print_cities(road_map):
     """
     Prints a list of cities, along with their locations. 
     Print only one or two digits after the decimal point.
     """
-    road_map_print = []
-    for cities in road_map:
-        road_map_print.append(list(cities))
-    for cities in road_map_print:
-        cities.pop(0)  # removes state
-        cities[1] = '%.2f' % float(cities[1])
-        cities[2] = '%.2f' % float(cities[2])
+    road_map_print = [print_formatter(x) for x in road_map]
     print(road_map_print)
-    # probably shouldn't create a new list here.
 
 
 def compute_individual_distance(x1, y1, x2, y2):
