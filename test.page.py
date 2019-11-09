@@ -35,8 +35,12 @@ def print_map(road_map):
     p_map = [print_formatter(x) for x in road_map]
     ln = len(p_map)
     for i in range(1, (ln - 1)):
-        distance = compute_individual_distance()
-        print('The distance from %s to s% is', distance) # correct string formatting
+        distance = compute_individual_distance(p_map[i-1][1], p_map[i][1], p_map[i-1][2], p_map[i][2])
+        print('The distance from %s to %s is %f' % (p_map[i-1][0], p_map[i][0], distance))
+
+
+
+
     # here the distance between 0 - -1 =
     # then the total distance
 
