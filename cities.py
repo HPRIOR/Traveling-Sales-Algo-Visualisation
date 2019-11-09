@@ -137,21 +137,24 @@ def find_best_cycle(road_map):
 
 def print_map(road_map):
     """
-    Prints, in an easily understandable format, the cities and 
-    their connections, along with the cost for each connection 
+    Prints, in an easily understandable format, the cities and
+    their connections, along with the cost for each connection
     and the total cost.
     """
-    ln = len(road_map)
-    ind = 0
-    for i in range(1, ln):
+    p_map = [print_formatter(x) for x in road_map]
+    ln = len(p_map)
+    loop_distance = 0
 
-        print('Journey', (ind + 1), ': ')
-        print('     Between', road_map[ind][1], 'and', road_map[ind - 1][1])
-        print('     Distance: ', compute_individual_distance(road_map[ind - 1][2],
-                                                             road_map[ind - 1][3],
-                                                             road_map[ind][2],
-                                                             road_map[ind][3]))
-        ind = (ind + 1) % ln
+    for i in range(1, ln):
+        distance = compute_individual_distance(p_map[i - 1][1], p_map[i - 1][2], p_map[i][1], p_map[i][2])
+        print('The distance from %s to %s is %.2f' % (p_map[i - 1][0], p_map[i][0], distance))
+        loop_distance += distance
+
+    last_first_distance = compute_individual_distance(p_map[-1][1], p_map[- 1][2], p_map[0][1], p_map[0][2])
+    print('The distance from %s to %s is %.2f' % (p_map[-1][0], p_map[0][0], last_first_distance))
+    total = loop_distance + last_first_distance
+    print('The total distance travelled will be %.2f' % total)
+
 
 
 def main():
@@ -165,6 +168,7 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
+    print_map(new_road_map)
     # print_map(new_road_map)
 
 
