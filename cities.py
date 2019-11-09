@@ -50,6 +50,7 @@ def print_formatter(tple):
     return tuple(tple)
     # higher order function here to produce reduced floats?
 
+
 def print_cities(road_map):
     """
     Prints a list of cities, along with their locations. 
