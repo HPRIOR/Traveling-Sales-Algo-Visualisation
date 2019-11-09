@@ -153,7 +153,7 @@ def print_map(road_map):
     last_first_distance = compute_individual_distance(road_map[-1][2], road_map[- 1][3], road_map[0][2], road_map[0][3])
     print('The distance from %s to %s is %.2f' % (road_map[-1][1], road_map[0][1], last_first_distance))
     total = loop_distance + last_first_distance
-    print('The total distance travelled will be %.2f' % total)
+    print('The total distance travelled will be roughly %.2f' % total)
 
 
 def main():
