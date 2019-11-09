@@ -48,6 +48,7 @@ def print_formatter(tple):
     tple[1] = '%.2f' % float(tple[1])
     tple[2] = '%.2f' % float(tple[2])
     return tuple(tple)
+    # higher order function here to produce reduced floats?
 
 def print_cities(road_map):
     """
