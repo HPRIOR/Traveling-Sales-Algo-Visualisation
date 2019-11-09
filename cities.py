@@ -23,6 +23,7 @@ def read_cities(file_name):
 
 def format_check_prune(road_map):
     # add check for duplicates (convert to set and back?)
+    road_map = list(set(road_map))  # removes duplicate tuples
     for line in road_map:
         if len(line) > 4 or len(line) < 4:
             road_map.remove(line)
