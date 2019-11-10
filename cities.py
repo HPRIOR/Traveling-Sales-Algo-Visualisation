@@ -22,6 +22,8 @@ def read_cities(file_name):
 
 
 def format_check_prune(road_map):
+    # add check for duplicates (convert to set and back?)
+    road_map = list(set(road_map))  # removes duplicate tuples
     for line in road_map:
         if len(line) > 4 or len(line) < 4:
             road_map.remove(line)
@@ -49,6 +51,7 @@ def print_formatter(tple):
     tple[2] = '%.2f' % float(tple[2])
     return tuple(tple)
     # higher order function here to produce reduced floats?
+
 
 def print_cities(road_map):
     """
@@ -152,10 +155,7 @@ def print_map(road_map):
     last_first_distance = compute_individual_distance(road_map[-1][2], road_map[- 1][3], road_map[0][2], road_map[0][3])
     print('The distance from %s to %s is %.2f' % (road_map[-1][1], road_map[0][1], last_first_distance))
     total = loop_distance + last_first_distance
-    print('The total distance travelled will be %.2f' % total)
-
-    # here the distance between 0 - -1 =
-    # then the total distance
+    print('The total distance travelled will be roughly %.2f' % total)
 
 
 def main():
@@ -169,6 +169,8 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
+    print_map(new_road_map)
+    # print_map(new_road_map)
 
 
 if __name__ == "__main__":  # keep this in
