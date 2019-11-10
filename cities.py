@@ -22,11 +22,17 @@ def read_cities(file_name):
 
 
 def remove_duplicates(road_map):
+    """
+    removes duplicate tuples from road_map
+    """
     road_map.sort()
     [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
 
 
 def try_except_remove(line, road_map):
+    """
+    evaluates tuples for format: 'string, string, float, float'
+    """
     try:
         str(line[0])
         str(line[1])
@@ -38,14 +44,12 @@ def try_except_remove(line, road_map):
 
 def format_check_prune(road_map):
     '''
-    checks and prunes road_map format errors
+    checks and prunes road_map for errors: duplicates, wrong format
     '''
     [try_except_remove(line, road_map) for line in road_map]
     remove_duplicates(road_map)
     [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
 
-    # add test for this function
-    # find way to remove duplicates (sets don't seem to work)
 
 
 def print_formatter(tple):
@@ -58,7 +62,7 @@ def print_formatter(tple):
     tple[1] = '%.2f' % float(tple[1])
     tple[2] = '%.2f' % float(tple[2])
     return tuple(tple)
-    # higher order function here to produce reduced floats?
+    # add tests
 
 
 def print_cities(road_map):
@@ -74,6 +78,7 @@ def compute_individual_distance(x1, y1, x2, y2):
     returns distance between two coordinates
     """
     return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
+    # add test
 
 
 def compute_total_distance(road_map):
@@ -135,7 +140,7 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(10000):
+    for i in range(1000000):
         index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random()))
         swap = swap_cities(shift_cities(road_map), index1, index2)
         if swap[1] < best_total:
@@ -175,8 +180,8 @@ def main():
     new_road_map = find_best_cycle(road_map)
     print_cities(new_road_map)
     print('best calculated total distance : ', compute_total_distance(new_road_map))
-    print_map(new_road_map)
     # print_map(new_road_map)
+
 
 
 if __name__ == "__main__":  # keep this in
