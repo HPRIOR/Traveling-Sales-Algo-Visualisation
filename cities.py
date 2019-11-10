@@ -103,9 +103,7 @@ def swap_cities(road_map, index1, index2):
     if index1 == index2:
         return road_map, compute_total_distance(road_map)
     else:
-        swap = road_map[index1]
-        road_map[index1] = road_map[index2]
-        road_map[index2] = swap
+        road_map[index1], road_map[index2] = road_map[index2], road_map[index1]
         return road_map, compute_total_distance(road_map)
 
 
