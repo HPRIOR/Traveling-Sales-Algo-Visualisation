@@ -17,27 +17,35 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:  # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
-    format_check_prune(road_map)  # checks and prunes road_map format errors
+    format_check_prune(road_map)
     return road_map
 
 
+def remove_duplicates(road_map):
+    road_map.sort()
+    [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
+
+
+def try_except_remove(line, road_map):
+    try:
+        str(line[0])
+        str(line[1])
+        float(line[2])
+        float(line[3])
+    except ValueError:
+        road_map.remove(line)
+
+
 def format_check_prune(road_map):
-    # add check for duplicates (convert to set and back?)
-    road_map = list(set(road_map))  # removes duplicate tuples
-    for line in road_map:
-        if len(line) > 4 or len(line) < 4:
-            road_map.remove(line)
-    # could shorten to list comprehension
-    for line in road_map:
-        try:
-            str(line[0])
-            str(line[1])
-            float(line[2])
-            float(line[3])
-        except ValueError:
-            road_map.remove(line)
+    '''
+    checks and prunes road_map format errors
+    '''
+    [try_except_remove(line, road_map) for line in road_map]
+    remove_duplicates(road_map)
+    [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
 
     # add test for this function
+    # find way to remove duplicates (sets don't seem to work)
 
 
 def print_formatter(tple):
