@@ -54,7 +54,6 @@ def format_check_prune(road_map):
     [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
 
 
-
 def print_formatter(tple):
     """
     :param: takes in a tuple with the format: string, string, float, float
@@ -100,7 +99,6 @@ def compute_total_distance(road_map):
                                              road_map[ind][3])
         ind = (ind + 1) % ln
     return total
-
 
 
 def swap_cities(road_map, index1, index2):
@@ -186,7 +184,6 @@ def main():
         # print_map(new_road_map)
     else:
         print('Cannot calculate distance, input one or more cities')
-
 
 
 if __name__ == "__main__":  # keep this in
