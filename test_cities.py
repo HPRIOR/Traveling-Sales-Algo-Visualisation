@@ -38,8 +38,8 @@ def test_swap_cities():
                                              ("Delaware", "Dover", 39.161921, -75.526755),
                                              ("Minnesota", "Saint Paul", 44.95, -93.094)], pytest.approx(38.52, 0.1))
 
-    # assert swap_cities(road_map2, 0, 1) == 'Cannot calculate distance, input at least two cities'
-    # assert swap_cities(road_map3, 0, 1) == 'Cannot calculate distance, input at least two cities'
+    assert swap_cities(road_map2, 0, 1) == 'Cannot calculate distance, input at least two cities'
+    assert swap_cities(road_map3, 0, 1) == 'Cannot calculate distance, input at least two cities'
 
 
 

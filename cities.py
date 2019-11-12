@@ -98,8 +98,6 @@ def compute_total_distance(road_map):
         ind = (ind + 1) % ln
     return total
 
-    # within the loop check for bad result with try, except, raise errors, and output amount of errors
-    # remove bad lines from file # how to handle single or empty road_maps
 
 
 def swap_cities(road_map, index1, index2):
@@ -140,7 +138,7 @@ def find_best_cycle(road_map):
     """
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
-    for i in range(1000000):
+    for i in range(10000):
         index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random()))
         swap = swap_cities(shift_cities(road_map), index1, index2)
         if swap[1] < best_total:

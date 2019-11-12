@@ -9,28 +9,21 @@ road_map1 = [("Minnesota", 44.95, -93.094, "Saint Paul"),
              ("Minnesota", 44.95, -93.094, "Saint Paul")]
 
 
-def remove_duplicates(road_map):
-    road_map.sort()
-    [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
+def swap_cities(road_map, index1, index2):
+    """
+    Take the city at location `index` in the `road_map`, and the
+    city at location `index2`, swap their positions in the `road_map`,
+    compute the new total distance, and return the tuple
 
+        (new_road_map, new_total_distance)
 
-def format_check_prune(road_map):
-    '''
-    checks and prunes road_map format errors
-    '''
-    [try_except_remove(line, road_map) for line in road_map]
-    remove_duplicates(road_map)
-    [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
+    Allow for the possibility that `index1=index2`,
+    and handle this case correctly.
+    """
+    if index1 == index2:
+        return road_map, compute_total_distance(road_map)
+    else:
+        road_map[index1], road_map[index2] = road_map[index2], road_map[index1]
+        return road_map, compute_total_distance(road_map)
 
-
-def try_except_remove(line, road_map):
-    try:
-        str(line[0])
-        str(line[1])
-        float(line[2])
-        float(line[3])
-    except ValueError:
-        road_map.remove(line)
-
-format_check_prune(road_map1)
-print(road_map1)
+swap_cities()
