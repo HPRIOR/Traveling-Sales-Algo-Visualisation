@@ -17,7 +17,9 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:  # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
-    format_check_prune(road_map)
+    format_check_prune(road_map)  # checks for duplicates and format errors - deletes bad lines
+    if len(road_map) == 0:  # allows main() to check for the absence of cities (lines) in road map file
+        return False
     return road_map
 
 
@@ -40,6 +42,7 @@ def try_except_remove(line, road_map):
         float(line[3])
     except ValueError:
         road_map.remove(line)
+    # maybe construct this without converting types
 
 
 def format_check_prune(road_map):
@@ -172,13 +175,17 @@ def main():
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
-    road_map = read_cities('city-data.txt')
-    print_cities(road_map)
-    print('total distance: ', compute_total_distance(road_map))
-    new_road_map = find_best_cycle(road_map)
-    print_cities(new_road_map)
-    print('best calculated total distance : ', compute_total_distance(new_road_map))
-    # print_map(new_road_map)
+    enter_file_name_here = 'city-data.txt'
+    if read_cities(enter_file_name_here):
+        road_map = read_cities(enter_file_name_here)
+        print_cities(road_map)
+        print('total distance: ', compute_total_distance(road_map))
+        new_road_map = find_best_cycle(road_map)
+        print_cities(new_road_map)
+        print('best calculated total distance : ', compute_total_distance(new_road_map))
+        # print_map(new_road_map)
+    else:
+        print('Cannot calculate distance, input one or more cities')
 
 
 
