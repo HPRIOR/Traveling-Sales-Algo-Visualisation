@@ -173,25 +173,25 @@ def change_visualise_data(road_map, canvas_max_size):
     """
     returns normalised data for visualisation function
     """
-    # new road_map in list form so that minus values can be removed from data
+
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
 
     for line in data_road_map:
-        line[2] = (float(line[2]) + 90)  # x values
-        line[3] = (float(line[3]) + 180)  # y values
+        line[2] = (float(line[2]) + 90)     # x
+        line[3] = (float(line[3]) + 180)    # y
 
     x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
     for line in data_road_map:
-        line[2] = (line[2] - x_min)
-        line[3] = (line[3] - y_min)
+        line[2] = (line[2] - x_min)     # x
+        line[3] = (line[3] - y_min)     # y
 
     x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
     factor_x, factor_y = canvas_max_size / x_max, canvas_max_size / y_max
 
     for line in data_road_map:
-        line[2] = line[2] * factor_x
-        line[3] = line[3] * factor_y
+        line[2] = line[2] * factor_x    # x
+        line[3] = line[3] * factor_y    # y
 
     return data_road_map
 
@@ -209,10 +209,10 @@ def find_min_max_x_y(road_map):
 
 
 def visualise(road_map):
-    road_map = change_visualise_data(road_map, 500)
+    canvas_size = 500
+    road_map = change_visualise_data(road_map, canvas_size)
     main_win = Tk()
-    # main_win.geometry('1000x768')
-    canv = Canvas(main_win, background='grey', height=500, width=500)
+    canv = Canvas(main_win, background='grey', height=canvas_size, width=canvas_size)
     canv.pack()
     canv.configure(highlightthickness=0, borderwidth=0)
     ln = len(road_map)
