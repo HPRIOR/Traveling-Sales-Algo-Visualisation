@@ -1,4 +1,5 @@
 # import relevant modules, not everything
+from tkinter import *
 import random
 import math
 
@@ -167,8 +168,29 @@ def print_map(road_map):
     total = loop_distance + last_first_distance
     print('The total distance travelled will be roughly %.2f' % total)
 
+
+def change_visualise_data(road_map):
+    data_road_map = []
+    [data_road_map.append(list(line)) for line in road_map]
+    for line in data_road_map:
+        line[2] = (float(line[2]) + 90)
+        line[3] = (float(line[3]) + 180)
+    return data_road_map
+
+
 def visualise(road_map):
-    pass
+    road_map = change_visualise_data(road_map)
+    main_win = Tk()
+    canv = Canvas(main_win, width=1000, height=1000, background='white')
+    canv.pack(fill=BOTH, anchor='center')
+    ln = len(road_map)
+    ind = 0
+    for i in range(ln):
+        canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
+                         road_map[ind][2], road_map[ind][3])
+        ind = (ind + 1) % ln
+    main_win.mainloop()
+
 
 def main():
     """
@@ -181,9 +203,10 @@ def main():
         print_cities(road_map)
         print('total distance: ', compute_total_distance(road_map))
         new_road_map = find_best_cycle(road_map)
-        print_cities(new_road_map)
+        print('new road map: ', new_road_map)
         print('best calculated total distance : ', compute_total_distance(new_road_map))
-        # print_map(new_road_map)
+        data_for_viz = change_visualise_data(new_road_map)
+        visualise(data_for_viz)
     else:
         print('Cannot calculate distance, input one or more cities')
 
