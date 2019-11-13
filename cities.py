@@ -169,17 +169,31 @@ def print_map(road_map):
     print('The total distance travelled will be roughly %.2f' % total)
 
 
-
-
-def change_visualise_data(road_map):
-    x_min, x_max, y_min, y_max = find_min_max_x_y(road_map)
+def change_visualise_data(road_map, canvas_max_size):
+    """
+    returns normalised data for visualisation function
+    """
+    # new road_map in list form so that minus values can be removed from data
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
+
     for line in data_road_map:
-        line[2] = (float(line[2]) + 90)
-        line[3] = (float(line[3]) + 180)
+        line[2] = (float(line[2]) + 90)  # x values
+        line[3] = (float(line[3]) + 180)  # y values
+
+    x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
+    for line in data_road_map:
+        line[2] = (line[2] - x_min)
+        line[3] = (line[3] - y_min)
+
+    x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
+    factor_x, factor_y = canvas_max_size / x_max, canvas_max_size / y_max
+
+    for line in data_road_map:
+        line[2] = line[2] * factor_x
+        line[3] = line[3] * factor_y
+
     return data_road_map
-    # changing the values here does not change the distance between them, but all their relative positions on the map
 
 
 def find_min_max_x_y(road_map):
@@ -187,18 +201,15 @@ def find_min_max_x_y(road_map):
     for line in road_map:
         x.append(line[2])
         y.append(line[3])
-    x_min = min(x)
-    x_max = max(x)
-    y_min = min(y)
-    y_max = max(y)
+    x_min = float(min(x))
+    x_max = float(max(x))
+    y_min = float(min(y))
+    y_max = float(max(y))
     return x_min, x_max, y_min, y_max
-
-def normalise(road_map):
-    pass
 
 
 def visualise(road_map):
-    road_map = change_visualise_data(road_map)
+    road_map = change_visualise_data(road_map, 500)
     main_win = Tk()
     # main_win.geometry('1000x768')
     canv = Canvas(main_win, background='grey', height=500, width=500)
@@ -210,8 +221,6 @@ def visualise(road_map):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3])
         ind = (ind + 1) % ln
-    canv.create_line(0, 0, 500, 500)
-    canv.create_line((0, 500, 500, 0))
     main_win.mainloop()
 
 
@@ -228,8 +237,7 @@ def main():
         new_road_map = find_best_cycle(road_map)
         print('new road map: ', new_road_map)
         print('best calculated total distance : ', compute_total_distance(new_road_map))
-        data_for_viz = change_visualise_data(new_road_map)
-        visualise(data_for_viz)
+        visualise(new_road_map)
     else:
         print('Cannot calculate distance, input one or more cities')
 
