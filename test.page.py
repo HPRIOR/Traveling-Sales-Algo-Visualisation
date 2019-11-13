@@ -12,7 +12,15 @@ def change_visualise_data(road_map):
 
 
 def find_min_max_x_y(road_map):
-    pass
+    x, y = [], []
+    for line in road_map:
+        x.append(line[2])
+        y.append(line[3])
+    x_min = float(min(x))
+    x_max = float(max(x))
+    y_min = float(min(y))
+    y_max = float(max(y))
+    return x_min, x_max, y_min, y_max
 
 def visualise(road_map):
     road_map = change_visualise_data(road_map)
@@ -25,8 +33,6 @@ def visualise(road_map):
     for i in range(ln):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3])
-        print(road_map[ind - 1][2], road_map[ind - 1][3],
-              road_map[ind][2], road_map[ind][3])
         ind = (ind + 1) % ln
     main_win.mainloop()
 
@@ -54,10 +60,8 @@ checkered(w, 10)
 mainloop()
 '''
 
+
 road_map = read_cities('test-city-data-2.txt')
-
-print(road_map)
-
-print(change_visualise_data(road_map))
-
-visualise(road_map)
+x_min, x_max, y_min, y_max = find_min_max_x_y(road_map)
+print(x_min)
+#visualise(road_map)

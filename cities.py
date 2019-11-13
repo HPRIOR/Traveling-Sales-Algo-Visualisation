@@ -141,7 +141,7 @@ def find_best_cycle(road_map):
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     for i in range(10000):
-        index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random())) 
+        index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random()))
         swap = swap_cities(shift_cities(road_map), index1, index2)
         if swap[1] < best_total:
             best_total = swap[1]
@@ -169,7 +169,10 @@ def print_map(road_map):
     print('The total distance travelled will be roughly %.2f' % total)
 
 
+
+
 def change_visualise_data(road_map):
+    x_min, x_max, y_min, y_max = find_min_max_x_y(road_map)
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
     for line in data_road_map:
@@ -180,10 +183,19 @@ def change_visualise_data(road_map):
 
 
 def find_min_max_x_y(road_map):
-    pass
+    x, y = [], []
+    for line in road_map:
+        x.append(line[2])
+        y.append(line[3])
+    x_min = min(x)
+    x_max = max(x)
+    y_min = min(y)
+    y_max = max(y)
+    return x_min, x_max, y_min, y_max
 
 def normalise(road_map):
     pass
+
 
 def visualise(road_map):
     road_map = change_visualise_data(road_map)
@@ -201,7 +213,6 @@ def visualise(road_map):
     canv.create_line(0, 0, 500, 500)
     canv.create_line((0, 500, 500, 0))
     main_win.mainloop()
-
 
 
 def main():
