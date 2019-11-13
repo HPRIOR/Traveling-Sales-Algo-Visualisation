@@ -141,7 +141,7 @@ def find_best_cycle(road_map):
     best_total = compute_total_distance(road_map)
     best_road_map = road_map
     for i in range(10000):
-        index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random()))
+        index1, index2 = int((len(road_map) * random.random())), int((len(road_map) * random.random())) 
         swap = swap_cities(shift_cities(road_map), index1, index2)
         if swap[1] < best_total:
             best_total = swap[1]
@@ -173,30 +173,32 @@ def change_visualise_data(road_map):
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
     for line in data_road_map:
-        print('x before', line[2])
-        line[2] = (float(line[2]) + 180)
-        print('x after', line[2])
-        print('y before', line[3])
+        line[2] = (float(line[2]) + 90)0-
         line[3] = (float(line[3]) + 180)
-        print('y after', line[3])
     return data_road_map
+    # changing the values here does not change the distance between them, but all their relative positions on the map
 
+
+def find_min_max_x_y(road_map):
+    pass
 
 def visualise(road_map):
     road_map = change_visualise_data(road_map)
-    for line in road_map: (print(line[2], line[3]))
     main_win = Tk()
-    main_win.geometry("720x720")
-    canv = Canvas(main_win, width=360, height=360, background='white')
-    canv.pack(fill=BOTH, anchor='center', expand=1)
-
+    # main_win.geometry('1000x768')
+    canv = Canvas(main_win, background='grey', height=500, width=500)
+    canv.pack()
+    canv.configure(highlightthickness=0, borderwidth=0)
     ln = len(road_map)
     ind = 0
     for i in range(ln):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3])
         ind = (ind + 1) % ln
+    canv.create_line(0, 0, 500, 500)
+    canv.create_line((0, 500, 500, 0))
     main_win.mainloop()
+
 
 
 def main():
