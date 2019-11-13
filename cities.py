@@ -167,6 +167,8 @@ def print_map(road_map):
     total = loop_distance + last_first_distance
     print('The total distance travelled will be roughly %.2f' % total)
 
+def visualise(road_map):
+    pass
 
 def main():
     """
