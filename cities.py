@@ -174,10 +174,10 @@ def change_visualise_data(road_map):
     [data_road_map.append(list(line)) for line in road_map]
     for line in data_road_map:
         print('x before', line[2])
-        line[2] = (float(line[2]) + 180)+100
+        line[2] = (float(line[2]) + 180)
         print('x after', line[2])
         print('y before', line[3])
-        line[3] = (float(line[3]) + 180)+100
+        line[3] = (float(line[3]) + 180)
         print('y after', line[3])
     return data_road_map
 
@@ -186,9 +186,10 @@ def visualise(road_map):
     road_map = change_visualise_data(road_map)
     for line in road_map: (print(line[2], line[3]))
     main_win = Tk()
-    main_win.geometry("3600x3600")
-    canv = Canvas(main_win, width=3600, height=3600, background='white')
-    canv.pack(fill=BOTH, anchor='center')
+    main_win.geometry("720x720")
+    canv = Canvas(main_win, width=360, height=360, background='white')
+    canv.pack(fill=BOTH, anchor='center', expand=1)
+
     ln = len(road_map)
     ind = 0
     for i in range(ln):
