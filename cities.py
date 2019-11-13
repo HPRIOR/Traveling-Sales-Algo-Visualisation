@@ -173,13 +173,16 @@ def change_visualise_data(road_map):
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
     for line in data_road_map:
-        line[2] = (float(line[2]) + 90)0-
+        line[2] = (float(line[2]) + 90)
         line[3] = (float(line[3]) + 180)
     return data_road_map
     # changing the values here does not change the distance between them, but all their relative positions on the map
 
 
 def find_min_max_x_y(road_map):
+    pass
+
+def normalise(road_map):
     pass
 
 def visualise(road_map):
