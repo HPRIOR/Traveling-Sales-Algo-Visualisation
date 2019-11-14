@@ -218,7 +218,7 @@ def visualise(road_map):
     # main_win.geometry = '%sx%s' % (canvas_size_x + 100, canvas_size_y + 100)
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    canv.configure(highlightthickness=0, borderwidth=0)
+    #canv.configure(highlightthickness=0, borderwidth=0)
     ln = len(road_map)
     ind = 0
     for i in range(ln):
