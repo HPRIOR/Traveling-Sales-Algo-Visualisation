@@ -86,16 +86,10 @@ root = Tk()
 root.title('This is an example window')
 root.geometry('500x500')
 
-canvas_frame = Frame(root, bg='cyan', width=500, height=400)
-text_frame = Frame(root, bg='gray', width=500, height=100)
-canvas = Canvas (canvas_frame, width=100, height=100, bg='white')
-button = Button(text_frame, text='button')
-
-canvas_frame.grid(row=0)
-text_frame.grid(row=1)
-
-# button.grid(row=1, column=1)
-
+frame1 = Frame(root, bg='cyan', width=400, height=400)
+frame2 = Frame(frame1, bg='red', width=300, height=300)
+frame2.pack()
+frame1.pack()
 root.mainloop()
 
 
