@@ -64,7 +64,18 @@ print(x_min)
 visualise(road_map)
 '''
 
+lst = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 
-def find_min_list_index(f, i):
-    []
-    f()
+
+def find_minmax_list_index(f, i, lst):
+    """
+    applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
+    """
+    new_list = []
+    [new_list.append(float(line[i])) for line in lst]
+    min_max = f(new_list)
+    return min_max
+
+
+road_map = read_cities('city-data.txt')
+print(find_minmax_list_index(min, 2, lst))

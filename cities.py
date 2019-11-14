@@ -195,6 +195,14 @@ def change_visualise_data(road_map, canvas_max_size):
 
     return data_road_map
 
+def find_minmax_list_index(f, i, lst):
+    """
+    applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
+    """
+    new_list = []
+    [new_list.append(float(line[i])) for line in lst]
+    min_max = f(new_list)
+    return min_max
 
 def find_min_max_x_y(road_map):
     x, y = [], []
