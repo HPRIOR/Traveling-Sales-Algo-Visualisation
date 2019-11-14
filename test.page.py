@@ -64,7 +64,7 @@ print(x_min)
 visualise(road_map)
 '''
 
-lst = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
+'''lst = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]
 
 
 def find_minmax_list_index(f, i, lst):
@@ -79,3 +79,24 @@ def find_minmax_list_index(f, i, lst):
 
 road_map = read_cities('city-data.txt')
 print(find_minmax_list_index(min, 2, lst))
+'''
+
+
+root = Tk()
+root.title('This is an example window')
+root.geometry('500x500')
+
+canvas_frame = Frame(root, bg='cyan', width=500, height=400)
+text_frame = Frame(root, bg='gray', width=500, height=100)
+canvas = Canvas (canvas_frame, width=100, height=100, bg='white')
+button = Button(text_frame, text='button')
+
+canvas_frame.grid(row=0)
+text_frame.grid(row=1)
+
+# button.grid(row=1, column=1)
+
+root.mainloop()
+
+
+

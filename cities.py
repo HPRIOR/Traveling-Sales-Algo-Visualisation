@@ -211,14 +211,17 @@ def func_index_list(f, i, lst):
 
 
 def visualise(road_map):
-    canvas_size_x = 2000
-    canvas_size_y = 1000
+    canvas_size_x = 1000
+    canvas_size_y = 600
+    prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
     main_win = Tk()
-    # main_win.geometry = '%sx%s' % (canvas_size_x + 100, canvas_size_y + 100)
+    lab = Label(main_win,text='the total distance is: %f' % prior_compute)
+    lab.pack(anchor=S)
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
-    canv.pack()
-    # canv.configure(highlightthickness=0, borderwidth=0)
+    canv.pack(anchor=N)
+    canv.configure(highlightthickness=0, borderwidth=0)
+
     ln = len(road_map)
     ind = 0
     for i in range(ln):
