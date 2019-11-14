@@ -181,12 +181,16 @@ def change_visualise_data(road_map, canvas_max_size):
         line[2] = (float(line[2]) + 90)  # x
         line[3] = (float(line[3]) + 180)  # y
 
-    x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
+    x_min, y_min = func_index_list(min, 2, data_road_map), \
+                   func_index_list(min, 3, data_road_map)
+
     for line in data_road_map:
         line[2] = (line[2] - x_min)  # x
         line[3] = (line[3] - y_min)  # y
 
-    x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
+    x_max, y_max = func_index_list(max, 2, data_road_map), \
+                   func_index_list(max, 3, data_road_map)
+
     factor_x, factor_y = canvas_max_size / x_max, canvas_max_size / y_max
 
     for line in data_road_map:
@@ -195,7 +199,8 @@ def change_visualise_data(road_map, canvas_max_size):
 
     return data_road_map
 
-def find_minmax_list_index(f, i, lst):
+
+def func_index_list(f, i, lst):
     """
     applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
     """
@@ -203,18 +208,6 @@ def find_minmax_list_index(f, i, lst):
     [new_list.append(float(line[i])) for line in lst]
     min_max = f(new_list)
     return min_max
-
-def find_min_max_x_y(road_map):
-    x, y = [], []
-    for line in road_map:
-        x.append(line[2])
-        y.append(line[3])
-    x_min = float(min(x))
-    x_max = float(max(x))
-    y_min = float(min(y))
-    y_max = float(max(y))
-    return x_min, x_max, y_min, y_max
-    # make this a HO function which can take any list and index and return a function on that list
 
 
 def visualise(road_map):
