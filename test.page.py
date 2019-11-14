@@ -35,7 +35,6 @@ def visualise(road_map):
         ind = (ind + 1) % ln
     main_win.mainloop()'''
 
-
 '''
 def checkered(canvas, line_distance):
     # vertical lines at an interval of "line_distance" pixel
@@ -59,9 +58,13 @@ checkered(w, 10)
 mainloop()
 '''
 
-
 '''road_map = read_cities('test-city-data-2.txt')
 x_min, x_max, y_min, y_max = find_min_max_x_y(road_map)
 print(x_min)
 visualise(road_map)
 '''
+
+
+def find_min_list_index(f, i):
+    []
+    f()

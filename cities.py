@@ -178,20 +178,20 @@ def change_visualise_data(road_map, canvas_max_size):
     [data_road_map.append(list(line)) for line in road_map]
 
     for line in data_road_map:
-        line[2] = (float(line[2]) + 90)     # x
-        line[3] = (float(line[3]) + 180)    # y
+        line[2] = (float(line[2]) + 90)  # x
+        line[3] = (float(line[3]) + 180)  # y
 
     x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
     for line in data_road_map:
-        line[2] = (line[2] - x_min)     # x
-        line[3] = (line[3] - y_min)     # y
+        line[2] = (line[2] - x_min)  # x
+        line[3] = (line[3] - y_min)  # y
 
     x_min, x_max, y_min, y_max = find_min_max_x_y(data_road_map)
     factor_x, factor_y = canvas_max_size / x_max, canvas_max_size / y_max
 
     for line in data_road_map:
-        line[2] = line[2] * factor_x    # x
-        line[3] = line[3] * factor_y    # y
+        line[2] = line[2] * factor_x  # x
+        line[3] = line[3] * factor_y  # y
 
     return data_road_map
 
@@ -206,20 +206,21 @@ def find_min_max_x_y(road_map):
     y_min = float(min(y))
     y_max = float(max(y))
     return x_min, x_max, y_min, y_max
+    # make this a HO function which can take any list and index and return a function on that list
 
 
 def visualise(road_map):
-    canvas_size = 500
+    canvas_size = 1000
     road_map = change_visualise_data(road_map, canvas_size)
     main_win = Tk()
-    canv = Canvas(main_win, background='grey', height=canvas_size, width=canvas_size)
+    canv = Canvas(main_win, height=canvas_size, width=canvas_size)
     canv.pack()
     canv.configure(highlightthickness=0, borderwidth=0)
     ln = len(road_map)
     ind = 0
     for i in range(ln):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
-                         road_map[ind][2], road_map[ind][3])
+                         road_map[ind][2], road_map[ind][3], arrow=LAST)
         ind = (ind + 1) % ln
     main_win.mainloop()
 
