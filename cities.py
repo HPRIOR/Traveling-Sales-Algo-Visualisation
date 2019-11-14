@@ -43,7 +43,7 @@ def try_except_remove(line, road_map):
         float(line[3])
     except ValueError:
         road_map.remove(line)
-    # maybe construct this without converting types
+    # maybe do this without converting types
 
 
 def format_check_prune(road_map):
@@ -169,7 +169,7 @@ def print_map(road_map):
     print('The total distance travelled will be roughly %.2f' % total)
 
 
-def change_visualise_data(road_map, canvas_max_size):
+def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     """
     returns normalised data for visualisation function
     """
@@ -191,7 +191,7 @@ def change_visualise_data(road_map, canvas_max_size):
     x_max, y_max = func_index_list(max, 2, data_road_map), \
                    func_index_list(max, 3, data_road_map)
 
-    factor_x, factor_y = canvas_max_size / x_max, canvas_max_size / y_max
+    factor_x, factor_y = canvas_max_size_x / x_max, canvas_max_size_y / y_max
 
     for line in data_road_map:
         line[2] = line[2] * factor_x  # x
@@ -211,10 +211,12 @@ def func_index_list(f, i, lst):
 
 
 def visualise(road_map):
-    canvas_size = 1000
-    road_map = change_visualise_data(road_map, canvas_size)
+    canvas_size_x = 2000
+    canvas_size_y = 1000
+    road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
     main_win = Tk()
-    canv = Canvas(main_win, height=canvas_size, width=canvas_size)
+    # main_win.geometry = '%sx%s' % (canvas_size_x + 100, canvas_size_y + 100)
+    canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
     canv.configure(highlightthickness=0, borderwidth=0)
     ln = len(road_map)
