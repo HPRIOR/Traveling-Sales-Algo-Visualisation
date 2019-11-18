@@ -85,18 +85,16 @@ print(find_minmax_list_index(min, 2, lst))
 root = Tk()
 root.title('This is an example window')
 root.geometry('500x500')
+frame1 = Frame(root, width=250, height=250, bg='black')
+frame1.grid(row=0, column=0)
 
-frame1 = Frame(root, width=400, height=400, bg='black')
-frame1.pack()
+frame2 = Frame(root, width=250, height=250, bg='red')
+frame2.grid(row=0, column=1)
+#frame1.grid_propagate(False)
+frame2.grid_propagate(False)
 
-frame2 = Frame(frame1, width=300, height=300, bg='white')
-frame2.pack()
-frame1.pack_propagate(False)
+label = Label(frame2, text="this is a test", bg='red').grid(column=2)
 
-frame2.pack_propagate(False)
-
-frame3 = Frame(frame2, width=200, height=200, bg='orange')
-frame3.pack()
 root.mainloop()
 
 
