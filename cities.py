@@ -201,6 +201,7 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     for line in data_road_map:
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
+
     return data_road_map
 
 
@@ -243,8 +244,9 @@ def visualise(road_map):
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
-    canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
+    # canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
+    # canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
+
     # visualising road_map
     ln = len(road_map)
     ind = 0
@@ -252,10 +254,9 @@ def visualise(road_map):
         # dots for cities
         canv.create_oval(get_circle_coordinates(road_map[ind]))
         # text
-        canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind][1], anchor=N, fill='red')
+        canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind-1][1], anchor=N, fill='red')
         # lines between cities
-        canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
-                        road_map[ind][2], road_map[ind][3], arrow=LAST, fill='blue')
+        canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3], arrow=LAST, fill='blue')
         ind = (ind + 1) % ln
     print(road_map)
     main_win.mainloop()
