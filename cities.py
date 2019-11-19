@@ -177,7 +177,9 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
 
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
+    c_edge = 0.75
 
+    # removes minus values
     for line in data_road_map:
         line[2] = (float(line[2]) + 90)  # x
         line[3] = (float(line[3]) + 180)  # y
@@ -185,15 +187,17 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     x_min, y_min = func_index_list(min, 2, data_road_map), \
                    func_index_list(min, 3, data_road_map)
 
+    # shift all coordinates to one corner of canvas
     for line in data_road_map:
-        line[2] = (line[2] - x_min)  # x
-        line[3] = (line[3] - y_min)  # y
+        line[2] = (line[2] - (x_min - c_edge))  # x
+        line[3] = (line[3] - (y_min - c_edge))  # y
 
     x_max, y_max = func_index_list(max, 2, data_road_map), \
                    func_index_list(max, 3, data_road_map)
 
-    factor_x, factor_y = canvas_max_size_x / x_max, canvas_max_size_y / y_max
+    factor_x, factor_y = canvas_max_size_x / (x_max + c_edge), canvas_max_size_y / (y_max + c_edge)
 
+    # spreads data out through canvas
     for line in data_road_map:
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
@@ -205,10 +209,11 @@ def get_circle_coordinates(line):
     line input format: str,str,float(x),float(y)
     returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
     """
+    circ_size = 2.5
     x = line[2]
     y = line[3]
-    x1 = y1 = (x + 2.5)
-    x2 = y2 = (y - 2.5)
+    x1, y1 = (x + circ_size), (y + circ_size)
+    x2, y2 = (x - circ_size), (y - circ_size)
     return x1, y1, x2, y2
 
 
@@ -236,11 +241,11 @@ def visualise(road_map):
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-
-    # create lines on canvas
+    # create lines + circles on canvas
     ln = len(road_map)
     ind = 0
     for i in range(ln):
+        canv.create_oval(get_circle_coordinates(road_map[ind]))  # city circ
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3], arrow=LAST)
         ind = (ind + 1) % ln
