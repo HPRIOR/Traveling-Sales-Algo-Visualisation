@@ -229,21 +229,22 @@ def func_index_list(f, i, lst):
 
 
 def visualise(road_map):
-    canvas_size_x = 1000
-    canvas_size_y = 600
+    canvas_size_x = 1500
+    canvas_size_y = 700
     prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
 
 
     main_win = Tk()
-    main_win.geometry("%dx%d" % (canvas_size_x, canvas_size_y))
+    main_win.geometry("%dx%d" % (canvas_size_x+100, canvas_size_y+100))
 
     lab = Label(main_win, text='the total distance is: %f' % prior_compute)
     lab.pack()
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-
+    canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
+    canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
     # visualising road_map
     ln = len(road_map)
     ind = 0
@@ -251,10 +252,10 @@ def visualise(road_map):
         # dots for cities
         canv.create_oval(get_circle_coordinates(road_map[ind]))
         # text
-        canv.create_text(road_map[ind][2], road_map[ind][3], text=road_map[ind][1], anchor=N, fill='red')
+        canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind][1], anchor=N, fill='red')
         # lines between cities
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
-                         road_map[ind][2], road_map[ind][3], arrow=LAST)
+                        road_map[ind][2], road_map[ind][3], arrow=LAST, fill='blue')
         ind = (ind + 1) % ln
     print(road_map)
     main_win.mainloop()
