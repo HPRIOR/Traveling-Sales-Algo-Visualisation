@@ -172,6 +172,7 @@ def print_map(road_map):
 def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     """
     returns normalised data for visualisation function
+    format of return: state, city, x(float), y(float)
     """
 
     data_road_map = []
@@ -196,13 +197,25 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     for line in data_road_map:
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
-
     return data_road_map
+
+
+def get_circle_coordinates(line):
+    """
+    line input format: str,str,float(x),float(y)
+    returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
+    """
+    x = line[2]
+    y = line[3]
+    x1 = y1 = (x + 2.5)
+    x2 = y2 = (y - 2.5)
+    return x1, y1, x2, y2
 
 
 def func_index_list(f, i, lst):
     """
     applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
+    used to find the minimum and maximum values of coordinates in a nested list
     """
     new_list = []
     [new_list.append(float(line[i])) for line in lst]
@@ -211,23 +224,27 @@ def func_index_list(f, i, lst):
 
 
 def visualise(road_map):
-    main_win = Tk()
     canvas_size_x = 1000
     canvas_size_y = 600
     prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
-    lab = Label(main_win, text='the total distance is: %f' % prior_compute)
-    lab.pack(anchor=S)
-    canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
-    canv.pack(anchor=N)
-    canv.configure(highlightthickness=0, borderwidth=0)
 
+    main_win = Tk()
+
+    lab = Label(main_win, text='the total distance is: %f' % prior_compute)
+    lab.pack()
+
+    canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
+    canv.pack()
+
+    # create lines on canvas
     ln = len(road_map)
     ind = 0
     for i in range(ln):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3], arrow=LAST)
         ind = (ind + 1) % ln
+
     main_win.mainloop()
 
 
