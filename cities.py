@@ -229,8 +229,8 @@ def func_index_list(f, i, lst):
 
 
 def visualise(road_map):
-    canvas_size_x = 1200
-    canvas_size_y = 800
+    canvas_size_x = 1000
+    canvas_size_y = 600
     prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
 
@@ -256,7 +256,7 @@ def visualise(road_map):
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3], arrow=LAST)
         ind = (ind + 1) % ln
-
+    print(road_map)
     main_win.mainloop()
 
 
