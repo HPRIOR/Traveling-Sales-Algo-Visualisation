@@ -169,15 +169,19 @@ def print_map(road_map):
     print('The total distance travelled will be roughly %.2f' % total)
 
 
-def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
+def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
     returns normalised data for visualisation function
-    format of return: state, city, x(float), y(float)
+
+    removes minus values, shifts all to corner, then spreads them out
+    depending on size of the frame and edge of frame
+
+    return: state, city, x(float), y(float)
     """
 
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
-    c_edge = 3
+
 
     # removes minus values
     for line in data_road_map:
@@ -201,9 +205,11 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
     for line in data_road_map:
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
-
+        # flips along x axis due to tkinter's (0,0) being on the top-left
+        line[3] = canvas_max_size_y - line[3]
     return data_road_map
 
+    # which is y and which is x
 
 def get_circle_coordinates(line):
     """
@@ -213,8 +219,7 @@ def get_circle_coordinates(line):
     circ_size = 2.5
     x = line[2]
     y = line[3]
-    x1, y1 = (x + circ_size), (y + circ_size)
-    x2, y2 = (x - circ_size), (y - circ_size)
+    x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
     return x1, y1, x2, y2
 
 
@@ -233,7 +238,7 @@ def visualise(road_map):
     canvas_size_x = 1500
     canvas_size_y = 700
     prior_compute = compute_total_distance(road_map)
-    road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
+    road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y, 2)
 
 
     main_win = Tk()
