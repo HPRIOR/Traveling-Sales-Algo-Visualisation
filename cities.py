@@ -236,6 +236,7 @@ def visualise(road_map):
 
 
     main_win = Tk()
+    main_win.geometry("%dx%d" % (canvas_size_x, canvas_size_y))
 
     lab = Label(main_win, text='the total distance is: %f' % prior_compute)
     lab.pack()
