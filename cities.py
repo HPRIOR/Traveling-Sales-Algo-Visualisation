@@ -177,7 +177,7 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y):
 
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
-    c_edge = 0.75
+    c_edge = 3
 
     # removes minus values
     for line in data_road_map:
@@ -234,6 +234,7 @@ def visualise(road_map):
     prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y)
 
+
     main_win = Tk()
 
     lab = Label(main_win, text='the total distance is: %f' % prior_compute)
@@ -241,11 +242,16 @@ def visualise(road_map):
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    # create lines + circles on canvas
+
+    # visualising road_map
     ln = len(road_map)
     ind = 0
     for i in range(ln):
-        canv.create_oval(get_circle_coordinates(road_map[ind]))  # city circ
+        # dots for cities
+        canv.create_oval(get_circle_coordinates(road_map[ind]))
+        # text
+        canv.create_text(road_map[ind][2], road_map[ind][3], text=road_map[ind][1], anchor=N, fill='red')
+        # lines between cities
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3],
                          road_map[ind][2], road_map[ind][3], arrow=LAST)
         ind = (ind + 1) % ln
