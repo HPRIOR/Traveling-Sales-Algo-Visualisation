@@ -171,10 +171,12 @@ def print_map(road_map):
 
 def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
+    canvas_max_size_x,y: max size for canvas in x,y directions
+    c_edge: border size around edge of canvas
+
     returns normalised data for visualisation function
 
-    removes minus values, shifts all to corner, then spreads them out
-    depending on size of the frame and edge of frame
+    removes minus values, shifts all to corner, then spreads them out, makes corrects x,y for long,lat
 
     return: state, city, x(float), y(float)
     """
@@ -182,11 +184,12 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
 
-
     # removes minus values
     for line in data_road_map:
         line[2] = (float(line[2]) + 90)  # x
         line[3] = (float(line[3]) + 180)  # y
+        # long-lat
+        line[3], line[2] = line[2], line[3]
 
     x_min, y_min = func_index_list(min, 2, data_road_map), \
                    func_index_list(min, 3, data_road_map)
@@ -206,7 +209,7 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
         # flips along x axis due to tkinter's (0,0) being on the top-left
-        #line[3] = canvas_max_size_y - line[3]
+        line[3] = canvas_max_size_y - line[3]
     return data_road_map
 
 def get_circle_coordinates(line):
