@@ -281,10 +281,9 @@ def main():
         new_road_map = find_best_cycle(road_map)
         print('new road map: ', new_road_map)
         print('best calculated total distance : ', compute_total_distance(new_road_map))
-        visualise(new_road_map)
     else:
         print('Cannot calculate distance, input one or more cities')
-
+    visualise(new_road_map)
 
 if __name__ == "__main__":  # keep this in
     main()
