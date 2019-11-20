@@ -206,10 +206,8 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
         line[2] = line[2] * factor_x  # x
         line[3] = line[3] * factor_y  # y
         # flips along x axis due to tkinter's (0,0) being on the top-left
-        line[3] = canvas_max_size_y - line[3]
+        #line[3] = canvas_max_size_y - line[3]
     return data_road_map
-
-    # which is y and which is x
 
 def get_circle_coordinates(line):
     """
@@ -259,7 +257,7 @@ def visualise(road_map):
         # dots for cities
         canv.create_oval(get_circle_coordinates(road_map[ind]))
         # text
-        canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind-1][1], anchor=N, fill='red')
+        canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind-1][0], anchor=N, fill='red')
         # lines between cities
         canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3], arrow=LAST, fill='blue')
         ind = (ind + 1) % ln
