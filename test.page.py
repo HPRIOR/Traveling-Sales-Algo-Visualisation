@@ -2,23 +2,8 @@ from tkinter import *
 from cities import *
 import random
 
-'''root = Tk()
-root.title('This is an example window')
-root.geometry('500x500')
-c = Canvas(root, width=500, height=500)
-
-
-c.create_line(0,500,500,0)
-c.create_oval(25,25,35,35)
-
-c.addtag_all('hello')
-c.pack()
-root.mainloop()
-
-'''
-
-def draw_line():
-    x1, y1, x2, y2 = random.randint(0, 390), random.randint(0, 390), random.randint(0, 390), random.randint(0,390)
+'''def draw_line():
+    x1, y1, x2, y2 = random.randint(0, 490), random.randint(0, 390), random.randint(0, 490), random.randint(0, 390)
     c.create_line(x1, y1, x2, y2)
 
 
@@ -34,9 +19,10 @@ frame_2.pack_propagate(False)
 frame_1.pack_propagate(False)
 
 c = Canvas(frame_2, width=490, height=390, bg='linen')
-b = Button_1(Frame_1)
+b = Button(frame_1, text='button', command=draw_line)
 
 
+b.pack()
 frame_2.pack()
 border.pack()
 frame_1.pack()
@@ -44,3 +30,7 @@ frame_1.pack()
 c.pack()
 
 root.mainloop()
+'''
+
+list_1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+print(sorted(list_1[1]))
