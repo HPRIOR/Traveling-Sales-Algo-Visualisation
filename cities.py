@@ -227,7 +227,7 @@ def get_circle_coordinates(line):
 def func_index_list(f, i, lst):
     """
     applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
-    used to find the minimum and maximum values of coordinates in a nested list
+    used to find the minimu m and maximum values of coordinates in a nested list
     """
     new_list = []
     [new_list.append(float(line[i])) for line in lst]
