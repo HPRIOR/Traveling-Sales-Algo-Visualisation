@@ -212,6 +212,7 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
         line[3] = canvas_max_size_y - line[3]
     return data_road_map
 
+
 def get_circle_coordinates(line):
     """
     line input format: str,str,float(x),float(y)
@@ -235,23 +236,27 @@ def func_index_list(f, i, lst):
     return func
 
 
+def map_icon(canvas, origin_x, origin_y):
+    icon = canvas.create_arc((origin_x - 50), (origin_x - 50), (origin_y + 50), (origin_y + 50), start=70, extent=40,
+                             fill='green', activefill='red', activewidth=2.0)
+
+
 def visualise(road_map):
     canvas_size_x = 1500
     canvas_size_y = 700
     prior_compute = compute_total_distance(road_map)
     road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y, 2)
 
-
     main_win = Tk()
-    main_win.geometry("%dx%d" % (canvas_size_x+100, canvas_size_y+100))
+    main_win.geometry("%dx%d" % (canvas_size_x + 100, canvas_size_y + 100))
 
     lab = Label(main_win, text='the total distance is: %f' % prior_compute)
     lab.pack()
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
-    canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
+    canv.create_line(0, (canvas_size_y / 2), canvas_size_x, canvas_size_y / 2)
+    canv.create_line(canvas_size_x / 2, 0, canvas_size_x / 2, canvas_size_y)
 
     # visualising road_map
     ln = len(road_map)
@@ -259,10 +264,13 @@ def visualise(road_map):
     for i in range(ln):
         # dots for cities
         canv.create_oval(get_circle_coordinates(road_map[ind]))
+        # map_icons
+        map_icon(canv, road_map[ind][2], road_map[ind][3])
         # text
-        # canv.create_text(road_map[ind-1][2], road_map[ind-1][3], text=road_map[ind-1][0], anchor=N, fill='red')
+        canv.create_text(road_map[ind - 1][2], road_map[ind - 1][3], text=road_map[ind - 1][0], anchor=N, fill='red')
         # lines between cities
-        canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3], arrow=LAST, fill='blue')
+        canv.create_line(road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3], arrow=LAST,
+                         fill='blue')
         ind = (ind + 1) % ln
     print(road_map)
     main_win.mainloop()
@@ -284,6 +292,7 @@ def main():
     else:
         print('Cannot calculate distance, input one or more cities')
     visualise(new_road_map)
+
 
 if __name__ == "__main__":  # keep this in
     main()
