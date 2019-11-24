@@ -250,8 +250,8 @@ def visualise(road_map):
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    # canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
-    # canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
+    canv.create_line(0, (canvas_size_y/2), canvas_size_x, canvas_size_y/2)
+    canv.create_line(canvas_size_x/2, 0, canvas_size_x/2, canvas_size_y)
 
     # visualising road_map
     ln = len(road_map)
