@@ -95,8 +95,6 @@ def visualise(road_map):
     for i in range(ln):
         # dots for cities
         canv.create_oval(get_circle_coordinates(road_map[ind]))
-        # map_icons
-        map_icon(canv, road_map[ind][2], road_map[ind][3])
         # text
         canv.create_text(road_map[ind - 1][2], road_map[ind - 1][3], text=road_map[ind - 1][0], anchor=N, fill='red')
         # lines between cities
