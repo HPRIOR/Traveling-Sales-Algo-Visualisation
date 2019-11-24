@@ -1,4 +1,4 @@
-import cities
+from cities import *
 
 def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
