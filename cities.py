@@ -2,7 +2,6 @@
 from tkinter import *
 import random
 import math
-from visualiser import *
 
 
 def read_cities(file_name):

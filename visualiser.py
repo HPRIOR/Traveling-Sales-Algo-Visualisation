@@ -1,4 +1,8 @@
+from tkinter import *
 from cities import *
+
+
+road_map = read_cities('city-data.txt')
 
 def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
@@ -86,8 +90,7 @@ def visualise(road_map):
 
     canv = Canvas(main_win, height=canvas_size_y, width=canvas_size_x)
     canv.pack()
-    canv.create_line(0, (canvas_size_y / 2), canvas_size_x, canvas_size_y / 2)
-    canv.create_line(canvas_size_x / 2, 0, canvas_size_x / 2, canvas_size_y)
+
 
     # visualising road_map
     ln = len(road_map)
@@ -103,3 +106,7 @@ def visualise(road_map):
         ind = (ind + 1) % ln
     print(road_map)
     main_win.mainloop()
+
+visualise(road_map)
+
+

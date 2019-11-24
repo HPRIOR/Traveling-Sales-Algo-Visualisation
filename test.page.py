@@ -36,7 +36,7 @@ def map_icon(canvas, origin_x, origin_y, text):
 
 map_icon(c, 250, 250, 'map icon')
 
-map_icon(c, 300, 300, 'map icon')
+map_icon(c, 300, 20, 'map icon')
 
 # c.create_arc(200, 200, 300, 300)
 
