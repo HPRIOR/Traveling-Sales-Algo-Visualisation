@@ -4,6 +4,29 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
+def get_circle_coordinates(line):
+    """
+    line input format: str,str,float(x),float(y)
+    returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
+    """
+    circ_size = 2.5
+    x = line[2]
+    y = line[3]
+    x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
+    return x1, y1, x2, y2
+
+
+def func_index_list(f, i, lst):
+    """
+    applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
+    used to find the minimu m and maximum values of coordinates in a nested list
+    """
+    new_list = []
+    [new_list.append(float(line[i])) for line in lst]
+    func = f(new_list)
+    return func
+
+
 def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
     canvas_max_size_x,y: max size for canvas in x,y directions
@@ -78,7 +101,6 @@ def visualise(road_map):
     # canvas for coordinates
     canv = Canvas(canvas_frame, width=canvas_size_x, height=canvas_size_y)
     canv.grid(row=0, column=0)
-
 
     window.mainloop()
 
