@@ -160,7 +160,7 @@ def visualise(road_map):
     canvas_size_x = 1500
     canvas_size_y = 700
 
-    # the total distance prior to data normalisation
+    # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
     distances = distances_list(road_map)
     best_cycle = find_best_cycle(road_map)
@@ -207,7 +207,7 @@ def visualise(road_map):
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
         # generate city text
-        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3]-5, text=road_map[ind - 1][0], tag=city_tag[ind - 1])
+        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3] - 5, text=road_map[ind - 1][0], tag=city_tag[ind - 1])
         # generate distances
 
         ind = (ind + 1) % ln
