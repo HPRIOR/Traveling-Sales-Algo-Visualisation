@@ -7,8 +7,9 @@ road_map = read_cities('city-data.txt')
 def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     """
     Ovals used as 'buttons' to reveal information
-    Binding events requires variable to identify canvas object, hence i = canvas in loop
-    For each oval object, 'leave and Enter' events are created which correspond to Map Data
+    Binding events to canvas objects requires a variable to identify
+        canvas object, hence i = canvas... in loop
+    For each oval object, 'Leave' and 'Enter' events are created which correspond to map data
     """
     ind = 0
     for i in range(ln):
@@ -32,7 +33,7 @@ def lambda_func(canvas, f, lst, index):
 
 def raise_lower_tag(tag):
     """
-    gives the tages above and below input tag
+    gives the tags above and below input tag
     """
     if len(tag) < 3:
         tag_minus, tag_plus = int(tag[1]) - 1,int(tag[1]) + 1
