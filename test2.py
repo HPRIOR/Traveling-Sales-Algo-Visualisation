@@ -25,6 +25,7 @@ def lambda_func(canvas, f, lst, index, ln):
     """
     this was needed because the ordinary lambda functions in circle_button_gen would
     not update their indices, which are required to match generate tag identifiers
+    HO function allow for the use of both 'leave' and 'enter' function
     """
     return lambda e: f(e, canvas, lst[index], ln)
 
@@ -34,7 +35,7 @@ def raise_lower_tag(tag):
     gives the tags above and below input tag
     """
     if len(tag) < 3:
-        tag_minus, tag_plus = int(tag[1]) - 1,int(tag[1]) + 1
+        tag_minus, tag_plus = int(tag[1]) - 1, int(tag[1]) + 1
         tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
         return tag_below, tag_above
     else:
@@ -68,14 +69,14 @@ def enter(event, canvas, tag, ln):
     Shows object on canvas with given tag
     """
     # if on the last city: make the next tag the first city
-    if tag == 'C' + str(ln-1):
+    if tag == 'C' + str(ln - 1):
         canvas.itemconfigure(tag, state=NORMAL)
         canvas.itemconfigure('C0', state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
     elif tag == 'C0':
-    # if on the first city: make the previous tag the first city
+        # if on the first city: make the previous tag the first city
         canvas.itemconfigure(tag, state=NORMAL)
-        canvas.itemconfigure('C' + str(ln-1), state=NORMAL)
+        canvas.itemconfigure('C' + str(ln - 1), state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
     elif int(tag[1]) != 0:
         canvas.itemconfigure(tag, state=NORMAL)
@@ -118,10 +119,9 @@ def line_gen(canvas, x1, y1, x2, y2):
 
 
 def start(canvas, canvas_max_y, road_map):
-    upper_y_coord = (canvas_max_y + road_map[0][3])
-    print(upper_y_coord)
-    canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], upper_y_coord, fill='red')
-
+    upper_y_coord = (canvas_max_y - (road_map[0][3]))
+    print(canvas_max_y, '-', road_map[0][3], '=', upper_y_coord)
+    canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], canvas_max_y+upper_y_coord, fill='red')
 
 
 def get_circle_coordinates(line):
