@@ -4,6 +4,49 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
+def circle_button_gen(canvas, ln, road_map, distance_tags, city_text_tags):
+    ind = 0
+    for i in range(ln):
+        i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
+
+        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind]))
+        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind - 1]))
+        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, city_text_tags[ind]))
+
+        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_text_tags[ind]))
+        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, distance_tags[ind - 1]))
+        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_text_tags[ind]))
+
+        ind = (ind + 1) % ln
+
+        # need to make show text functions which configure text generated to show
+
+
+def hide_text(event, canvas, tag):
+    canvas.itemconfigure(tag, state=HIDDEN)
+
+
+def show_text(event, canvas, tag):
+    canvas.itemconfigure(tag, state=NORMAL)
+
+
+def distance_text_tag_gen():
+    pass
+
+
+def city_text_tags_gen():
+    pass
+
+
+def city_text_gen(canvas, x, y, text, tag):
+    canvas.create_text(x, y, text=text, anchor=N, fill='red', tag=tag, state=HIDDEN)
+
+
+def line_gen(canvas, x1, y1, x2, y2, tag):
+    canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue', tag=tag, state=HIDDEN)
+
+
+
 def get_circle_coordinates(line):
     """
     line input format: str,str,float(x),float(y)

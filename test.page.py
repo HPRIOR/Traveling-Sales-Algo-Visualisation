@@ -25,20 +25,24 @@ def text_map_icon(event, canvas, origin_x, origin_y, text):
     canvas.create_text(origin_x, origin_y - 60, text=text, tag='icon')
 
 
-def map_icon(canvas, origin_x, origin_y, text):
-    icon = canvas.create_arc((origin_x - 50), (origin_y + 50), (origin_y + 50), (origin_x - 50), start=70, extent=40,
-                             fill='green', activefill='red', activewidth=2.0)
+def map_icon(canvas, x):
+    for i in range(x):
+        i = canvas.create_oval(random.randint(0, 500), random.randint(0, 500), random.randint(0, 500), random.randint(0, 500), fill='green', activefill='red')
+        print(i)
+        canvas.tag_bind(i, '<Enter>', lambda e: text_map_icon(e, c, 250, 250, 'hello'))
+        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, c, 'icon'))
 
-    canvas.tag_bind(icon, '<Enter>', lambda e: text_map_icon(e, c, origin_x, origin_y, text))
-    canvas.tag_bind(icon, '<Leave>', lambda e: hide_text(e, c, 'icon'))
+        # works just about
 
 
 
-map_icon(c, 250, 250, 'map icon')
 
-map_icon(c, 300, 20, 'map icon')
 
-# c.create_arc(200, 200, 300, 300)
+
+map_icon(c, 10)
+
+
+
 
 c.pack()
 
