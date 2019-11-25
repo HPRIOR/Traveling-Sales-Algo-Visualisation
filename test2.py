@@ -4,55 +4,80 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def circle_button_gen(canvas, ln, road_map, distance_tags, city_text_tags):
+def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
+    """
+    Ovals used as 'buttons' to reveal information
+    Binding events requires variable to identify canvas object, hence i = canvas in loop
+    For each oval object, 'leave and Enter' events are created which correspond to Map Data
+    """
     ind = 0
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
-
-        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind]))
-        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind - 1]))
-        canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, city_text_tags[ind]))
-
-        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_text_tags[ind]))
-        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, distance_tags[ind - 1]))
-        canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_text_tags[ind]))
+        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind]))
+        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind - 1]))
+        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, city_tags[ind-1]))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, show, city_tags, ind))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, hide, city_tags, ind))
+        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city__tags[ind]))
+        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, distance_tags[ind - 1]))
+        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_tags[ind]))
 
         ind = (ind + 1) % ln
 
         # need to make show text functions which configure text generated to show
 
 
-def hide_text(event, canvas, tag):
+def lambda_func(canvas, f, lst, index):
+    """
+    this was needed because the ordinary lambda functions in circle_button_gen would
+    not update their indices which are require to match generate tag identifiers
+    """
+    return lambda e: f(e, canvas, lst[index])
+
+
+def hide(event, canvas, tag):
+    """
+    Hides object on canvas with given tag
+    """
     canvas.itemconfigure(tag, state=HIDDEN)
 
 
-def show_text(event, canvas, tag):
+def show(event, canvas, tag):
+    """
+    Shows object on canvas with given tag
+    """
     canvas.itemconfigure(tag, state=NORMAL)
 
 
-def distance_text_tag_gen(ln):
+def tag_gen(ln, s):
+    """
+    Generates tags every item on list, prefixed with string (s)
+    e.g s1, s2, s3...sN
+    """
     tag_list = []
     for i in range(ln):
-        var = 'D' + str(i)
+        var = s + str(i)
         tag_list.append(var)
     return tag_list
 
 
-def city_text_tags_gen(ln):
-    tag_list = []
-    for i in range(ln):
-        var = 'C' + str(i)
-        tag_list.append(var)
-    return tag_list
+def text_gen(canvas, x, y, text, tag):
+    """
+    Generate text at coordinates -  with tag identifier
+    """
+    canvas.create_text(x, y, text=text, anchor=S, fill='black', tag=tag, state=HIDDEN)
 
 
-def city_text_gen(canvas, x, y, text, tag):
-    canvas.create_text(x, y, text=text, anchor=N, fill='red', tag=tag, state=HIDDEN)
+def line_text_gen(canvas, x, y, text, tag):
+    """
+    Generate text between two coordinates, with tag identifier
+    """
+    # coordinates in the middle of line
+    pass
 
 
-def line_gen(canvas, x1, y1, x2, y2, tag):
-    canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue', tag=tag, state=HIDDEN)
-
+def line_gen(canvas, x1, y1, x2, y2):
+    canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue')
 
 
 def get_circle_coordinates(line):
@@ -60,7 +85,7 @@ def get_circle_coordinates(line):
     line input format: str,str,float(x),float(y)
     returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
     """
-    circ_size = 2.5
+    circ_size = 4
     x = line[2]
     y = line[3]
     x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
@@ -117,15 +142,34 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
     return data_road_map
 
 
+def distances_list(road_map):
+    """
+    returns a list of distances between point with [-1] being the distance between the first and last point
+    """
+    distance_list = []
+    ln = len(road_map)
+    ind = 0
+    for i in range(ln):
+        distance_list.append(compute_individual_distance(road_map[ind - 1][2],
+                                                         road_map[ind - 1][3],
+                                                         road_map[ind][2],
+                                                         road_map[ind][3]))
+        ind = (ind + 1) % ln
+    return distance_list
+
+
 def visualise(road_map):
     canvas_size_x = 1500
     canvas_size_y = 700
 
     # the total distance prior to data normalisation
     prior_compute = compute_total_distance(road_map)
+    distances = distances_list(road_map)
+    best_cycle = find_best_cycle(road_map)
+    post_compute = compute_total_distance(best_cycle)
 
     # normalise data
-    road_map = change_visualise_data(road_map, canvas_size_x, canvas_size_y, 2)
+    road_map = change_visualise_data(best_cycle, canvas_size_x, canvas_size_y, c_edge=2)
 
     # create main tk window
     window = Tk()
@@ -153,6 +197,24 @@ def visualise(road_map):
     canv = Canvas(canvas_frame, width=canvas_size_x, height=canvas_size_y)
     canv.grid(row=0, column=0)
 
+    ln = len(road_map)  # length needed for functions below
+
+    # create tags to identify text
+    distance_tag = tag_gen(ln, 'D')
+    city_tag = tag_gen(ln, 'C')
+
+    # create lines
+    ind = 0
+    for i in range(ln):
+        # generate lines
+        line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
+        # generate city text
+        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], text=road_map[ind - 1][0], tag=city_tag[ind - 1])
+        # generate distances
+
+        ind = (ind + 1) % ln
+
+    oval_button_gen(canv, ln, road_map, distance_tag, city_tags=city_tag)
     window.mainloop()
 
 
