@@ -14,8 +14,8 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, enter, city_tags, ind))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, leave, city_tags, ind))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=enter, lst=city_tags, index=ind))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=leave, lst=city_tags, index=ind))
 
         ind = (ind + 1) % ln
 
@@ -30,18 +30,45 @@ def lambda_func(canvas, f, lst, index):
     return lambda e: f(e, canvas, lst[index])
 
 
+def raise_lower_tag(tag):
+    """
+    gives the tages above and below input tag
+    """
+    if len(tag) < 3:
+        tag_minus, tag_plus = int(tag[1]) - 1,int(tag[1]) + 1
+        tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
+        return tag_below, tag_above
+    else:
+        tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
+        tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
+        return tag_below, tag_above
+
+
 def leave(event, canvas, tag):
     """
     Hides object on canvas with given tag
     """
-    canvas.itemconfigure(tag, state=HIDDEN)
+    if tag[0] != 0:
+        canvas.itemconfigure(tag, state=HIDDEN)
+        canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
+    else:
+        canvas.itemconfigure(tag, state=HIDDEN)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
 
 
 def enter(event, canvas, tag):
     """
     Shows object on canvas with given tag
     """
-    canvas.itemconfigure(tag, state=NORMAL)
+    if tag[0] != 0:
+        canvas.itemconfigure(tag, state=NORMAL)
+        canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
+    else:
+        canvas.itemconfigure(tag, state=NORMAL)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
+
 
 
 def tag_gen(ln, s):
@@ -158,7 +185,7 @@ def distances_list(road_map):
 
 def visualise(road_map):
     canvas_size_x = 1500
-    canvas_size_y = 700
+    canvas_size_y = 900
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
@@ -172,16 +199,16 @@ def visualise(road_map):
     # create main tk window
     window = Tk()
     window.title('Traveling salesperson app')
-    window.geometry('+200+20')
+    window.geometry('+200+0')
     window.resizable(FALSE, FALSE)
 
     # create frames
     canvas_frame = Frame(window, width=canvas_size_x, height=canvas_size_y, bg='gray89')
     divide_canvas = Frame(window, width=1500, height=2, bg='black')
     bottom_frame = Frame(window, width=1500, height=200)
-    input_frame = Frame(bottom_frame, width=749, height=200, bg='gray89')
-    divide_inpinf = Frame(bottom_frame, width=2, height=200, bg='black')
-    info_frame = Frame(bottom_frame, width=749, height=200, bg='gray89')
+    input_frame = Frame(bottom_frame, width=749, height=100, bg='gray89')
+    divide_inpinf = Frame(bottom_frame, width=2, height=100, bg='black')
+    info_frame = Frame(bottom_frame, width=749, height=100, bg='gray89')
 
     # organise frames
     canvas_frame.grid(row=0, column=0)
