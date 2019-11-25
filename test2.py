@@ -30,12 +30,20 @@ def show_text(event, canvas, tag):
     canvas.itemconfigure(tag, state=NORMAL)
 
 
-def distance_text_tag_gen():
-    pass
+def distance_text_tag_gen(ln):
+    tag_list = []
+    for i in range(ln):
+        var = 'D' + str(i)
+        tag_list.append(var)
+    return tag_list
 
 
-def city_text_tags_gen():
-    pass
+def city_text_tags_gen(ln):
+    tag_list = []
+    for i in range(ln):
+        var = 'C' + str(i)
+        tag_list.append(var)
+    return tag_list
 
 
 def city_text_gen(canvas, x, y, text, tag):
