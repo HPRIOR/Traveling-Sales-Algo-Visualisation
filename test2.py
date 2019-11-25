@@ -185,7 +185,7 @@ def distances_list(road_map):
 
 def visualise(road_map):
     canvas_size_x = 1500
-    canvas_size_y = 900
+    canvas_size_y = 825
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
@@ -199,7 +199,7 @@ def visualise(road_map):
     # create main tk window
     window = Tk()
     window.title('Traveling salesperson app')
-    window.geometry('+200+0')
+    window.geometry('+100+0')
     window.resizable(FALSE, FALSE)
 
     # create frames
