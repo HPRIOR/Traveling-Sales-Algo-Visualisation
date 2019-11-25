@@ -207,7 +207,7 @@ def visualise(road_map):
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
         # generate city text
-        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], text=road_map[ind - 1][0], tag=city_tag[ind - 1])
+        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3]-5, text=road_map[ind - 1][0], tag=city_tag[ind - 1])
         # generate distances
 
         ind = (ind + 1) % ln
