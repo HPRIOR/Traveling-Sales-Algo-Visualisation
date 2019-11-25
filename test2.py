@@ -13,14 +13,9 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     ind = 0
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
-        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind]))
-        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, distance_tags[ind - 1]))
-        # canvas.tag_bind(i, '<Enter>', lambda e: show_text(e, canvas, city_tags[ind-1]))
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, show, city_tags, ind))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, hide, city_tags, ind))
-        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city__tags[ind]))
-        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, distance_tags[ind - 1]))
-        # canvas.tag_bind(i, '<Leave>', lambda e: hide_text(e, canvas, city_tags[ind]))
+
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, enter, city_tags, ind))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, leave, city_tags, ind))
 
         ind = (ind + 1) % ln
 
@@ -30,19 +25,19 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
 def lambda_func(canvas, f, lst, index):
     """
     this was needed because the ordinary lambda functions in circle_button_gen would
-    not update their indices which are require to match generate tag identifiers
+    not update their indices, which are required to match generate tag identifiers
     """
     return lambda e: f(e, canvas, lst[index])
 
 
-def hide(event, canvas, tag):
+def leave(event, canvas, tag):
     """
     Hides object on canvas with given tag
     """
     canvas.itemconfigure(tag, state=HIDDEN)
 
 
-def show(event, canvas, tag):
+def enter(event, canvas, tag):
     """
     Shows object on canvas with given tag
     """
@@ -77,6 +72,9 @@ def line_text_gen(canvas, x, y, text, tag):
 
 
 def line_gen(canvas, x1, y1, x2, y2):
+    """
+    Generates lines between two coordinates
+    """
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue')
 
 
@@ -95,7 +93,7 @@ def get_circle_coordinates(line):
 def func_index_list(f, i, lst):
     """
     applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
-    used to find the minimu m and maximum values of coordinates in a nested list
+    used to find the minimum and maximum values of coordinates in a nested list
     """
     new_list = []
     [new_list.append(float(line[i])) for line in lst]
@@ -144,7 +142,7 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
 
 def distances_list(road_map):
     """
-    returns a list of distances between point with [-1] being the distance between the first and last point
+    returns a list of distances between point with last item [-1] being the distance between the first and last point
     """
     distance_list = []
     ln = len(road_map)
