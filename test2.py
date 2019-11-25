@@ -15,20 +15,18 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=enter, lst=city_tags, index=ind))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=leave, lst=city_tags, index=ind))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=enter, lst=city_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=leave, lst=city_tags, index=ind, ln=ln))
 
         ind = (ind + 1) % ln
 
-        # need to make show text functions which configure text generated to show
 
-
-def lambda_func(canvas, f, lst, index):
+def lambda_func(canvas, f, lst, index, ln):
     """
     this was needed because the ordinary lambda functions in circle_button_gen would
     not update their indices, which are required to match generate tag identifiers
     """
-    return lambda e: f(e, canvas, lst[index])
+    return lambda e: f(e, canvas, lst[index], ln)
 
 
 def raise_lower_tag(tag):
@@ -45,31 +43,44 @@ def raise_lower_tag(tag):
         return tag_below, tag_above
 
 
-def leave(event, canvas, tag):
+def leave(event, canvas, tag, ln):
     """
     Hides object on canvas with given tag
     """
-    if tag[0] != 0:
+    # if on the last city: make the next tag the first city
+    if tag == 'C' + str(ln - 1):
+        canvas.itemconfigure(tag, state=HIDDEN)
+        canvas.itemconfigure('C0', state=HIDDEN)
+        canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
+    # if on the first city: make the previous tag the first city
+    elif tag == 'C0':
+        canvas.itemconfigure(tag, state=HIDDEN)
+        canvas.itemconfigure('C' + str(ln - 1), state=HIDDEN)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
+    elif int(tag[1]) != 0:
         canvas.itemconfigure(tag, state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
-    else:
-        canvas.itemconfigure(tag, state=HIDDEN)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
 
 
-def enter(event, canvas, tag):
+def enter(event, canvas, tag, ln):
     """
     Shows object on canvas with given tag
     """
-    if tag[0] != 0:
+    # if on the last city: make the next tag the first city
+    if tag == 'C' + str(ln-1):
+        canvas.itemconfigure(tag, state=NORMAL)
+        canvas.itemconfigure('C0', state=NORMAL)
+        canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
+    elif tag == 'C0':
+    # if on the first city: make the previous tag the first city
+        canvas.itemconfigure(tag, state=NORMAL)
+        canvas.itemconfigure('C' + str(ln-1), state=NORMAL)
+        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
+    elif int(tag[1]) != 0:
         canvas.itemconfigure(tag, state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
-    else:
-        canvas.itemconfigure(tag, state=NORMAL)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
-
 
 
 def tag_gen(ln, s):
@@ -91,7 +102,7 @@ def text_gen(canvas, x, y, text, tag):
     canvas.create_text(x, y, text=text, anchor=S, fill='black', tag=tag, state=HIDDEN)
 
 
-def line_text_gen(canvas, x, y, text, tag):
+def distance_text_gen(canvas, x, y, text, tag):
     """
     Generate text between two coordinates, with tag identifier
     """
@@ -104,6 +115,13 @@ def line_gen(canvas, x1, y1, x2, y2):
     Generates lines between two coordinates
     """
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue')
+
+
+def start(canvas, canvas_max_y, road_map):
+    upper_y_coord = (canvas_max_y + road_map[0][3])
+    print(upper_y_coord)
+    canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], upper_y_coord, fill='red')
+
 
 
 def get_circle_coordinates(line):
@@ -121,7 +139,7 @@ def get_circle_coordinates(line):
 def func_index_list(f, i, lst):
     """
     applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
-    used to find the minimum and maximum values of coordinates in a nested list
+    used to find the minimum and maximum values of coordinates in a nested list (change_v_data)
     """
     new_list = []
     [new_list.append(float(line[i])) for line in lst]
@@ -228,6 +246,9 @@ def visualise(road_map):
     # create tags to identify text
     distance_tag = tag_gen(ln, 'D')
     city_tag = tag_gen(ln, 'C')
+
+    # create start and finish indicators
+    start(canv, canvas_size_y, road_map)
 
     # create lines
     ind = 0
