@@ -15,8 +15,8 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=enter, lst=city_tags, index=ind, ln=ln))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=leave, lst=city_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, lst=city_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, lst=city_tags, index=ind, ln=ln))
 
         ind = (ind + 1) % ln
 
@@ -42,9 +42,10 @@ def raise_lower_tag(tag):
         tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
         tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
         return tag_below, tag_above
+    # I think i could encapsulate the control statements for hide and show here
 
 
-def leave(event, canvas, tag, ln):
+def hide(event, canvas, tag, ln):
     """
     Hides object on canvas with given tag
     """
@@ -64,7 +65,7 @@ def leave(event, canvas, tag, ln):
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
 
 
-def enter(event, canvas, tag, ln):
+def show(event, canvas, tag, ln):
     """
     Shows object on canvas with given tag
     """
