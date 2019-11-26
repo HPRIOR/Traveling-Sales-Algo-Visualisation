@@ -1,7 +1,7 @@
 from tkinter import *
 from cities import *
 
-road_map = read_cities('city-data.txt')
+road_map = read_cities('test-city-data.txt')
 
 
 def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
