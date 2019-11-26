@@ -119,10 +119,9 @@ def line_gen(canvas, x1, y1, x2, y2):
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue')
 
 
-def start(canvas, canvas_max_y, road_map):
-    upper_y_coord = (canvas_max_y - (road_map[0][3]))
-    print(canvas_max_y, '-', road_map[0][3], '=', upper_y_coord)
-    canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], canvas_max_y+upper_y_coord, fill='red')
+def start(canvas, road_map):
+    canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], 20, fill='red')
+    canvas.create_text(road_map[0][2], 10, text='Start', fill='red')
 
 
 def get_circle_coordinates(line):
@@ -249,7 +248,7 @@ def visualise(road_map):
     city_tag = tag_gen(ln, 'C')
 
     # create start and finish indicators
-    start(canv, canvas_size_y, road_map)
+    start(canv, road_map)
 
     # create lines
     ind = 0
