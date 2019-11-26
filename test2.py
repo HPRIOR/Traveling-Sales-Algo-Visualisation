@@ -97,12 +97,11 @@ def tag_gen(ln, s):
     return tag_list
 
 
-def text_gen(canvas, x, y, text, tag):
+def text_gen(canvas, x, y, text, tag, state, anchor):
     """
     Generate text at coordinates -  with tag identifier
     """
-    canvas.create_text(x, y, text=text, anchor=S, fill='black', tag=tag, state=HIDDEN)
-
+    canvas.create_text(x, y, text=text, anchor=anchor, fill='black', tag=tag, state=state)
 
 def distance_text_gen(canvas, x, y, text, tag):
     """
@@ -256,7 +255,9 @@ def visualise(road_map):
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
         # generate city text
-        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3] - 5, text=road_map[ind - 1][0], tag=city_tag[ind - 1])
+        text_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3] - 5, text=road_map[ind - 1][0], tag=city_tag[ind - 1],
+                 state=HIDDEN, anchor=S)
+
         # generate distances
 
         ind = (ind + 1) % ln
