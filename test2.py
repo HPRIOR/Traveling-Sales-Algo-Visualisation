@@ -41,10 +41,10 @@ def raise_lower_tag(tag, ln):
     tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
 
     if tag == tag[0] + '0':
-        tag_below = tag[0] + str(ln-1)
+        tag_below = tag[0] + str(ln - 1)
         tag_above = tag[0] + str(tag_plus)
         return tag_below, tag_above
-    elif tag == tag[0] + str(ln-1):
+    elif tag == tag[0] + str(ln - 1):
         tag_below = tag[0] + str(tag_minus)
         tag_above = tag[0] + '0'
         return tag_below, tag_above
@@ -53,55 +53,25 @@ def raise_lower_tag(tag, ln):
         return tag_below, tag_above
 
 
-
-
-
-
-''' tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
-tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
-return tag_below, tag_above'''
-
-
-
-
 def hide(event, canvas, tag, ln):
     """
     Hides object on canvas with given tag
     """
-    # if on the last city: make the next tag the first city
-    if tag == 'A' + str(ln - 1):
-        canvas.itemconfigure(tag, state=HIDDEN)
-        canvas.itemconfigure('C0', state=HIDDEN)
-        canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
-    # if on the first city: make the previous tag the first city
-    elif tag == 'A0':
-        canvas.itemconfigure(tag, state=HIDDEN)
-        canvas.itemconfigure('A' + str(ln - 1), state=HIDDEN)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
-    else:
-        canvas.itemconfigure(tag, state=HIDDEN)
-        canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
+
+    canvas.itemconfigure(tag, state=HIDDEN)
+    canvas.itemconfigure(raise_lower_tag(tag, ln)[0], state=HIDDEN)
+    canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=HIDDEN)
 
 
 def show(event, canvas, tag, ln):
     """
     Shows object on canvas with given tag
     """
-    if tag == 'C' + str(ln - 1):
-        # if on the last city: make the next tag the first city
-        canvas.itemconfigure(tag, state=NORMAL)
-        canvas.itemconfigure('C0', state=NORMAL)
-        canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
-    elif tag == 'C0':
-        # if on the first city: make the previous tag the first city
-        canvas.itemconfigure(tag, state=NORMAL)
-        canvas.itemconfigure('C' + str(ln - 1), state=NORMAL)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
-    else:
-        canvas.itemconfigure(tag, state=NORMAL)
-        canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
-        canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
+
+    canvas.itemconfigure(tag, state=NORMAL)
+    canvas.itemconfigure(raise_lower_tag(tag, ln)[0], state=NORMAL)
+    canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=NORMAL)
+
 
 
 def tag_gen(ln, s):
