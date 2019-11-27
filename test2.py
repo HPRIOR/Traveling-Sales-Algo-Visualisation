@@ -4,21 +4,23 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
+def oval_button_gen(canvas, ln, road_map, all_tags):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
         canvas object, hence 'i = canvas...' in loop
     For each oval object, 'Leave' and 'Enter' events are created which correspond to map data
     city_tag is a list of tags associated with hidden city texts, index selects the right text
-        corresponding to point on map
+        corresponding to point on map; len used to control first and last anomalies due to circular
+        indexing
+
     """
     ind = 0
     for i in range(ln):
         i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, lst=city_tags, index=ind, ln=ln))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, lst=city_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, lst=all_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, lst=all_tags, index=ind, ln=ln))
 
         ind = (ind + 1) % ln
 
@@ -32,14 +34,34 @@ def lambda_func(canvas, f, lst, index, ln):
     return lambda e: f(e, canvas, lst[index], ln)
 
 
-def raise_lower_tag(tag):
+def raise_lower_tag(tag, ln):
     """
     gives the tags above and below input tag
     """
     tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
-    tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
-    return tag_below, tag_above
-    # I think i could encapsulate the control statements for hide and show here
+
+    if tag == tag[0] + '0':
+        tag_below = tag[0] + str(ln-1)
+        tag_above = tag[0] + str(tag_plus)
+        return tag_below, tag_above
+    elif tag == tag[0] + str(ln-1):
+        tag_below = tag[0] + str(tag_minus)
+        tag_above = tag[0] + '0'
+        return tag_below, tag_above
+    else:
+        tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
+        return tag_below, tag_above
+
+
+
+
+
+
+''' tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
+tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
+return tag_below, tag_above'''
+
+
 
 
 def hide(event, canvas, tag, ln):
@@ -47,14 +69,14 @@ def hide(event, canvas, tag, ln):
     Hides object on canvas with given tag
     """
     # if on the last city: make the next tag the first city
-    if tag == 'C' + str(ln - 1):
+    if tag == 'A' + str(ln - 1):
         canvas.itemconfigure(tag, state=HIDDEN)
         canvas.itemconfigure('C0', state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
     # if on the first city: make the previous tag the first city
-    elif tag == 'C0':
+    elif tag == 'A0':
         canvas.itemconfigure(tag, state=HIDDEN)
-        canvas.itemconfigure('C' + str(ln - 1), state=HIDDEN)
+        canvas.itemconfigure('A' + str(ln - 1), state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
     else:
         canvas.itemconfigure(tag, state=HIDDEN)
@@ -257,8 +279,8 @@ def visualise(road_map):
     ln = len(road_map)  # length needed for functions below
 
     # create tags to identify text
-    distance_tag = tag_gen(ln, 'D')
-    city_tag = tag_gen(ln, 'C')
+
+    all_tag = tag_gen(ln, 'A')
 
     # create start and finish indicators
     start(canv, road_map)
@@ -270,14 +292,14 @@ def visualise(road_map):
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
-                 tag=city_tag[ind - 1],
+                 tag=all_tag[ind - 1],
                  state=HIDDEN, anchor=S)
 
         # generate distances
 
         ind = (ind + 1) % ln
 
-    oval_button_gen(canv, ln, road_map, distance_tag, city_tags=city_tag)
+    oval_button_gen(canv, ln, road_map, all_tags=all_tag)
     window.mainloop()
 
 
