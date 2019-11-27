@@ -73,7 +73,6 @@ def show(event, canvas, tag, ln):
     canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=NORMAL)
 
 
-
 def tag_gen(ln, s):
     """
     Generates tags every item on list, prefixed with string (s)
@@ -93,12 +92,10 @@ def text_gen(canvas, x, y, text, tag, state, anchor):
     canvas.create_text(x, y, text=text, anchor=anchor, fill='black', tag=tag, state=state)
 
 
-def distance_text_gen(canvas, x, y, text, tag):
-    """
-    Generate text between two coordinates, with tag identifier
-    """
-    # coordinates in the middle of line
-    pass
+def get_between_coord(x1, y1, x2, y2):
+    x_mid = (x1 + x2) / 2
+    y_mid = (y1 + y2) / 2
+    return x_mid, y_mid
 
 
 def line_gen(canvas, x1, y1, x2, y2):
@@ -256,16 +253,22 @@ def visualise(road_map):
     start(canv, road_map)
 
     # create lines
+
     ind = 0
     for i in range(ln):
+        dist_coord_x, dist_coord_y = get_between_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind-1][2],
+                                                       road_map[ind-1][3])
+
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
+
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
-                 tag=all_tag[ind - 1],
-                 state=HIDDEN, anchor=S)
+                 tag=all_tag[ind - 1], state=HIDDEN, anchor=S)
 
         # generate distances
+        text_gen(canv, dist_coord_x, dist_coord_y, text=distances_list(road_map)[ind - 1], tag=all_tag[ind - 1],
+                 state=HIDDEN, anchor=N)
 
         ind = (ind + 1) % ln
 
