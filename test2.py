@@ -202,8 +202,14 @@ def distances_list(road_map):
 
 
 def visualise(road_map):
-    canvas_size_x = 1350
-    canvas_size_y = 825
+    # geometry variables defined so that changes will effect whole program
+    canvas_height, canvas_width = 825, 1350
+    bottom_height = 100
+    divider_width = 2
+    scroll_width = 100
+    window_width = canvas_width + scroll_width + divider_width
+    bottom_width = (window_width/2)
+
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
@@ -212,7 +218,7 @@ def visualise(road_map):
     post_compute = compute_total_distance(best_cycle)
 
     # normalise data
-    road_map = change_visualise_data(best_cycle, canvas_size_x, canvas_size_y, c_edge=2)
+    road_map = change_visualise_data(best_cycle, canvas_width, canvas_height, c_edge=2)
 
     # create main tk window
     window = Tk()
@@ -221,13 +227,17 @@ def visualise(road_map):
     window.resizable(FALSE, FALSE)
 
     # create frames
-    canvas_frame = Frame(window, width=canvas_size_x, height=canvas_size_y, bg='gray89')
-    divide_canvas = Frame(window, width=canvas_size_x, height=2, bg='black')
-    bottom_frame = Frame(window, width=canvas_size_x, height=200)
-    input_frame = Frame(bottom_frame, width=(canvas_size_x/2)-1, height=100, bg='gray89')
-    divide_inpinf = Frame(bottom_frame, width=2, height=100, bg='black')
-    info_frame = Frame(bottom_frame, width=(canvas_size_x/2)-1, height=100, bg='gray89')
-    scroll_frame = Frame(window)
+    top_frame = Frame(window, width=window_width, height=canvas_height)
+    canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
+    divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
+
+    bottom_frame = Frame(window, width=window_width, height=bottom_height)
+
+    input_frame = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
+    divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
+    info_frame = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
+    scroll_frame = Frame(top_frame)
+    scroll_frame_divider = Frame(top_frame, width=divider_width, height=canvas_height, bg='black')
 
     # organise frames
     canvas_frame.grid(row=0, column=0)
@@ -236,11 +246,13 @@ def visualise(road_map):
     input_frame.grid(row=0, column=0)
     divide_inpinf.grid(row=0, column=1)
     info_frame.grid(row=0, column=2)
-    scroll_frame.grid(column=3, row=0)
+    scroll_frame_divider.grid(row=0, column=3)
+    scroll_frame.grid(row=0, column=4)
+    top_frame.grid(row=0, column=0)
 
     # canvas for coordinates
-    canv = Canvas(canvas_frame, width=canvas_size_x, height=canvas_size_y)
-    canv_scroll = Canvas(scroll_frame, width=200, height=canvas_size_y)
+    canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
+    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen')
 
     canv_scroll.grid(row=0, column=0)
     canv.grid(row=0, column=0)
