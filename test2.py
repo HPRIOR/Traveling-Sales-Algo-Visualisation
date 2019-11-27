@@ -10,6 +10,8 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     Binding events to canvas objects requires a variable to identify
         canvas object, hence 'i = canvas...' in loop
     For each oval object, 'Leave' and 'Enter' events are created which correspond to map data
+    city_tag is a list of tags associated with hidden city texts, index selects the right text
+        corresponding to point on map
     """
     ind = 0
     for i in range(ln):
