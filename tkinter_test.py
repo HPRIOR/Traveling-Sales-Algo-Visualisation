@@ -1,8 +1,39 @@
 from tkinter import *
 
+
+def enter(event):
+    c1.itemconfigure('c1', fill='green')
+    c2.itemconfigure('c2', fill='red')
+
+
+def leave(event):
+    c2.itemconfigure('c2', fill='green')
+    c1.itemconfigure('c1', fill='red')
+
+
+# try to make one canvas change something on the other
 root = Tk()
 
-frame = Frame(root, bd=2, relief=SUNKEN)
+c1 = Canvas(root, bg='grey', height=500, width=500)
+c2 = Canvas(root, bg='grey', height=500, width=500)
+
+oval_1 = c1.create_oval(230, 230, 270, 270, fill='red',tag='c1')
+oval_2 = c2.create_oval(230, 230, 270, 270, fill='green',tag='c2')
+
+c1.tag_bind(oval_1, '<Enter>', enter)
+c1.tag_bind(oval_1, '<Leave>', leave)
+
+c2.tag_bind(oval_2, '<Enter>', enter)
+c2.tag_bind(oval_2, '<Leave>', leave)
+
+
+
+c1.pack()
+c2.pack()
+
+mainloop()
+
+'''frame = Frame(root, bd=2, relief=SUNKEN)
 
 frame.grid_rowconfigure(0, weight=1)
 frame.grid_columnconfigure(0, weight=1)
@@ -22,4 +53,4 @@ yscrollbar.config(command=canvas.yview)
 
 frame.pack()
 
-root.mainloop()
+root.mainloop()'''

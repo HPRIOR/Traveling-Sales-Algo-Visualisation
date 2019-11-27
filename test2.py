@@ -8,7 +8,7 @@ def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
-        canvas object, hence i = canvas... in loop
+        canvas object, hence 'i = canvas...' in loop
     For each oval object, 'Leave' and 'Enter' events are created which correspond to map data
     """
     ind = 0
