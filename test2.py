@@ -64,8 +64,8 @@ def show(event, canvas, tag, ln):
     """
     Shows object on canvas with given tag
     """
-    # if on the last city: make the next tag the first city
     if tag == 'C' + str(ln - 1):
+        # if on the last city: make the next tag the first city
         canvas.itemconfigure(tag, state=NORMAL)
         canvas.itemconfigure('C0', state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
@@ -74,7 +74,7 @@ def show(event, canvas, tag, ln):
         canvas.itemconfigure(tag, state=NORMAL)
         canvas.itemconfigure('C' + str(ln - 1), state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
-    elif int(tag[1]) != 0:
+    else:
         canvas.itemconfigure(tag, state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=NORMAL)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=NORMAL)
