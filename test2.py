@@ -54,7 +54,7 @@ def hide(event, canvas, tag, ln):
         canvas.itemconfigure(tag, state=HIDDEN)
         canvas.itemconfigure('C' + str(ln - 1), state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
-    elif int(tag[1]) != 0:
+    else:
         canvas.itemconfigure(tag, state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[0], state=HIDDEN)
         canvas.itemconfigure(raise_lower_tag(tag)[1], state=HIDDEN)
