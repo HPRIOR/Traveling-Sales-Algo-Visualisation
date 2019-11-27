@@ -180,10 +180,11 @@ def distances_list(road_map):
     ln = len(road_map)
     ind = 0
     for i in range(ln):
-        distance_list.append(compute_individual_distance(road_map[ind - 1][2],
+        dist_string_short = '%.2f' % compute_individual_distance(road_map[ind - 1][2],
                                                          road_map[ind - 1][3],
                                                          road_map[ind][2],
-                                                         road_map[ind][3]))
+                                                         road_map[ind][3])
+        distance_list.append(dist_string_short)
         ind = (ind + 1) % ln
     return distance_list
 
