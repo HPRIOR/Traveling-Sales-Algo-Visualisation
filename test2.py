@@ -1,7 +1,7 @@
 from tkinter import *
 from cities import *
 
-road_map = read_cities('test-city-data.txt')
+road_map = read_cities('city-data.txt')
 
 
 def oval_button_gen(canvas, ln, road_map, distance_tags, city_tags):
@@ -34,14 +34,9 @@ def raise_lower_tag(tag):
     """
     gives the tags above and below input tag
     """
-    if len(tag) < 3:
-        tag_minus, tag_plus = int(tag[1]) - 1, int(tag[1]) + 1
-        tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
-        return tag_below, tag_above
-    else:
-        tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
-        tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
-        return tag_below, tag_above
+    tag_minus, tag_plus = int(tag[1:]) - 1, int(tag[1:]) + 1
+    tag_below, tag_above = tag[0] + str(tag_minus), tag[0] + str(tag_plus)
+    return tag_below, tag_above
     # I think i could encapsulate the control statements for hide and show here
 
 
@@ -102,6 +97,7 @@ def text_gen(canvas, x, y, text, tag, state, anchor):
     Generate text at coordinates -  with tag identifier
     """
     canvas.create_text(x, y, text=text, anchor=anchor, fill='black', tag=tag, state=state)
+
 
 def distance_text_gen(canvas, x, y, text, tag):
     """
@@ -205,11 +201,10 @@ def visualise(road_map):
     # geometry variables defined so that changes will effect whole program
     canvas_height, canvas_width = 825, 1350
     bottom_height = 100
+    scroll_width = 300
     divider_width = 2
-    scroll_width = 100
     window_width = canvas_width + scroll_width + divider_width
-    bottom_width = (window_width/2)
-
+    bottom_width = (window_width / 2)
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
@@ -230,7 +225,6 @@ def visualise(road_map):
     top_frame = Frame(window, width=window_width, height=canvas_height)
     canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
     divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
-
     bottom_frame = Frame(window, width=window_width, height=bottom_height)
 
     input_frame = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
@@ -254,9 +248,9 @@ def visualise(road_map):
     canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
     canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen')
 
+    # organise canvases
     canv_scroll.grid(row=0, column=0)
     canv.grid(row=0, column=0)
-
 
     ln = len(road_map)  # length needed for functions below
 
@@ -273,7 +267,8 @@ def visualise(road_map):
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
         # generate city text
-        text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0], tag=city_tag[ind - 1],
+        text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
+                 tag=city_tag[ind - 1],
                  state=HIDDEN, anchor=S)
 
         # generate distances
