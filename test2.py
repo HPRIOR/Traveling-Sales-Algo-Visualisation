@@ -202,7 +202,7 @@ def distances_list(road_map):
 
 
 def visualise(road_map):
-    canvas_size_x = 1500
+    canvas_size_x = 1350
     canvas_size_y = 825
 
     # get info prior to normalisation
@@ -222,11 +222,12 @@ def visualise(road_map):
 
     # create frames
     canvas_frame = Frame(window, width=canvas_size_x, height=canvas_size_y, bg='gray89')
-    divide_canvas = Frame(window, width=1500, height=2, bg='black')
-    bottom_frame = Frame(window, width=1500, height=200)
-    input_frame = Frame(bottom_frame, width=749, height=100, bg='gray89')
+    divide_canvas = Frame(window, width=canvas_size_x, height=2, bg='black')
+    bottom_frame = Frame(window, width=canvas_size_x, height=200)
+    input_frame = Frame(bottom_frame, width=(canvas_size_x/2)-1, height=100, bg='gray89')
     divide_inpinf = Frame(bottom_frame, width=2, height=100, bg='black')
-    info_frame = Frame(bottom_frame, width=749, height=100, bg='gray89')
+    info_frame = Frame(bottom_frame, width=(canvas_size_x/2)-1, height=100, bg='gray89')
+    scroll_frame = Frame(window)
 
     # organise frames
     canvas_frame.grid(row=0, column=0)
@@ -235,10 +236,15 @@ def visualise(road_map):
     input_frame.grid(row=0, column=0)
     divide_inpinf.grid(row=0, column=1)
     info_frame.grid(row=0, column=2)
+    scroll_frame.grid(column=3, row=0)
 
     # canvas for coordinates
     canv = Canvas(canvas_frame, width=canvas_size_x, height=canvas_size_y)
+    canv_scroll = Canvas(scroll_frame, width=200, height=canvas_size_y)
+
+    canv_scroll.grid(row=0, column=0)
     canv.grid(row=0, column=0)
+
 
     ln = len(road_map)  # length needed for functions below
 
