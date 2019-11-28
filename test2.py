@@ -4,7 +4,7 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def oval_button_gen(canvas, ln, road_map, all_tags):
+def oval_button_gen(canvas, ln, road_map, func, all_tags):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
@@ -13,11 +13,12 @@ def oval_button_gen(canvas, ln, road_map, all_tags):
     city_tag is a list of tags associated with hidden city texts, index selects the right text
         corresponding to point on map; len used to control first and last anomalies due to circular
         indexing
+    func: HO function used to place oval buttons on different canvases with diff coordinates
 
     """
     ind = 0
     for i in range(ln):
-        i = canvas.create_oval(get_circle_coordinates(road_map[ind]), fill='green', activefill='red')
+        i = canvas.create_oval(func(road_map[ind]), fill='green', activefill='red')
 
         canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, lst=all_tags, index=ind, ln=ln))
         canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, lst=all_tags, index=ind, ln=ln))
@@ -102,7 +103,7 @@ def line_gen(canvas, x1, y1, x2, y2):
     """
     Generates lines between two coordinates
     """
-    canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='blue')
+    canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='red')
 
 
 def start(canvas, road_map):
@@ -181,9 +182,9 @@ def distances_list(road_map):
     ind = 0
     for i in range(ln):
         dist_string_short = '%.2f' % compute_individual_distance(road_map[ind - 1][2],
-                                                         road_map[ind - 1][3],
-                                                         road_map[ind][2],
-                                                         road_map[ind][3])
+                                                                 road_map[ind - 1][3],
+                                                                 road_map[ind][2],
+                                                                 road_map[ind][3])
         distance_list.append(dist_string_short)
         ind = (ind + 1) % ln
     return distance_list
@@ -257,8 +258,8 @@ def visualise(road_map):
 
     ind = 0
     for i in range(ln):
-        dist_coord_x, dist_coord_y = get_between_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind-1][2],
-                                                       road_map[ind-1][3])
+        dist_coord_x, dist_coord_y = get_between_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind - 1][2],
+                                                       road_map[ind - 1][3])
 
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
@@ -273,7 +274,7 @@ def visualise(road_map):
 
         ind = (ind + 1) % ln
 
-    oval_button_gen(canv, ln, road_map, all_tags=all_tag)
+    oval_button_gen(canv, ln, road_map, func=get_circle_coordinates, all_tags=all_tag)
     window.mainloop()
 
 
