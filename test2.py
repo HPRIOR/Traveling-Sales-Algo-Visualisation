@@ -216,13 +216,15 @@ def visualise(road_map):
 
     # create frames
     top_frame = Frame(window, width=window_width, height=canvas_height)
-    canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
+
     divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
     bottom_frame = Frame(window, width=window_width, height=bottom_height)
 
     input_frame = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
     divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
     info_frame = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
+
+    canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
     scroll_frame = Frame(top_frame)
     scroll_frame_divider = Frame(top_frame, width=divider_width, height=canvas_height, bg='black')
 
