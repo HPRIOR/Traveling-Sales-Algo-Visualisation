@@ -197,13 +197,14 @@ def distances_list(road_map):
 
 
 def visualise(road_map):
-    # geometry variables defined so that changes will effect whole program
+    # geometry variables defined so that changes will effect whole window
     canvas_height, canvas_width = 825, 1350
     bottom_height = 100
     scroll_width = 300
     divider_width = 2
     window_width = canvas_width + scroll_width + divider_width
     bottom_width = (window_width / 2)
+    scroll_distance = 1000  # generate based on length of road_map
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
@@ -234,6 +235,8 @@ def visualise(road_map):
     scroll_frame = Frame(top_frame)
     scroll_frame_divider = Frame(top_frame, width=divider_width, height=canvas_height, bg='black')
 
+    scrollbar = Scrollbar(scroll_frame)
+
     # organise frames
     canvas_frame.grid(row=0, column=0)
     divide_canvas.grid(row=1, column=0)
@@ -243,11 +246,15 @@ def visualise(road_map):
     info_frame.grid(row=0, column=2)
     scroll_frame_divider.grid(row=0, column=3)
     scroll_frame.grid(row=0, column=4)
+    scrollbar.grid(row=0, column=1, sticky=N+S)
     top_frame.grid(row=0, column=0)
 
     # canvas for coordinates
     canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
-    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen')
+
+    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen', yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, scroll_distance))
+    canv_scroll.config(scrollregion=canv_scroll.bbox(ALL))
+    scrollbar.config(command=canv_scroll.yview)
 
     # organise canvases
     canv_scroll.grid(row=0, column=0)

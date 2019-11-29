@@ -1,5 +1,5 @@
 from tkinter import *
-
+'''
 
 def enter(event):
     c1.itemconfigure('c1', fill='green')
@@ -33,9 +33,10 @@ c2.tag_bind(oval_2, '<Leave>', leave)
 c1.pack()
 c2.pack()
 
-mainloop()
+mainloop()'''
 
-'''root = Tk()
+
+root = Tk()
 frame = Frame(root, bd=2, relief=SUNKEN)
 
 #frame.grid_rowconfigure(0, weight=1)
@@ -51,6 +52,15 @@ canvas.create_line(20, 0, 20, 200)
 
 yscrollbar.config(command=canvas.yview)
 
+x1, y1, x2, y2 = 50, 0, 50, 40
+for i in range(20):
+    canvas.create_line(x1, y1, x2, y2)
+    y1 += 40
+    y2 += 40
+
+
+
+
 frame.pack()
 
-root.mainloop()'''
+root.mainloop()
