@@ -99,7 +99,7 @@ def text_gen(canvas, x, y, text, tag, state, anchor):
     canvas.create_text(x, y, text=text, anchor=anchor, fill='black', tag=tag, state=state)
 
 
-def get_between_coord(x1, y1, x2, y2):
+def get_mid_coord(x1, y1, x2, y2):
     x_mid = (x1 + x2) / 2
     y_mid = (y1 + y2) / 2
     return x_mid, y_mid
@@ -123,8 +123,7 @@ def get_circle_coordinates(line):
     returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
     """
     circ_size = 4
-    x = line[2]
-    y = line[3]
+    x, y = line[2], line[3]
     x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
     return x1, y1, x2, y2
 
@@ -274,8 +273,8 @@ def visualise(road_map):
 
     ind = 0
     for i in range(ln):
-        dist_coord_x, dist_coord_y = get_between_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind - 1][2],
-                                                       road_map[ind - 1][3])
+        dist_coord_x, dist_coord_y = get_mid_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind - 1][2],
+                                                   road_map[ind - 1][3])
 
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])

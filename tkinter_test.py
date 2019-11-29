@@ -45,18 +45,23 @@ frame = Frame(root, bd=2, relief=SUNKEN)
 yscrollbar = Scrollbar(frame)
 yscrollbar.grid(row=0, column=1, sticky=N + S)
 
-canvas = Canvas(frame, bd=0, scrollregion=(0, 0, 1000, 100), yscrollcommand=yscrollbar.set, width=200, height=500)
+canvas = Canvas(frame, bd=0, scrollregion=(0, 0, 0, 10000), yscrollcommand=yscrollbar.set, width=200, height=500)
 canvas.grid(row=0, column=0, sticky=N + S + E + W)
 canvas.config(scrollregion=canvas.bbox(ALL))
-canvas.create_line(20, 0, 20, 200)
 
 yscrollbar.config(command=canvas.yview)
 
-x1, y1, x2, y2 = 50, 0, 50, 40
+x1, y1, x2, y2 = 100, 20, 100, 100
+text_coord = 60
+canvas.create_text(100, 10, text='start')
+
 for i in range(20):
-    canvas.create_line(x1, y1, x2, y2)
-    y1 += 40
-    y2 += 40
+    canvas.create_line(x1, y1, x2, y2, arrow=LAST)
+    canvas.create_text(150, text_coord, text='distance')
+    y1 += 120
+    y2 += 120
+    text_coord += 120
+
 
 
 
