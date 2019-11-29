@@ -4,7 +4,7 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def oval_button_gen(canvas, ln, road_map, func, all_tags):
+def oval_button_gen(canvas, ln, road_map, func, tag_1, tag_2):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
@@ -20,19 +20,19 @@ def oval_button_gen(canvas, ln, road_map, func, all_tags):
     for i in range(ln):
         i = canvas.create_oval(func(road_map[ind]), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, lst=all_tags, index=ind, ln=ln))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, lst=all_tags, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
 
         ind = (ind + 1) % ln
 
 
-def lambda_func(canvas, f, lst, index, ln):
+def lambda_func(canvas, f, tag_list_1, tag_list_2, index, ln):
     """
     this was needed because the ordinary lambda functions in circle_button_gen would
     not update their indices, which are required to match generate tag identifiers
     HO function allow for the use of both 'leave' and 'enter' function
     """
-    return lambda e: f(e, canvas, lst[index], ln)
+    return lambda e: f(e, canvas, tag_list_1[index], tag_list_2[index], ln)
 
 
 def raise_lower_tag(tag, ln):
@@ -54,20 +54,25 @@ def raise_lower_tag(tag, ln):
         return tag_below, tag_above
 
 
-def hide(event, canvas, tag, ln):
+
+def hide(event, canvas, tag, tag2, ln):
     """
     Hides object on canvas with given tag
     """
+    canvas.itemconfigure(tag2, state=HIDDEN)
+    canvas.itemconfigure(raise_lower_tag(tag2, ln)[1], state=HIDDEN)
 
     canvas.itemconfigure(tag, state=HIDDEN)
     canvas.itemconfigure(raise_lower_tag(tag, ln)[0], state=HIDDEN)
     canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=HIDDEN)
 
 
-def show(event, canvas, tag, ln):
+def show(event, canvas, tag, tag2, ln):
     """
     Shows object on canvas with given tag
     """
+    canvas.itemconfigure(tag2, state=NORMAL)
+    canvas.itemconfigure(raise_lower_tag(tag2, ln)[1], state=NORMAL)
 
     canvas.itemconfigure(tag, state=NORMAL)
     canvas.itemconfigure(raise_lower_tag(tag, ln)[0], state=NORMAL)
@@ -251,7 +256,8 @@ def visualise(road_map):
 
     # create tags to identify text
 
-    all_tag = tag_gen(ln, 'A')
+    city_tag = tag_gen(ln, 'A')
+    distance_tag = tag_gen(ln, 'D')
 
     # create start and finish indicators
     start(canv, road_map)
@@ -268,15 +274,15 @@ def visualise(road_map):
 
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
-                 tag=all_tag[ind - 1], state=HIDDEN, anchor=S)
+                 tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
 
         # generate distances
-        text_gen(canv, dist_coord_x, dist_coord_y, text=distances_list(road_map)[ind - 1], tag=all_tag[ind - 1],
-                 state=HIDDEN, anchor=N)
+        text_gen(canv, dist_coord_x, dist_coord_y, text=distances_list(road_map)[ind - 1], tag=distance_tag[ind - 1],
+                 state=HIDDEN, anchor=None)
 
         ind = (ind + 1) % ln
 
-    oval_button_gen(canv, ln, road_map, func=get_circle_coordinates, all_tags=all_tag)
+    oval_button_gen(canv, ln, road_map, func=get_circle_coordinates, tag_1=city_tag, tag_2=distance_tag)
     window.mainloop()
 
 
