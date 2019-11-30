@@ -36,7 +36,7 @@ c2.pack()
 mainloop()'''
 
 
-root = Tk()
+'''root = Tk()
 frame = Frame(root, bd=2, relief=SUNKEN)
 
 #frame.grid_rowconfigure(0, weight=1)
@@ -65,7 +65,11 @@ for i in range(20):
 
 
 
-
 frame.pack()
 
-root.mainloop()
+root.mainloop()'''
+
+
+def linear_coord_list(init, size, ln):
+    y = init
+    return [y + size for x in range(ln)]

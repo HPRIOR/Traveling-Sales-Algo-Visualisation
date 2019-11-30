@@ -4,7 +4,7 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def oval_button_gen(canvas, ln, road_map, func, tag_1, tag_2):
+def oval_button_gen(canvas, ln, coord_list, func, tag_1, tag_2):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
@@ -19,7 +19,7 @@ def oval_button_gen(canvas, ln, road_map, func, tag_1, tag_2):
     """
     ind = 0
     for i in range(ln):
-        i = canvas.create_oval(func(road_map[ind]), fill='green', activefill='red')
+        i = canvas.create_oval(func(coord_list[ind], 2, 3), fill='green', activefill='red')
 
         canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
         canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
@@ -55,7 +55,6 @@ def raise_lower_tag(tag, ln):
         return tag_below, tag_above
 
 
-
 def hide(event, canvas, tag, tag2, ln):
     """
     Hides object on canvas with given tag
@@ -78,6 +77,12 @@ def show(event, canvas, tag, tag2, ln):
     canvas.itemconfigure(tag, state=NORMAL)
     canvas.itemconfigure(raise_lower_tag(tag, ln)[0], state=NORMAL)
     canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=NORMAL)
+
+
+def linear_coord_list(init, size, ln):
+    y = init
+    return [y + size for x in range(ln)]
+
 
 
 def tag_gen(ln, s):
@@ -117,21 +122,23 @@ def start(canvas, road_map):
     canvas.create_text(road_map[0][2], 10, text='Start', fill='red')
 
 
-def get_circle_coordinates(line):
+def get_circle_coordinates(line, index_1, index_2):
     """
     line input format: str,str,float(x),float(y)
     returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
+    :param index_1:
+    :param index_2:
     """
     circ_size = 4
-    x, y = line[2], line[3]
+    x, y = line[index_1], line[index_2]
     x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
     return x1, y1, x2, y2
 
 
 def func_index_list(f, i, lst):
     """
-    applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
-    used to find the minimum and maximum values of coordinates in a nested list (change_v_data)
+    Applies a function to all the indexes within a nested loop (e.g. all the 1st items in a matrix)
+    Used to find the minimum and maximum values of coordinates in a nested list (change_v_data below)
     """
     new_list = []
     [new_list.append(float(line[i])) for line in lst]
@@ -245,13 +252,14 @@ def visualise(road_map):
     info_frame.grid(row=0, column=2)
     scroll_frame_divider.grid(row=0, column=3)
     scroll_frame.grid(row=0, column=4)
-    scrollbar.grid(row=0, column=1, sticky=N+S)
+    scrollbar.grid(row=0, column=1, sticky=N + S)
     top_frame.grid(row=0, column=0)
 
     # canvas for coordinates
     canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
 
-    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen', yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, scroll_distance))
+    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height, bg='linen',
+                         yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, scroll_distance))
     canv_scroll.config(scrollregion=canv_scroll.bbox(ALL))
     scrollbar.config(command=canv_scroll.yview)
 
@@ -292,6 +300,7 @@ def visualise(road_map):
     # generate ovals on map
     oval_button_gen(canv, ln, road_map, func=get_circle_coordinates, tag_1=city_tag, tag_2=distance_tag)
 
+    print(linear_coord_list(10, 50, 50))
     window.mainloop()
 
 
