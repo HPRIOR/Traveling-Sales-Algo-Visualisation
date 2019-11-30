@@ -1,4 +1,5 @@
 from tkinter import *
+from itertools import count
 '''
 
 def enter(event):
@@ -36,7 +37,7 @@ c2.pack()
 mainloop()'''
 
 
-'''root = Tk()
+root = Tk()
 frame = Frame(root, bd=2, relief=SUNKEN)
 
 #frame.grid_rowconfigure(0, weight=1)
@@ -51,25 +52,31 @@ canvas.config(scrollregion=canvas.bbox(ALL))
 
 yscrollbar.config(command=canvas.yview)
 
-x1, y1, x2, y2 = 100, 20, 100, 100
+x1, y1, x2, y2 = 100, 20, 100, 130
 text_coord = 60
 canvas.create_text(100, 10, text='start')
 
 for i in range(20):
     canvas.create_line(x1, y1, x2, y2, arrow=LAST)
     canvas.create_text(150, text_coord, text='distance')
-    y1 += 120
-    y2 += 120
-    text_coord += 120
+    y1 += 150
+    y2 += 150
+    text_coord += 150
 
 
 
 
 frame.pack()
 
-root.mainloop()'''
-
+root.mainloop()
 
 def linear_coord_list(init, size, ln):
-    y = init
-    return [y + size for x in range(ln)]
+    x = init
+    lst = []
+    for i in range(ln):
+        lst.append(x)
+        x += size
+    return lst
+
+
+

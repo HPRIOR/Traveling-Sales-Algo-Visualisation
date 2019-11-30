@@ -4,7 +4,7 @@ from cities import *
 road_map = read_cities('city-data.txt')
 
 
-def oval_button_gen(canvas, ln, coord_list, func, tag_1, tag_2):
+def oval_button_gen(canvas, canvas_draw, ln, coord_list, func, tag_1, tag_2, index_1, index_2):
     """
     Ovals used as 'buttons' to reveal information
     Binding events to canvas objects requires a variable to identify
@@ -19,10 +19,10 @@ def oval_button_gen(canvas, ln, coord_list, func, tag_1, tag_2):
     """
     ind = 0
     for i in range(ln):
-        i = canvas.create_oval(func(coord_list[ind], 2, 3), fill='green', activefill='red')
+        i = canvas.create_oval(func(coord_list[ind], index_1, index_2), fill='green', activefill='red')
 
-        canvas.tag_bind(i, '<Enter>', lambda_func(canvas, f=show, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
-        canvas.tag_bind(i, '<Leave>', lambda_func(canvas, f=hide, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Enter>', lambda_func(canvas_draw, f=show, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
+        canvas.tag_bind(i, '<Leave>', lambda_func(canvas_draw, f=hide, tag_list_1=tag_1, tag_list_2=tag_2, index=ind, ln=ln))
 
         ind = (ind + 1) % ln
 
@@ -79,10 +79,14 @@ def show(event, canvas, tag, tag2, ln):
     canvas.itemconfigure(raise_lower_tag(tag, ln)[1], state=NORMAL)
 
 
-def linear_coord_list(init, size, ln):
-    y = init
-    return [y + size for x in range(ln)]
-
+def linear_coord_list(init, size, ln, mid_point):
+    x = init
+    lst = []
+    for i in range(ln):
+        tup = (mid_point, x)
+        x += size
+        lst.append(tup)
+    return lst
 
 
 def tag_gen(ln, s):
@@ -122,15 +126,15 @@ def start(canvas, road_map):
     canvas.create_text(road_map[0][2], 10, text='Start', fill='red')
 
 
-def get_circle_coordinates(line, index_1, index_2):
+
+
+def get_circle_coordinates(line, x, y):
     """
     line input format: str,str,float(x),float(y)
-    returns x1,y1,x2,y2 from x,y where xn/yn +- 5; needed to circle coordinates
-    :param index_1:
-    :param index_2:
+    returns x1,y1,x2,y2 from x,y where xn/yn +- circ_size; needed to circle coordinates
     """
     circ_size = 4
-    x, y = line[index_1], line[index_2]
+    x, y = line[x], line[y]
     x1, y1, x2, y2 = (x + circ_size), (y + circ_size), (x - circ_size), (y - circ_size)
     return x1, y1, x2, y2
 
@@ -277,8 +281,10 @@ def visualise(road_map):
     # create start and finish indicators
     start(canv, road_map)
 
-    # create lines
+    # get numbers list to use in linear coords
+    linear_coord = linear_coord_list(50, 150, ln, int(scroll_width/2))
 
+    # generate stuff on canvas
     ind = 0
     for i in range(ln):
         dist_coord_x, dist_coord_y = get_mid_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind - 1][2],
@@ -298,9 +304,11 @@ def visualise(road_map):
         ind = (ind + 1) % ln
 
     # generate ovals on map
-    oval_button_gen(canv, ln, road_map, func=get_circle_coordinates, tag_1=city_tag, tag_2=distance_tag)
+    oval_button_gen(canv, canv, ln, road_map, func=get_circle_coordinates, tag_1=city_tag, tag_2=distance_tag,
+                    index_1=2, index_2=3)
+    oval_button_gen(canv_scroll, canv, ln, linear_coord, func=get_circle_coordinates, tag_1=city_tag, tag_2=distance_tag,
+                    index_1=0, index_2=1)
 
-    print(linear_coord_list(10, 50, 50))
     window.mainloop()
 
 
