@@ -1,7 +1,7 @@
 from tkinter import *
 from cities import *
 
-road_map = read_cities('test-city-data.txt')
+road_map = read_cities('city-data.txt')
 
 
 def oval_button_gen(canvas, canvas_draw, ln, coord_list, func, tag_1, tag_2, index_1, index_2):
@@ -306,10 +306,10 @@ def visualise(road_map):
                  tag=None, state=NORMAL, anchor=W)
 
         # generate distances
-        text_gen(canv, dist_coord_x, dist_coord_y, text=distances_list(road_map)[ind - 1], tag=distance_tag[ind - 1],
+        text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind - 1], tag=distance_tag[ind - 1],
                  state=HIDDEN, anchor=None)
         text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1]-(size_scroll_coord/2),
-                 text=distances_list(road_map)[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
+                 text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
 
         ind = (ind + 1) % ln
 
