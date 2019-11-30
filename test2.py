@@ -265,9 +265,8 @@ def visualise(road_map):
     scrollbar.grid(row=0, column=1, sticky=N + S)
     top_frame.grid(row=0, column=0)
 
-    # canvas for coordinates
+    # canvas' for coordinates
     canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
-
     canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height,
                          yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, scroll_distance))
     canv_scroll.config(scrollregion=canv_scroll.bbox(ALL))
