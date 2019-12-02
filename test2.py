@@ -313,7 +313,7 @@ def visualise(road_map):
         text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1]-(size_scroll_coord/2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
         ''' distances are broken because they generate different distances depending on 
-            direction of travel, and starting point'''
+          direction of travel, and starting point'''
         print(distances[ind], ind)
         ind = (ind + 1) % ln
 
