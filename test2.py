@@ -1,7 +1,7 @@
 from tkinter import *
 from cities import *
 
-road_map = read_cities('test-city-data-2.txt')
+road_map = read_cities('city-data.txt')
 
 
 def oval_button_gen(canvas, canvas_draw, ln, coord_list, func, tag_1, tag_2, index_1, index_2):
@@ -224,10 +224,8 @@ def visualise(road_map):
 
     # get info prior to normalisation
     prior_compute = compute_total_distance(road_map)
-    distances = distances_list(road_map)
-    print(distances)
-    print(len(distances))
     best_cycle = find_best_cycle(road_map)
+    distances = distances_list(best_cycle)
     post_compute = compute_total_distance(best_cycle)
 
     # normalise data
@@ -303,13 +301,13 @@ def visualise(road_map):
 
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
-                 tag=city_tag[ind - 1], state=NORMAL, anchor=S)
+                 tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
         text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1], text=road_map[ind][0],
                  tag=None, state=NORMAL, anchor=W)
 
         # generate distances
         text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind-1], tag=distance_tag[ind - 1],
-                 state=NORMAL, anchor=None)
+                 state=HIDDEN, anchor=None)
         text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1]-(size_scroll_coord/2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
         ''' distances are broken because they generate different distances depending on 
