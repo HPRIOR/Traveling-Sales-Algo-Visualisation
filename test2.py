@@ -10,7 +10,7 @@ def oval_button_gen(canvas, canvas_draw, ln, coord_list, func, tag_1, tag_2, ind
     Binding events to canvas objects requires a variable to identify
         canvas object, hence 'i = canvas...' in loop
     For each oval object, 'Leave' and 'Enter' events are created which correspond to map data
-    The tags are list of tags associated with hidden texts on map, index selects the right text
+    A list of tags associated with hidden texts on map, index selects the right text from list
         corresponding to a point; len used to control first and last anomalies due to circular
         indexing
     func: HO function used to place oval buttons on different canvases with diff coordinates
@@ -18,7 +18,6 @@ def oval_button_gen(canvas, canvas_draw, ln, coord_list, func, tag_1, tag_2, ind
 
     """
     ind = 0
-    count = 0
     for i in range(ln):
         i = canvas.create_oval(func(coord_list[ind], index_1, index_2), fill='green', activefill='red')
 
@@ -310,9 +309,7 @@ def visualise(road_map):
                  state=HIDDEN, anchor=None)
         text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1]-(size_scroll_coord/2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
-        ''' distances are broken because they generate different distances depending on 
-          direction of travel, and starting point'''
-        print(distances[ind], ind)
+
         ind = (ind + 1) % ln
 
     # generate ovals on map
