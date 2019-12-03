@@ -204,6 +204,17 @@ def distances_list(road_map):
         ind = (ind + 1) % ln
     return distance_list
 
+def get_city():
+    """
+    button to return city string name of file chosen
+    """
+    pass
+
+def generate_map():
+    """
+    produces stuff on map
+    """
+    pass
 
 def visualise(road_map):
     ln = len(road_map)  # length needed for functions below
@@ -301,13 +312,13 @@ def visualise(road_map):
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
                  tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
-        text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1], text=road_map[ind][0],
+        text_gen(canv_scroll, scroll_width/2, linear_coord[ind][1], text=road_map[ind][0],
                  tag=None, state=NORMAL, anchor=W)
 
         # generate distances
         text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind-1], tag=distance_tag[ind - 1],
                  state=HIDDEN, anchor=None)
-        text_gen(canv_scroll, scroll_width*0.5, linear_coord[ind][1]-(size_scroll_coord/2),
+        text_gen(canv_scroll, scroll_width/2, linear_coord[ind][1]-(size_scroll_coord/2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
 
         ind = (ind + 1) % ln

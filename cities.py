@@ -169,7 +169,6 @@ def print_map(road_map):
     print('The total distance travelled will be roughly %.2f' % total)
 
 
-
 def main():
     """
     Reads in, and prints out, the city data, then creates the "best"
@@ -185,7 +184,6 @@ def main():
         print('best calculated total distance : ', compute_total_distance(new_road_map))
     else:
         print('Cannot calculate distance, input one or more cities')
-    visualise(new_road_map)
 
 
 if __name__ == "__main__":  # keep this in
