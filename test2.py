@@ -204,17 +204,20 @@ def distances_list(road_map):
         ind = (ind + 1) % ln
     return distance_list
 
+
 def get_city():
     """
     button to return city string name of file chosen
     """
     pass
 
+
 def generate_map():
     """
     produces stuff on map
     """
     pass
+
 
 def visualise(road_map):
     ln = len(road_map)  # length needed for functions below
@@ -296,7 +299,7 @@ def visualise(road_map):
 
     # generate stuff on canvas
     canv_scroll.create_text(scroll_width / 2.5, 10, text='Start')
-    canv_scroll.create_text(scroll_width/2.5, linear_coord[-1][1]+20, text='End')
+    canv_scroll.create_text(scroll_width / 2.5, linear_coord[-1][1] + 20, text='End')
     ind = 0
 
     for i in range(ln):
@@ -305,20 +308,20 @@ def visualise(road_map):
 
         # generate lines
         line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
-        if ind < ln-1:
+        if ind < ln - 1:
             line_gen(canv_scroll, linear_coord[ind][0], linear_coord[ind][1] + 10,
                      linear_coord[ind][0], linear_coord[ind][1] + (size_scroll_coord - 10))
 
         # generate city text
         text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
                  tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
-        text_gen(canv_scroll, scroll_width/2, linear_coord[ind][1], text=road_map[ind][0],
+        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1], text=road_map[ind][0],
                  tag=None, state=NORMAL, anchor=W)
 
         # generate distances
-        text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind-1], tag=distance_tag[ind - 1],
+        text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind - 1], tag=distance_tag[ind - 1],
                  state=HIDDEN, anchor=None)
-        text_gen(canv_scroll, scroll_width/2, linear_coord[ind][1]-(size_scroll_coord/2),
+        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1] - (size_scroll_coord / 2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
 
         ind = (ind + 1) % ln
