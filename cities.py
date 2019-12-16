@@ -18,7 +18,7 @@ def read_cities(file_name):
 
     """
     with open(file_name, "r") as f:                           # 'with' handles files without the need for closing
-        road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
+        road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
     format_check_prune(road_map)                              # checks for duplicates and format errors - deletes 'bad' lines
     if len(road_map) <= 1:                                    # allows main() to check for the absence of cities (lines) in road map file
         return False
@@ -42,8 +42,11 @@ def try_except_remove(line, road_map):
         str(line[1])
         float(line[2])
         float(line[3])
-    except (ValueError, IndexError):
+    except ValueError:
         road_map.remove(line)
+    except IndexError:
+        road_map.remove(line)
+
     # maybe do this without converting types
     # doesn't remove single string characters
 
@@ -182,6 +185,7 @@ def main():
     enter_file_name_here = 'file.txt'
     if read_cities(enter_file_name_here):
         road_map = read_cities(enter_file_name_here)
+        print(road_map)
         print('Initial road_map: ')
         print_cities(road_map)
         print('Total distance: ', compute_total_distance(road_map), '\n')
