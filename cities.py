@@ -45,6 +45,7 @@ def try_except_remove(line, road_map):
     except (ValueError, IndexError):
         road_map.remove(line)
     # maybe do this without converting types
+    # doesn't remove single string characters
 
 
 def format_check_prune(road_map):
@@ -181,12 +182,14 @@ def main():
     enter_file_name_here = 'file.txt'
     if read_cities(enter_file_name_here):
         road_map = read_cities(enter_file_name_here)
+        print('Initial road_map: ')
         print_cities(road_map)
-        print('total distance: ', compute_total_distance(road_map))
+        print('Total distance: ', compute_total_distance(road_map), '\n')
         new_road_map = find_best_cycle(road_map)
-        print('new road map: ', new_road_map)
-        print('best calculated total distance : ', compute_total_distance(new_road_map))
-        print('Cities and their connections in an easily understandable format: ')
+        print('New road map: ')
+        print_cities(new_road_map)
+        print('Total distance : ', compute_total_distance(new_road_map), '\n')
+        print('Cities and their connections: ')
         print_map(new_road_map)
         visualise(new_road_map)
 
