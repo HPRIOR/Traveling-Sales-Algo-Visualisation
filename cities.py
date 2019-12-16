@@ -49,6 +49,7 @@ def try_except_remove(line, road_map):
 
     # maybe do this without converting types
     # doesn't remove single string characters
+    # maybe try the same thing but return true or false values so that format check prune can do the work
 
 
 def format_check_prune(road_map):
@@ -182,7 +183,7 @@ def main():
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
-    enter_file_name_here = 'file.txt'
+    enter_file_name_here = 'city-data.txt'
     if read_cities(enter_file_name_here):
         road_map = read_cities(enter_file_name_here)
         print(road_map)

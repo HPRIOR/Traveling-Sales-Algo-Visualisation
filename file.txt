@@ -3,7 +3,5 @@ Arizona	-112.073844	Phoenix 33.448457
 Montgomery	32.361538 -86.279118 -86.279118
 Alabama	Montgomery	21	43
 sdasd
-sdasde
-
-
+Alabama	Montgomery	32.361538	-86.279118
 
