@@ -266,8 +266,10 @@ def visualise(road_map):
     divide_canvas.grid(row=1, column=0)
     bottom_frame.grid(row=2, column=0)
     info_frame_1.grid(row=0, column=0)
+    info_frame_1.grid_propagate(False)
     divide_inpinf.grid(row=0, column=1)
     info_frame_2.grid(row=0, column=2)
+    info_frame_2.grid_propagate(False)
     scroll_frame_divider.grid(row=0, column=3)
     scroll_frame.grid(row=0, column=4)
     scrollbar.grid(row=0, column=1, sticky=N + S)
@@ -329,5 +331,6 @@ def visualise(road_map):
                     tag_2=distance_tag, index_1=0, index_2=1)
 
     # info pane
-
+    general_info = Label(info_frame_2, text='!!Attention traveling salesperson!!')
+    general_info.grid(row=0, column=0)
     window.mainloop()
