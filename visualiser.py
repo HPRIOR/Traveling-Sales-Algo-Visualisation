@@ -331,6 +331,14 @@ def visualise(road_map):
                     tag_2=distance_tag, index_1=0, index_2=1)
 
     # info pane
-    general_info = Label(info_frame_2, text='!!Attention traveling salesperson!!')
-    general_info.grid(row=0, column=0)
+    general_info = Label(info_frame_2, bg='gray89',
+                         text='!! Attention traveling salesperson !! \n '
+                              'Hover over the dots to view information \n'
+                              '(distances between incoming and outgoing cities). \n'
+                              'The dots on the linear map to the right also reveal \n'
+                              'information on the main map (this can be scrolled up and down).')
+
+    info_grid_left = Frame(info_frame_2, width=250)
+    info_grid_left.grid(column=0)
+    general_info.grid(column=1)
     window.mainloop()
