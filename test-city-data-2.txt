@@ -1,3 +1,0 @@
-Alabama	Montgomery	100	300
-Alaska	Juneau	200	400
-Arizona	Phoenix	500	500
