@@ -19,7 +19,7 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:                             # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
-    format_check_prune(road_map)                                # checks for duplicates and format errors - deletes bad lines
+    format_check_prune(road_map)                                # checks for duplicates and format errors - deletes 'bad' lines
     if len(road_map) == 0:                                      # allows main() to check for the absence of cities (lines) in road map file
         return False
     return road_map
@@ -161,13 +161,13 @@ def print_map(road_map):
 
     for i in range(1, ln):
         distance = compute_individual_distance(road_map[i - 1][2], road_map[i - 1][3], road_map[i][2], road_map[i][3])
-        print('The distance from %s to %s is %.2f' % (road_map[i - 1][1], road_map[i][1], distance))
+        print('     The distance from %s to %s is %.2f' % (road_map[i - 1][1], road_map[i][1], distance))
         loop_distance += distance
 
     last_first_distance = compute_individual_distance(road_map[-1][2], road_map[- 1][3], road_map[0][2], road_map[0][3])
-    print('The distance from %s to %s is %.2f' % (road_map[-1][1], road_map[0][1], last_first_distance))
+    print('     The distance from %s to %s is %.2f' % (road_map[-1][1], road_map[0][1], last_first_distance))
     total = loop_distance + last_first_distance
-    print('The total distance travelled will be roughly %.2f' % total)
+    print('     The total distance travelled will be roughly %.2f' % total)
 
 
 def visualise(road_map):
@@ -300,6 +300,8 @@ def main():
         new_road_map = find_best_cycle(road_map)
         print('new road map: ', new_road_map)
         print('best calculated total distance : ', compute_total_distance(new_road_map))
+        print('Cities and their connections in an easily understandable format: ')
+        print_map(new_road_map)
         visualise(new_road_map)
 
     else:
