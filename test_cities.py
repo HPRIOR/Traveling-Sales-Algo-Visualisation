@@ -6,8 +6,34 @@ make tests for road maps with 1 item or 0
 '''
 
 
+def test_read_cities():
+    pass
+
+
+def test_print_formatter():
+    pass
+
+
+def test_tag_gen():
+    pass
+
+
+def test_get_mid_coord():
+    pass
+
+
 def test_compute_individual_distance():
     pass
+
+
+def test_get_circle_coordinates():
+    pass
+
+
+def test_func_index_list():
+    pass
+
+
 
 
 def test_compute_total_distance():
@@ -40,7 +66,6 @@ def test_swap_cities():
 
     assert swap_cities(road_map2, 0, 1) == 'Cannot calculate distance, input at least two cities'
     assert swap_cities(road_map3, 0, 1) == 'Cannot calculate distance, input at least two cities'
-
 
 
 def test_shift_cities():

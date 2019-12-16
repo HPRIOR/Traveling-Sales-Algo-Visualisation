@@ -48,9 +48,9 @@ def try_except_remove(line, road_map):
 
 
 def format_check_prune(road_map):
-    '''
+    """
     checks and prunes road_map for errors: duplicates, wrong format
-    '''
+    """
     [try_except_remove(line, road_map) for line in road_map]
     remove_duplicates(road_map)
     [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
@@ -170,121 +170,7 @@ def print_map(road_map):
     print('     The total distance travelled will be roughly %.2f' % total)
 
 
-def visualise(road_map):
-    ln = len(road_map)  # length needed for functions below
 
-    # geometry variables defined so that changes will effect whole window
-    canvas_height, canvas_width = 825, 1350
-    bottom_height = 100
-    scroll_width = 200
-    divider_width = 2
-    window_width = canvas_width + scroll_width + divider_width
-    bottom_width = (window_width / 2)
-    size_scroll_coord = 100
-
-    # get numbers list to use in linear coords
-    linear_coord = linear_coord_list(40, size_scroll_coord, ln, int(scroll_width / 2.5))
-    scroll_distance = linear_coord[-1][1] + 30
-
-    # get info prior to normalisation
-    distances = distances_list(road_map)
-
-    # normalise data
-    road_map = change_visualise_data(road_map, canvas_width, canvas_height, c_edge=2)
-
-    # create main tk window
-    window = Tk()
-    window.title('Traveling salesperson app')
-    window.geometry('+100+0')
-    window.resizable(FALSE, FALSE)
-
-    # create frames
-    top_frame = Frame(window, width=window_width, height=canvas_height)
-
-    divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
-    bottom_frame = Frame(window, width=window_width, height=bottom_height)
-
-    info_frame_1 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
-    divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
-    info_frame_2 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
-
-    canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
-    scroll_frame = Frame(top_frame)
-    scroll_frame_divider = Frame(top_frame, width=divider_width, height=canvas_height, bg='black')
-
-    scrollbar = Scrollbar(scroll_frame)
-
-    # organise frames
-    canvas_frame.grid(row=0, column=0)
-    divide_canvas.grid(row=1, column=0)
-    bottom_frame.grid(row=2, column=0)
-    info_frame_1.grid(row=0, column=0)
-    divide_inpinf.grid(row=0, column=1)
-    info_frame_2.grid(row=0, column=2)
-    scroll_frame_divider.grid(row=0, column=3)
-    scroll_frame.grid(row=0, column=4)
-    scrollbar.grid(row=0, column=1, sticky=N + S)
-    top_frame.grid(row=0, column=0)
-
-    # canvas' for coordinates
-    canv = Canvas(canvas_frame, width=canvas_width, height=canvas_height)
-    canv_scroll = Canvas(scroll_frame, width=scroll_width, height=canvas_height,
-                         yscrollcommand=scrollbar.set, scrollregion=(0, 0, 0, scroll_distance))
-    canv_scroll.config(scrollregion=canv_scroll.bbox(ALL))
-    scrollbar.config(command=canv_scroll.yview)
-
-    # organise canvases
-    canv_scroll.grid(row=0, column=0)
-    canv.grid(row=0, column=0)
-
-    # create tags to identify text
-
-    city_tag = tag_gen(ln, 'A')
-    distance_tag = tag_gen(ln, 'D')
-
-    # create start and finish indicators
-    start(canv, road_map)
-
-    # generate stuff on canvas
-    canv_scroll.create_text(scroll_width / 2.5, 10, text='Start')
-    canv_scroll.create_text(scroll_width / 2.5, linear_coord[-1][1] + 20, text='End')
-    ind = 0
-
-    for i in range(ln):
-        dist_coord_x, dist_coord_y = get_mid_coord(road_map[ind - 2][2], road_map[ind - 2][3], road_map[ind - 1][2],
-                                                   road_map[ind - 1][3])
-
-        # generate lines
-        line_gen(canv, road_map[ind - 1][2], road_map[ind - 1][3], road_map[ind][2], road_map[ind][3])
-        if ind < ln - 1:
-            line_gen(canv_scroll, linear_coord[ind][0], linear_coord[ind][1] + 10,
-                     linear_coord[ind][0], linear_coord[ind][1] + (size_scroll_coord - 10))
-
-        # generate city text
-        text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
-                 tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
-        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1], text=road_map[ind][0],
-                 tag=None, state=NORMAL, anchor=W)
-
-        # generate distances
-        text_gen(canv, dist_coord_x, dist_coord_y, text=distances[ind - 1], tag=distance_tag[ind - 1],
-                 state=HIDDEN, anchor=None)
-        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1] - (size_scroll_coord / 2),
-                 text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
-
-        ind = (ind + 1) % ln
-
-    # generate ovals on map
-    oval_button_gen(canv, canv, ln, road_map, func=get_circle_coordinates, tag_1=city_tag,
-                    tag_2=distance_tag, index_1=2, index_2=3)
-
-    oval_button_gen(canv_scroll, canv, ln, linear_coord, func=get_circle_coordinates, tag_1=city_tag,
-                    tag_2=distance_tag, index_1=0, index_2=1)
-
-    # info pane
-
-
-    window.mainloop()
 
 
 def main():
