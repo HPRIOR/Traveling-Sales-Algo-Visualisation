@@ -103,7 +103,6 @@ def tag_gen(ln, s):
     Generates tags every item on list, prefixed with string (s)
     e.g s1, s2, s3...sN
     """
-    # list comp here
     tag_list = []
     for i in range(ln):
         var = s + str(i)
