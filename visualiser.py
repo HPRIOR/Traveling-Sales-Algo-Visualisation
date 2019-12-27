@@ -222,11 +222,9 @@ def visualise(road_map):
 
     # geometry variables defined so that changes will effect whole window
     canvas_height, canvas_width = 825, 1350
-    bottom_height = 100
     scroll_width = 200
     divider_width = 2
     window_width = canvas_width + scroll_width + divider_width
-    bottom_width = (window_width / 2)
     size_scroll_coord = 100
 
     # get numbers list to use in linear coords
@@ -263,29 +261,13 @@ def visualise(road_map):
 
     # create frames
     top_frame = Frame(window, width=window_width, height=canvas_height)
-
-    divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
-    # bottom_frame = Frame(window, width=window_width, height=bottom_height)
-
-    # info_frame_1 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
-    # divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
-    # info_frame_2 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
-
     canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
     scroll_frame = Frame(top_frame)
     scroll_frame_divider = Frame(top_frame, width=divider_width, height=canvas_height, bg='black')
-
     scrollbar = Scrollbar(scroll_frame)
 
     # organise frames
     canvas_frame.grid(row=0, column=0)
-    divide_canvas.grid(row=1, column=0)
-    # bottom_frame.grid(row=2, column=0)
-    # info_frame_1.grid(row=0, column=0)
-    # info_frame_1.grid_propagate(False)
-    # divide_inpinf.grid(row=0, column=1)
-    # info_frame_2.grid(row=0, column=2)
-    # info_frame_2.grid_propagate(False)
     scroll_frame_divider.grid(row=0, column=3)
     scroll_frame.grid(row=0, column=4)
     scrollbar.grid(row=0, column=1, sticky=N + S)
@@ -336,7 +318,6 @@ def visualise(road_map):
                  state=HIDDEN, anchor=None)
         text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1] - (size_scroll_coord / 2),
                  text=distances[ind], tag=distance_tag[ind - 1], state=NORMAL, anchor=W)
-
         ind = (ind + 1) % ln
 
     # generate ovals on map
@@ -346,15 +327,5 @@ def visualise(road_map):
     oval_button_gen(canv_scroll, canv, ln, linear_coord, func=get_circle_coordinates, tag_1=city_tag,
                     tag_2=distance_tag, index_1=0, index_2=1)
 
-    # info pane
-    # general_info = Label(info_frame_2, bg='gray89',
-    # text='!! Attention traveling salesperson !! \n '
-    # 'Hover over the dots to view information \n'
-    # '(distances between incoming and outgoing cities). \n'
-    # 'The dots on the linear map to the right also reveal \n'
-    # 'information on the main map (this can be scrolled up and down).')
 
-    # info_grid_left = Frame(info_frame_2, width=250)
-    # info_grid_left.grid(column=0)
-    # general_info.grid(column=1)
     window.mainloop()
