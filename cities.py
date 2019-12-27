@@ -18,7 +18,9 @@ def read_cities(file_name):
     """
     with open(file_name, "r") as f:  # 'with' handles files without the need for closing
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
+        ## remove blank lines here
     format_check_prune(road_map)  # checks for duplicates and format errors - deletes 'bad' lines
+    print(road_map)
     if len(road_map) <= 1:  # allows main() to check for the absence of cities (lines) in road map file
         return False
     return road_map
@@ -27,9 +29,13 @@ def read_cities(file_name):
 def remove_duplicates(road_map):
     """
     removes duplicate tuples from road_map
+    problem: error occurs because the removal of an item reduces the length of road_map
     """
-    road_map.sort()
-    [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
+    for line in range(len(road_map) - 1):
+        if road_map[line] == road_map[line+1]:
+            road_map.remove(road_map[line])
+
+    # [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
 
 
 def try_except_remove(line, road_map):
