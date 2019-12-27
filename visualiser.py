@@ -245,15 +245,31 @@ def visualise(road_map):
     window.geometry('+100+0')
     window.resizable(FALSE, FALSE)
 
+    #pop-up window
+    top_window = Toplevel()
+    top_window.title("Important information")
+    top_window.attributes('-topmost', 'true')
+    top_window.geometry('+500+300')
+    msg = Message(top_window, text='!! Attention traveling salesperson !! \n '
+                                   'Hover over the green dots with cursor to view information about the distances '
+                                   'between incoming and '
+                                   'outgoing cities. \n '
+                                   'The green dots on the linear map to the right also reveal information on the main '
+                                   'map (this can be scrolled up and down).')
+    msg.pack()
+    top_window_button = Button(top_window, text='OK', command=top_window.destroy)
+    top_window_button.pack()
+
+
     # create frames
     top_frame = Frame(window, width=window_width, height=canvas_height)
 
     divide_canvas = Frame(window, width=window_width, height=divider_width, bg='black')
-    bottom_frame = Frame(window, width=window_width, height=bottom_height)
+    # bottom_frame = Frame(window, width=window_width, height=bottom_height)
 
-    info_frame_1 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
-    divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
-    info_frame_2 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
+    # info_frame_1 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
+    # divide_inpinf = Frame(bottom_frame, width=divider_width, height=bottom_height, bg='black')
+    # info_frame_2 = Frame(bottom_frame, width=bottom_width, height=bottom_height, bg='gray89')
 
     canvas_frame = Frame(top_frame, width=canvas_width, height=canvas_height, bg='gray89')
     scroll_frame = Frame(top_frame)
@@ -264,12 +280,12 @@ def visualise(road_map):
     # organise frames
     canvas_frame.grid(row=0, column=0)
     divide_canvas.grid(row=1, column=0)
-    bottom_frame.grid(row=2, column=0)
-    info_frame_1.grid(row=0, column=0)
-    info_frame_1.grid_propagate(False)
-    divide_inpinf.grid(row=0, column=1)
-    info_frame_2.grid(row=0, column=2)
-    info_frame_2.grid_propagate(False)
+    # bottom_frame.grid(row=2, column=0)
+    # info_frame_1.grid(row=0, column=0)
+    # info_frame_1.grid_propagate(False)
+    # divide_inpinf.grid(row=0, column=1)
+    # info_frame_2.grid(row=0, column=2)
+    # info_frame_2.grid_propagate(False)
     scroll_frame_divider.grid(row=0, column=3)
     scroll_frame.grid(row=0, column=4)
     scrollbar.grid(row=0, column=1, sticky=N + S)
@@ -331,14 +347,14 @@ def visualise(road_map):
                     tag_2=distance_tag, index_1=0, index_2=1)
 
     # info pane
-    general_info = Label(info_frame_2, bg='gray89',
-                         text='!! Attention traveling salesperson !! \n '
-                              'Hover over the dots to view information \n'
-                              '(distances between incoming and outgoing cities). \n'
-                              'The dots on the linear map to the right also reveal \n'
-                              'information on the main map (this can be scrolled up and down).')
+    # general_info = Label(info_frame_2, bg='gray89',
+    # text='!! Attention traveling salesperson !! \n '
+    # 'Hover over the dots to view information \n'
+    # '(distances between incoming and outgoing cities). \n'
+    # 'The dots on the linear map to the right also reveal \n'
+    # 'information on the main map (this can be scrolled up and down).')
 
-    info_grid_left = Frame(info_frame_2, width=250)
-    info_grid_left.grid(column=0)
-    general_info.grid(column=1)
+    # info_grid_left = Frame(info_frame_2, width=250)
+    # info_grid_left.grid(column=0)
+    # general_info.grid(column=1)
     window.mainloop()

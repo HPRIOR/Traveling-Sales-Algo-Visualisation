@@ -87,7 +87,6 @@ def compute_individual_distance(x1, y1, x2, y2):
     returns distance between two coordinates
     """
     return math.sqrt(((float(x1) - float(x2)) ** 2) + ((float(y1) - float(y2)) ** 2))
-    # add test
 
 
 def compute_total_distance(road_map):
@@ -186,7 +185,6 @@ def main():
     enter_file_name_here = 'city-data.txt'
     if read_cities(enter_file_name_here):
         road_map = read_cities(enter_file_name_here)
-        print(road_map)
         print('Initial road_map: ')
         print_cities(road_map)
         print('Total distance: ', compute_total_distance(road_map), '\n')
