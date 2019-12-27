@@ -1,4 +1,3 @@
-from tkinter import *
 from cities import *
 
 
@@ -151,7 +150,7 @@ def get_circle_coordinates(tple, x, y):
 
 def func_index_list(f, index, lst):
     """
-    Applies a function to all the indexes within a nested loop
+    Applies list method to all the indexes within a nested list
     (e.g. all the 1st items in a matrix). Used to find the minimum and maximum
     values of coordinates in a nested list (used in change_v_data below)
     """
@@ -227,7 +226,7 @@ def visualise(road_map):
     window_width = canvas_width + scroll_width + divider_width
     size_scroll_coord = 100
 
-    # get numbers list to use in linear coords
+    # get numbers list to use for linear coords
     linear_coord = linear_coord_list(40, size_scroll_coord, ln, int(scroll_width / 2.5))
     scroll_distance = linear_coord[-1][1] + 30
 
@@ -243,21 +242,22 @@ def visualise(road_map):
     window.geometry('+100+0')
     window.resizable(FALSE, FALSE)
 
-    #pop-up window
+    # pop-up window
     top_window = Toplevel()
     top_window.title("Important information")
     top_window.attributes('-topmost', 'true')
     top_window.geometry('+500+300')
     msg = Message(top_window, text='!! Attention traveling salesperson !! \n '
+                                   '\n'
                                    'Hover over the green dots with cursor to view information about the distances '
                                    'between incoming and '
                                    'outgoing cities. \n '
+                                   '\n'
                                    'The green dots on the linear map to the right also reveal information on the main '
                                    'map (this can be scrolled up and down).')
     msg.pack()
     top_window_button = Button(top_window, text='OK', command=top_window.destroy)
     top_window_button.pack()
-
 
     # create frames
     top_frame = Frame(window, width=window_width, height=canvas_height)
@@ -285,7 +285,6 @@ def visualise(road_map):
     canv.grid(row=0, column=0)
 
     # create tags to identify text
-
     city_tag = tag_gen(ln, 'A')
     distance_tag = tag_gen(ln, 'D')
 
@@ -308,9 +307,9 @@ def visualise(road_map):
                      linear_coord[ind][0], linear_coord[ind][1] + (size_scroll_coord - 10))
 
         # generate city text
-        text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][0],
+        text_gen(canv, road_map[ind - 1][2], (road_map[ind - 1][3] - 5), text=road_map[ind - 1][1],
                  tag=city_tag[ind - 1], state=HIDDEN, anchor=S)
-        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1], text=road_map[ind][0],
+        text_gen(canv_scroll, scroll_width / 2, linear_coord[ind][1], text=road_map[ind][1],
                  tag=None, state=NORMAL, anchor=W)
 
         # generate distances
@@ -326,6 +325,5 @@ def visualise(road_map):
 
     oval_button_gen(canv_scroll, canv, ln, linear_coord, func=get_circle_coordinates, tag_1=city_tag,
                     tag_2=distance_tag, index_1=0, index_2=1)
-
 
     window.mainloop()
