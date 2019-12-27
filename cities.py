@@ -20,7 +20,6 @@ def read_cities(file_name):
         road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
         ## remove blank lines here
     format_check_prune(road_map)  # checks for duplicates and format errors - deletes 'bad' lines
-    print(road_map)
     if len(road_map) <= 1:  # allows main() to check for the absence of cities (lines) in road map file
         return False
     return road_map
@@ -62,6 +61,7 @@ def format_check_prune(road_map):
     checks and prunes road_map for errors: duplicates, wrong format
     """
     [try_except_remove(line, road_map) for line in road_map]
+    print(road_map)
     remove_duplicates(road_map)
     [road_map.remove(line) for line in road_map if len(line) > 4 or len(line) < 4]
 
