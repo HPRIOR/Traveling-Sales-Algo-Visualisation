@@ -23,6 +23,7 @@ def read_cities(file_name):
         return False
     return road_map
 
+
 def remove_blank(road_map, line):
     if '\n' in line:
         road_map.remove(line)
@@ -35,12 +36,10 @@ def remove_duplicates(road_map):
     """
     return list(set(road_map))
 
-    # [road_map.remove(road_map[line]) for line in range(len(road_map) - 1) if road_map[line] == road_map[line + 1]]
-
-
 def try_except_remove(line, road_map):
     """
     evaluates tuples for format: 'string, string, float, float'
+    change this so it catches format errors
     """
     try:
         str(line[0])
@@ -51,10 +50,6 @@ def try_except_remove(line, road_map):
         road_map.remove(line)
     except IndexError:
         road_map.remove(line)
-
-    # maybe do this without converting types
-    # doesn't remove single string characters
-    # maybe try the same thing but return true or false values so that format check prune can do the work
 
 
 def format_check_prune(road_map):
@@ -184,7 +179,7 @@ def main():
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
-    enter_file_name_here = 'file.txt'
+    enter_file_name_here = 'city-data.txt'
     if read_cities(enter_file_name_here):
         road_map = read_cities(enter_file_name_here)
         print('Initial road_map: ')
