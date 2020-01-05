@@ -169,27 +169,22 @@ def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge
     data_road_map = []
     [data_road_map.append(list(line)) for line in road_map]
 
-    minx = func_index_list(min,2,data_road_map)
-    miny = func_index_list(min,3,data_road_map)
+    min_x = func_index_list(min, 2, data_road_map)
+    min_y = func_index_list(min, 3, data_road_map)
 
-
-    # removes minus values
-    """
-    recently changed to + miny and minx instead of +90, and +180: change back if things go wrong
-    """
     for line in data_road_map:
-        line[2] = (float(line[2]) + abs(miny))  # x
-        line[3] = (float(line[3]) + abs(minx))  # y
+        line[2] = (float(line[2]) + abs(min_y))  # x
+        line[3] = (float(line[3]) + abs(min_x))  # y
         # long-lat
         line[3], line[2] = line[2], line[3]
 
-    x_min, y_min = func_index_list(min, 2, data_road_map), \
-                   func_index_list(min, 3, data_road_map)
+    new_x_min, new_y_min = func_index_list(min, 2, data_road_map), \
+                           func_index_list(min, 3, data_road_map)
 
     # shift all coordinates to one corner of canvas
     for line in data_road_map:
-        line[2] = (line[2] - (x_min - c_edge))  # x
-        line[3] = (line[3] - (y_min - c_edge))  # y
+        line[2] = (line[2] - (new_x_min - c_edge))  # x
+        line[3] = (line[3] - (new_y_min - c_edge))  # y
 
     x_max, y_max = func_index_list(max, 2, data_road_map), \
                    func_index_list(max, 3, data_road_map)
