@@ -1,8 +1,6 @@
 import pytest
 from cities import *
 
-
-# at least 5 for each
 def test_print_formatter():
     """
     Happy for the function to produce an Index error when given the wrong format;
