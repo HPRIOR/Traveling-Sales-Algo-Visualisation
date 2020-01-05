@@ -196,7 +196,7 @@ def main():
                 print_map(new_road_map)
                 visualise(new_road_map)
             else:
-                print('Cannot calculate distance, choose a file containing one or more cities')
+                print('Cannot calculate distance, choose a file(.txt) containing one or more cities')
         else:
             print('File is the wrong format: enter a .txt file')
     except FileNotFoundError:
