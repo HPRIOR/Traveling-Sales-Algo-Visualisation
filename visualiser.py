@@ -12,7 +12,6 @@ def oval_button_gen(canvas, target_canvas, ln, coord_list, func, tag_1, tag_2, i
         indexing
     func: HO function used to place oval buttons on different canvases with diff coordinates
     Can only bind one event to a canvas object, otherwise they overwrite each other
-
     """
     ind = 0
     for i in range(ln):
@@ -87,7 +86,6 @@ def linear_coord_list(init, size, ln, mid_point):
     :param mid_point: the distance between
     :return: list of coordinates for use in linear part of visualiser
     """
-    # list comp?
     x = init
     lst = []
     for i in range(ln):
