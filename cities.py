@@ -16,10 +16,10 @@ def read_cities(file_name):
       Alabama -> Alaska -> Arizona -> ... -> Wyoming -> Alabama.
 
     """
-    with open(file_name, "r") as f:  # 'with' handles files without the need for closing
-        road_map = [(tuple(line.split('\t'))) for line in f]  # adds tuples of lines to road_map list
-    format_check_prune(road_map)  # checks for duplicates and format errors - deletes 'bad' lines
-    if len(road_map) <= 1:  # allows main() to check for the absence of cities (lines) in road map file
+    with open(file_name, "r") as f:                             # 'with' handles files without the need for closing
+        road_map = [(tuple(line.split('\t'))) for line in f]    # adds tuples of lines to road_map list
+    format_check_prune(road_map)                                # checks for duplicates and format errors - deletes 'bad' lines
+    if len(road_map) <= 1:                                      # allows main() to check for the absence of cities (lines) in road map file
         return False
     return road_map
 
