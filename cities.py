@@ -179,22 +179,27 @@ def main():
     Reads in, and prints out, the city data, then creates the "best"
     cycle and prints it out.
     """
-    enter_file_name_here = 'city-data.txt'
-    if read_cities(enter_file_name_here):
-        road_map = read_cities(enter_file_name_here)
-        print('Initial road_map: ')
-        print_cities(road_map)
-        print('Total distance: ', compute_total_distance(road_map), '\n')
-        new_road_map = find_best_cycle(road_map)
-        print('New road map: ')
-        print_cities(new_road_map)
-        print('Total distance : ', compute_total_distance(new_road_map), '\n')
-        print('Cities and their connections: ')
-        print_map(new_road_map)
-        visualise(new_road_map)
-
-    else:
-        print('Cannot calculate distance, input one or more cities')
+    try:
+        enter_file_name_here = 'city-data.txt'
+        if enter_file_name_here.endswith('.txt'):
+            if read_cities(enter_file_name_here):
+                road_map = read_cities(enter_file_name_here)
+                print('Initial road_map: ')
+                print_cities(road_map)
+                print('Total distance: ', compute_total_distance(road_map), '\n')
+                new_road_map = find_best_cycle(road_map)
+                print('New road map: ')
+                print_cities(new_road_map)
+                print('Total distance : ', compute_total_distance(new_road_map), '\n')
+                print('Cities and their connections: ')
+                print_map(new_road_map)
+                visualise(new_road_map)
+            else:
+                print('Cannot calculate distance, choose a file containing one or more cities')
+        else:
+            print('File is the wrong format: enter a .txt file')
+    except FileNotFoundError:
+        print("No file found: please enter the name of a file that exists within main's directory.")
 
 
 if __name__ == "__main__":  # keep this in
