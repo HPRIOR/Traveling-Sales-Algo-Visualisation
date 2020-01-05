@@ -26,7 +26,16 @@ def test_tag_gen():
 
 
 def test_raise_lower_tag():
-    pass
+    tag1 = 'A0'
+    tag2 = 'A1'
+    tag3 = 'A2'
+    tag4 = 'A3'
+    tag5 = 'A4'
+    assert raise_lower_tag(tag1, 5) == ('A4', 'A1')
+    assert raise_lower_tag(tag2, 5) == ('A0', 'A2')
+    assert raise_lower_tag(tag3, 5) == ('A1', 'A3')
+    assert raise_lower_tag(tag4, 5) == ('A2', 'A4')
+    assert raise_lower_tag(tag5, 5) == ('A3', 'A0')
 
 
 def test_get_mid_coord():

@@ -126,13 +126,14 @@ def line_gen(canvas, x1, y1, x2, y2):
     """
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='red')
 
-
-def start(canvas, road_map):
+def start(canvas, road_map, total_distance):
     """
     Creates the start identifier on canvas
+    With total distance too
     """
+    start_text = 'Start (distance: %.2f)' % total_distance
     canvas.create_line(road_map[0][2], road_map[0][3], road_map[0][2], 20, fill='red')
-    canvas.create_text(road_map[0][2], 10, text='Start', fill='red')
+    canvas.create_text(road_map[0][2], 10, text=start_text, fill='red')
 
 
 def get_circle_coordinates(tple, x, y):
@@ -218,6 +219,7 @@ def distances_list(road_map):
 
 def visualise(road_map):
     ln = len(road_map)  # length needed for functions below
+    total_distance = compute_total_distance(road_map)
 
     # geometry variables defined so that changes will effect whole window
     canvas_height, canvas_width = 825, 1350
@@ -289,7 +291,7 @@ def visualise(road_map):
     distance_tag = tag_gen(ln, 'D')
 
     # create start and finish indicators
-    start(canv, road_map)
+    start(canv, road_map, total_distance)
 
     # generate stuff on canvas
     canv_scroll.create_text(scroll_width / 2.5, 10, text='Start')
