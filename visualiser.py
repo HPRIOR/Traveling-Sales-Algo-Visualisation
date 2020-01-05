@@ -157,7 +157,7 @@ def func_index_list(f, index, lst):
     return f(new_list)
 
 
-def change_visualise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
+def normalise_data(road_map, canvas_max_size_x, canvas_max_size_y, c_edge):
     """
     canvas_max_size_x,y: max size for canvas in x,y directions
     c_edge: border size around edge of canvas
@@ -234,7 +234,7 @@ def visualise(road_map):
     distances = distances_list(road_map)
 
     # normalise data
-    road_map = change_visualise_data(road_map, canvas_width, canvas_height, c_edge=2)
+    road_map = normalise_data(road_map, canvas_width, canvas_height, c_edge=2)
 
     # create main tk window
     window = Tk()

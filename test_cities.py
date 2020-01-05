@@ -1,6 +1,7 @@
 import pytest
 from cities import *
 
+
 # at least 5 for each
 def test_print_formatter():
     """
@@ -21,6 +22,11 @@ def test_tag_gen():
     assert tag_gen(2, "A") == ["A0", "A1"]
     assert tag_gen(0, "A") == []
     assert tag_gen(1, "ZZ") == ["ZZ0"]
+    assert tag_gen(1, "ZZgfd") == ["ZZgfd0"]
+
+
+def test_raise_lower_tag():
+    pass
 
 
 def test_get_mid_coord():
@@ -60,10 +66,24 @@ def test_compute_total_distance():
     road_map3 = [("test", "test", -10, -20),
                  ("test", "test", -20, -30),
                  ("test", "test", -30, -40)]
+    road_map4 = [("test", "test", -10, 20),
+                 ("test", "test", -20, 30),
+                 ("test", "test", -30, 40)]
+    road_map5 = [("test", "test", -10, 20),
+                 ("test", "test", -20, -30),
+                 ("test", "test", -30, 40)]
 
     assert compute_total_distance(road_map1) == pytest.approx(38.52, 0.1)
     assert compute_total_distance(road_map2) == pytest.approx(56.56, 0.1)
     assert compute_total_distance(road_map3) == pytest.approx(56.56, 0.1)
+    assert compute_total_distance(road_map4) == pytest.approx(56.56, 0.1)
+    assert compute_total_distance(road_map5) == pytest.approx(56.56, 0.1)
+
+    # finish 4 and 5
+
+
+def test_distances_list():
+    pass
 
 
 def test_swap_cities():
@@ -91,7 +111,6 @@ def test_swap_cities():
 
 
 def test_shift_cities():
-    # tests for road map with just 1 or 0 results?
     road_map1 = [("Kentucky", "Frankfort", 38.197274, -84.86311),
                  ("Delaware", "Dover", 39.161921, -75.526755),
                  ("Minnesota", "Saint Paul", 44.95, -93.094)]
