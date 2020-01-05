@@ -126,6 +126,7 @@ def line_gen(canvas, x1, y1, x2, y2):
     """
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill='red')
 
+
 def start(canvas, road_map, total_distance):
     """
     Creates the start identifier on canvas
